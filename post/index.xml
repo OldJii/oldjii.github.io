@@ -8,38 +8,38 @@
     <language>en</language>
     <lastBuildDate>Sat, 25 Sep 2021 21:34:06 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>对于m3u8一些解释</title>
-      <link>http://localhost:1313/post/%E5%AF%B9%E4%BA%8Em3u8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A7%A3%E9%87%8A/</link>
+      <title>HLS直播协议m3u8</title>
+      <link>http://localhost:1313/post/HLS%E7%9B%B4%E6%92%AD%E5%8D%8F%E8%AE%AEm3u8/</link>
       <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E5%AF%B9%E4%BA%8Em3u8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A7%A3%E9%87%8A/</guid>
+      <guid>http://localhost:1313/post/HLS%E7%9B%B4%E6%92%AD%E5%8D%8F%E8%AE%AEm3u8/</guid>
       <description>版权声明：转载请务必注明作者与原文链接 为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。 三者关系： HLS是一种流</description>
     </item>
     
     <item>
-      <title>对于IPC的一些解释</title>
-      <link>http://localhost:1313/post/%E5%AF%B9%E4%BA%8EIPC%E7%9A%84%E8%A7%A3%E9%87%8A/</link>
+      <title>Android中的IPC</title>
+      <link>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</link>
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E5%AF%B9%E4%BA%8EIPC%E7%9A%84%E8%A7%A3%E9%87%8A/</guid>
+      <guid>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</guid>
       <description>什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p</description>
     </item>
     
     <item>
-      <title>源码阅读-Rxjava</title>
-      <link>http://localhost:1313/post/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Rxjava/</link>
+      <title>Rxjava源码阅读</title>
+      <link>http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</link>
       <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Rxjava/</guid>
+      <guid>http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</guid>
       <description>版权声明：转载请务必注明作者与原文链接 引言 本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的</description>
     </item>
     
     <item>
-      <title>一个app是如何启动的？</title>
-      <link>http://localhost:1313/post/%E4%B8%80%E4%B8%AAapp%E6%98%AF%E5%A6%82%E4%BD%95%E5%90%AF%E5%8A%A8%E7%9A%84/</link>
+      <title>App的启动流程</title>
+      <link>http://localhost:1313/post/App%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
       <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E4%B8%80%E4%B8%AAapp%E6%98%AF%E5%A6%82%E4%BD%95%E5%90%AF%E5%8A%A8%E7%9A%84/</guid>
+      <guid>http://localhost:1313/post/App%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
       <description>版权声明：转载请务必注明作者与原文链接 引言 本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流</description>
     </item>
     
