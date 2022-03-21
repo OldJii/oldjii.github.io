@@ -27,6 +27,15 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
     </item>
     
     <item>
+      <title>算法题解</title>
+      <link>http://localhost:1313/post/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/</link>
+      <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/</guid>
+      <description>对于每一位求职的 Coder 来说，在 LeetCode 上熟练刷数据结构和算法题的重要性不言而喻，甚至某一程度上直接决定了面试的成败。 这里汇总了我在练习 剑指Offer 题</description>
+    </item>
+    
+    <item>
       <title>Android中的IPC</title>
       <link>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</link>
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
