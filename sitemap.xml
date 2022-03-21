@@ -16,6 +16,13 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/tags/HLS/</loc>
+    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/post/HLS%E7%9B%B4%E6%92%AD%E5%8D%8F%E8%AE%AEm3u8/</loc>
     <lastmod>2021-09-25T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -23,7 +30,21 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/tags/m3u8/</loc>
+    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/post/</loc>
+    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2021-09-25T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -51,14 +72,21 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2020-01-08T21:34:06+08:00</lastmod>
+    <loc>http://localhost:1313/tags/Rxjava/</loc>
+    <lastmod>2019-09-20T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</loc>
+    <lastmod>2019-09-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/%E6%BA%90%E7%A0%81/</loc>
     <lastmod>2019-09-20T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
