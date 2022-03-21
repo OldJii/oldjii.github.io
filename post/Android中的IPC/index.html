@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Android中的IPC">
 <meta itemprop="description" content="什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p"><meta itemprop="datePublished" content="2020-01-08T21:34:06+08:00" />
 <meta itemprop="dateModified" content="2020-01-08T21:34:06+08:00" />
-<meta itemprop="wordCount" content="5993">
+<meta itemprop="wordCount" content="5972">
 <meta itemprop="keywords" content="Android,IPC," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Android中的IPC"/>
 <meta name="twitter:description" content="什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p"/>
@@ -171,7 +171,6 @@
         </li>
       </ul>
     </li>
-    <li><a href="#参考文章">参考文章</a></li>
   </ul>
 </nav>
   </div>
@@ -419,17 +418,6 @@ Messager是基于AIDL封装的，但服务端仅支持串行处理消息，如�
 <p>在移动设备上，广泛的使用跨进程通讯对通讯机制的性能有很严格的要求，Binder相对于传统的Socket方式，更加高效。因为Binder数据拷贝只需一次，而管道、消息队列、Socket等需要2此，虽然共享内容方式一次内存拷贝都不要，但是实现方式过于复杂，不适合该场景</p>
 <h5 id="安全方面">安全方面：</h5>
 <p>传统的进程通讯方式对于通讯双方的身份并没有作出严格的验证，比如Socket通讯的IP地址是客户端手动填入，很容易进行伪造。然而，Binder机制从协议本身就支持对通讯双方做身份校验，从而大大的提高了安全性</p>
-<h1 id="参考文章">参考文章</h1>
-<p>感谢各位dalao：</p>
-<ul>
-<li><a href="https://www.jianshu.com/p/52ec31fcf0a6">https://www.jianshu.com/p/52ec31fcf0a6</a></li>
-<li><a href="https://www.jianshu.com/p/2d6ddd6a3399">https://www.jianshu.com/p/2d6ddd6a3399</a></li>
-<li><a href="https://www.zhihu.com/question/39440766">https://www.zhihu.com/question/39440766</a></li>
-<li><a href="http://www.myexception.cn/ai/1844929.html">http://www.myexception.cn/ai/1844929.html</a></li>
-<li><a href="http://gityuan.com/2015/11/01/binder-driver/">http://gityuan.com/2015/11/01/binder-driver/</a></li>
-<li><a href="https://blog.csdn.net/AndroidStudyDay/article/details/93749470">https://blog.csdn.net/AndroidStudyDay/article/details/93749470</a></li>
-<li><a href="https://lrh1993.gitbooks.io/android_interview_guide/content/android/basis/ContentProvider.html">https://lrh1993.gitbooks.io/android_interview_guide/content/android/basis/ContentProvider.html</a></li>
-</ul>
 
     </div>
 

@@ -49,7 +49,7 @@
 <meta itemprop="name" content="App的启动流程">
 <meta itemprop="description" content="本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流程分为三部分： 从开机到显示应用列表 从点击应"><meta itemprop="datePublished" content="2019-09-17T21:34:06+08:00" />
 <meta itemprop="dateModified" content="2019-09-17T21:34:06+08:00" />
-<meta itemprop="wordCount" content="3609">
+<meta itemprop="wordCount" content="3598">
 <meta itemprop="keywords" content="Android," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="App的启动流程"/>
 <meta name="twitter:description" content="本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流程分为三部分： 从开机到显示应用列表 从点击应"/>
@@ -160,7 +160,6 @@
             <li><a href="#解释-2">解释</a></li>
           </ul>
         </li>
-        <li><a href="#参考文章">参考文章：</a></li>
       </ul>
     </li>
   </ul>
@@ -323,15 +322,6 @@ AMS会保存一个ProcessRecord信息，有两部分构成，“uid + process”
 <li><strong>contentParent</strong>：所有View的根View，在DecorView里面</li>
 <li><strong>ViewRootImpl</strong>：ViewRoot是GUI管理系统与GUI呈现系统之间的桥梁，<code>WindowManager</code>通过<code>ViewRootImpl</code>与<code>DecorView</code>起联系。并且，<code>View</code>的绘制流程都是由<code>ViewRootImpl</code>发起的</li>
 <li><strong>SGL</strong>：底层的2D图形渲染引擎</li>
-</ul>
-<h2 id="参考文章">参考文章：</h2>
-<ul>
-<li><a href="http://gityuan.com/android/">http://gityuan.com/android/</a></li>
-<li><a href="https://www.jianshu.com/p/af8e1ebdf902">https://www.jianshu.com/p/af8e1ebdf902</a></li>
-<li><a href="https://blog.csdn.net/lb84_007/article/details/47774973">https://blog.csdn.net/lb84_007/article/details/47774973</a></li>
-<li><a href="https://blog.csdn.net/freekiteyu/article/details/79318031">https://blog.csdn.net/freekiteyu/article/details/79318031</a></li>
-<li><a href="https://blog.csdn.net/qq_39037047/article/details/88066589#">https://blog.csdn.net/qq_39037047/article/details/88066589#</a></li>
-<li><a href="https://baijiahao.baidu.com/s?id=1617072163535121555&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1617072163535121555&amp;wfr=spider&amp;for=pc</a></li>
 </ul>
 
     </div>
