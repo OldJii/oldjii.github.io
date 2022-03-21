@@ -5,6 +5,25 @@
     <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Wed, 08 Jan 2020 21:34:06 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android</title>
+      <link>http://localhost:1313/tags/Android/</link>
+      <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/Android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IPC</title>
+      <link>http://localhost:1313/tags/IPC/</link>
+      <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/IPC/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
