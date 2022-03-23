@@ -6,7 +6,7 @@
     <description>Recent content on oldjii‘s digital space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 25 Sep 2021 21:34:06 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Mar 2022 01:56:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/</link>
@@ -15,6 +15,15 @@
       <guid>http://localhost:1313/about/</guid>
       <description>Dear visitor, welcome to my personal website where I write what I have learnt or thought in my daily life. I am glad to hear what brings you here. Do not hesitate to share in the comment below! 😄
 Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is passionate about android platform. I am experienced in native android and cross platform Flutter development.</description>
+    </item>
+    
+    <item>
+      <title>天地不仁，基因永存</title>
+      <link>http://localhost:1313/post/%E5%A4%A9%E5%9C%B0%E4%B8%8D%E4%BB%81%E5%9F%BA%E5%9B%A0%E6%B0%B8%E5%AD%98/</link>
+      <pubDate>Thu, 24 Mar 2022 01:56:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/%E5%A4%A9%E5%9C%B0%E4%B8%8D%E4%BB%81%E5%9F%BA%E5%9B%A0%E6%B0%B8%E5%AD%98/</guid>
+      <description>最近有在读 Clinton Richard Dawkins 的《自私的基因》一书，感悟甚多，在此记录。 世界的主宰 我们从哪里来？ 我们将到哪里去？ 生命有何意义，我们该如何认识自己？ Dawkins 在书中</description>
     </item>
     
     <item>
