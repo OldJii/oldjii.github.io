@@ -9,6 +9,13 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/tags/HLS/</loc>
     <lastmod>2021-09-25T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -51,6 +58,20 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
+    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
+    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/post/%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3%E5%95%A6/</loc>
     <lastmod>2021-05-14T01:19:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -65,7 +86,21 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/categories/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2021-05-14T01:19:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/tags/Android/</loc>
+    <lastmod>2020-01-08T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/Android/</loc>
     <lastmod>2020-01-08T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -100,6 +135,20 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/tags/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2019-09-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2019-09-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/tags/%E6%BA%90%E7%A0%81/</loc>
     <lastmod>2019-09-20T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -109,12 +158,6 @@
   <url>
     <loc>http://localhost:1313/post/App%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</loc>
     <lastmod>2019-09-17T21:34:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
