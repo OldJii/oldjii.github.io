@@ -24,8 +24,9 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
       
       <guid>http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/3691649732744_.pic_hd.jpg width=400 height=400 /&gt;
-&lt;/div&gt;</description>
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/doujiaomenmian.jpg width=400 height=400 /&gt;
+&lt;/div&gt;
+&lt;p&gt;疫情隔离在家，被迫学习做饭，人生第一次下厨就这样在🐷屁的全程视频指导下完成了。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -61,7 +62,7 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
       
       <guid>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</guid>
-      <description>什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p</description>
+      <description>IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个page大小的</description>
     </item>
     
     <item>

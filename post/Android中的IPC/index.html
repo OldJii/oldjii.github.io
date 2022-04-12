@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="oldjii" /><meta name="description" content="什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="oldjii" /><meta name="description" content="IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个page大小的" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="Android中的IPC" />
-<meta property="og:description" content="什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p" />
+<meta property="og:description" content="IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个page大小的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-08T21:34:06+08:00" />
 <meta property="article:modified_time" content="2020-01-08T21:34:06+08:00" />
 
 <meta itemprop="name" content="Android中的IPC">
-<meta itemprop="description" content="什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p"><meta itemprop="datePublished" content="2020-01-08T21:34:06+08:00" />
+<meta itemprop="description" content="IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个page大小的"><meta itemprop="datePublished" content="2020-01-08T21:34:06+08:00" />
 <meta itemprop="dateModified" content="2020-01-08T21:34:06+08:00" />
-<meta itemprop="wordCount" content="5972">
+<meta itemprop="wordCount" content="5966">
 <meta itemprop="keywords" content="Android,IPC," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Android中的IPC"/>
-<meta name="twitter:description" content="什么是IPC？ IPC是Interprocess communication的缩写，即进程间通讯 Linux现有IPC方式 管道：在创建时分配一个p"/>
+<meta name="twitter:description" content="IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个page大小的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -141,7 +141,6 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#什么是ipc">什么是IPC？</a></li>
     <li><a href="#linux现有ipc方式">Linux现有IPC方式</a>
       <ul>
         <li><a href="#linux中传统ipc通讯原理">Linux中传统IPC通讯原理</a></li>
@@ -174,8 +173,10 @@
   </div>
 </div>
     <div class="post-content">
-      <h1 id="什么是ipc">什么是IPC？</h1>
-<p>IPC是Interprocess communication的缩写，即进程间通讯</p>
+      <div align="center">
+<img src=(https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava.png width=600 height=320/>
+</div>
+<p>IPC是Interprocess communication的缩写，即进程间通讯。</p>
 <h1 id="linux现有ipc方式">Linux现有IPC方式</h1>
 <p><strong>管道</strong>：在创建时分配一个page大小的内存，缓存区大小比较有限</p>
 <p><strong>消息队列</strong>：信息复制两次，额外的CPU消耗；不适合频繁或信息量大的通讯</p>
