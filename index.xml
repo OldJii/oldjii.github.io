@@ -6,7 +6,7 @@
     <description>Recent content on oldjii‘s digital space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 24 Mar 2022 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Apr 2022 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/</link>
@@ -15,6 +15,15 @@
       <guid>http://localhost:1313/about/</guid>
       <description>Dear visitor, welcome to my personal website where I write what I have learnt or thought in my daily life. I am glad to hear what brings you here. Do not hesitate to share in the comment below! 😄
 Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is passionate about android platform. I am experienced in native android and cross platform Flutter development.</description>
+    </item>
+    
+    <item>
+      <title>菜谱：豆角焖面</title>
+      <link>http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/</link>
+      <pubDate>Sun, 10 Apr 2022 10:46:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/</guid>
+      <description>原料 主料：猪五花肉、鲜面条、豆角 配料：生抽、蚝油、老抽、盐、糖、蒜 原料准备 猪五花肉切片 豆角用手掰断、去掉两头、清洗干净 鲜面条蒸至8分熟 一头蒜</description>
     </item>
     
     <item>
