@@ -16,8 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="oldjii" /><meta name="description" content=" IPC是Interprocess communication的缩写，即进程间通讯。
-" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="oldjii" /><meta name="description" content="什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -41,28 +40,19 @@
 
 
 <meta property="og:title" content="Android中的IPC" />
-<meta property="og:description" content="
-
-
-IPC是Interprocess communication的缩写，即进程间通讯。" />
+<meta property="og:description" content="什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-08T21:34:06+08:00" />
 <meta property="article:modified_time" content="2020-01-08T21:34:06+08:00" />
 
 <meta itemprop="name" content="Android中的IPC">
-<meta itemprop="description" content="
-
-
-IPC是Interprocess communication的缩写，即进程间通讯。"><meta itemprop="datePublished" content="2020-01-08T21:34:06+08:00" />
+<meta itemprop="description" content="什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p"><meta itemprop="datePublished" content="2020-01-08T21:34:06+08:00" />
 <meta itemprop="dateModified" content="2020-01-08T21:34:06+08:00" />
-<meta itemprop="wordCount" content="5966">
+<meta itemprop="wordCount" content="5972">
 <meta itemprop="keywords" content="Android,IPC," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Android中的IPC"/>
-<meta name="twitter:description" content="
-
-
-IPC是Interprocess communication的缩写，即进程间通讯。"/>
+<meta name="twitter:description" content="什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -151,6 +141,7 @@ IPC是Interprocess communication的缩写，即进程间通讯。"/>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
+    <li><a href="#什么是ipc">什么是IPC</a></li>
     <li><a href="#linux现有ipc方式">Linux现有IPC方式</a>
       <ul>
         <li><a href="#linux中传统ipc通讯原理">Linux中传统IPC通讯原理</a></li>
@@ -183,9 +174,7 @@ IPC是Interprocess communication的缩写，即进程间通讯。"/>
   </div>
 </div>
     <div class="post-content">
-      <div align="center">
-<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/>
-</div>
+      <h1 id="什么是ipc">什么是IPC</h1>
 <p>IPC是Interprocess communication的缩写，即进程间通讯。</p>
 <h1 id="linux现有ipc方式">Linux现有IPC方式</h1>
 <p><strong>管道</strong>：在创建时分配一个page大小的内存，缓存区大小比较有限</p>
@@ -427,6 +416,7 @@ Messager是基于AIDL封装的，但服务端仅支持串行处理消息，如�
 <p>在移动设备上，广泛的使用跨进程通讯对通讯机制的性能有很严格的要求，Binder相对于传统的Socket方式，更加高效。因为Binder数据拷贝只需一次，而管道、消息队列、Socket等需要2此，虽然共享内容方式一次内存拷贝都不要，但是实现方式过于复杂，不适合该场景</p>
 <h5 id="安全方面">安全方面：</h5>
 <p>传统的进程通讯方式对于通讯双方的身份并没有作出严格的验证，比如Socket通讯的IP地址是客户端手动填入，很容易进行伪造。然而，Binder机制从协议本身就支持对通讯双方做身份校验，从而大大的提高了安全性</p>
+
     </div>
 
     <div class="post-copyright">

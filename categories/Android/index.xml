@@ -13,10 +13,7 @@
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
       
       <guid>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</guid>
-      <description>&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/&gt;
-&lt;/div&gt;
-&lt;p&gt;IPC是Interprocess communication的缩写，即进程间通讯。&lt;/p&gt;</description>
+      <description>什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p</description>
     </item>
     
     <item>
@@ -25,7 +22,14 @@
       <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
       
       <guid>http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</guid>
-      <description>本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文 React</description>
+      <description>&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/&gt;
+&lt;/div&gt;
+&lt;p&gt;本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mcxiaoke.gitbooks.io/rxdocs/content/Operators.html&#34;&gt;ReactiveX文档中文翻译&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&#34;https://github.com/ReactiveX/RxJava&#34;&gt;Rxjava&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&#34;http://gank.io/post/560e15be2dca930e00da1083&#34;&gt;给Android开发者的RxJava详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析&lt;/p&gt;</description>
     </item>
     
     <item>

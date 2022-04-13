@@ -16,7 +16,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="oldjii" /><meta name="description" content="本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文 React" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="oldjii" /><meta name="description" content=" 本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译 Rxjava 给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析
+" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,19 +43,40 @@
 
 
 <meta property="og:title" content="Rxjava源码阅读" />
-<meta property="og:description" content="本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文 React" />
+<meta property="og:description" content="
+
+
+本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译
+Rxjava
+给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-09-20T21:34:06+08:00" />
 <meta property="article:modified_time" content="2019-09-20T21:34:06+08:00" />
 
 <meta itemprop="name" content="Rxjava源码阅读">
-<meta itemprop="description" content="本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文 React"><meta itemprop="datePublished" content="2019-09-20T21:34:06+08:00" />
+<meta itemprop="description" content="
+
+
+本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译
+Rxjava
+给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析"><meta itemprop="datePublished" content="2019-09-20T21:34:06+08:00" />
 <meta itemprop="dateModified" content="2019-09-20T21:34:06+08:00" />
 <meta itemprop="wordCount" content="7265">
 <meta itemprop="keywords" content="Android,Rxjava,源码,开源框架," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rxjava源码阅读"/>
-<meta name="twitter:description" content="本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文 React"/>
+<meta name="twitter:description" content="
+
+
+本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译
+Rxjava
+给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -161,7 +185,10 @@
   </div>
 </div>
     <div class="post-content">
-      <p>本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文</p>
+      <div align="center">
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/>
+</div>
+<p>本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文</p>
 <p><a href="https://mcxiaoke.gitbooks.io/rxdocs/content/Operators.html">ReactiveX文档中文翻译</a><br/>
 <a href="https://github.com/ReactiveX/RxJava">Rxjava</a><br/>
 <a href="http://gank.io/post/560e15be2dca930e00da1083">给Android开发者的RxJava详解</a></p>
@@ -1367,7 +1394,6 @@
 <li>为什么多次调用subscribeOn()，只有第一次生效？</li>
 <li>为什么多次调用observeOn()，只有最后一次生效？</li>
 </ul>
-
     </div>
 
     <div class="post-copyright">
