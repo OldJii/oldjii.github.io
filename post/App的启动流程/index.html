@@ -141,23 +141,19 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#从开机到显示应用列表">从开机到显示应用列表</a>
       <ul>
-        <li><a href="#从开机到显示应用列表">从开机到显示应用列表</a>
-          <ul>
-            <li><a href="#解释">解释</a></li>
-          </ul>
-        </li>
-        <li><a href="#从点击应用图标到activity创建成功">从点击应用图标到Activity创建成功</a>
-          <ul>
-            <li><a href="#解释-1">解释</a></li>
-          </ul>
-        </li>
-        <li><a href="#从activity创建成功到显示画面">从Activity创建成功到显示画面</a>
-          <ul>
-            <li><a href="#解释-2">解释</a></li>
-          </ul>
-        </li>
+        <li><a href="#解释">解释</a></li>
+      </ul>
+    </li>
+    <li><a href="#从点击应用图标到activity创建成功">从点击应用图标到Activity创建成功</a>
+      <ul>
+        <li><a href="#解释-1">解释</a></li>
+      </ul>
+    </li>
+    <li><a href="#从activity创建成功到显示画面">从Activity创建成功到显示画面</a>
+      <ul>
+        <li><a href="#解释-2">解释</a></li>
       </ul>
     </li>
   </ul>
@@ -172,7 +168,7 @@
 <li>从点击应用图标到Activity创建成功</li>
 <li>从Activity创建成功到显示画面</li>
 </ul>
-<h2 id="从开机到显示应用列表">从开机到显示应用列表</h2>
+<h1 id="从开机到显示应用列表">从开机到显示应用列表</h1>
 <p>先看流程图：
 <img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/16d3acbbbba41520.jpg" alt=""></p>
 <p>开机加电后，CPU先执行<strong>预设代码</strong>、加载ROM中的引导程序<strong>Bootloader</strong>和Linux内核到RAM内存中去，然后初始化各种软硬件环境、加载驱动程序、挂载根文件系统，执行<strong>init进程</strong>。</p>
@@ -180,7 +176,7 @@
 <p>Zygote会启动Java虚拟机，通过jni进入Zygote的java代码中，并创建<strong>socket</strong>实现IPC进程通讯，然后启动<strong>SS</strong>（SystemServer）进程。</p>
 <p>SS进程负责启动和管理整个framework，包括<strong>AMS</strong>（ActivityManagerService）、<strong>WMS</strong>（WindowManagerService）、PMS（PowerManagerService）等服务、同时启动binder线程池，当SS进程将系统服务启动就绪以后，就会通知AMS启动Home。</p>
 <p>AMS通过Intent隐式启动的方式启动<strong>Launcher</strong>，Launcher根据已安装应用解析对应的xml、通过findViewById()获得一个RecycleView、加载应用图标、最后成功展示App列表。</p>
-<h3 id="解释">解释</h3>
+<h2 id="解释">解释</h2>
 <ul>
 <li><strong>预设代码</strong>：cpu制造厂商会预设一个地址，这个地址是各厂家约定统一的，Android手机会将固态存储设备ROM预先映射到该地址上；</li>
 <li><strong>Bootloader</strong>：类似BIOS，在系统加载前，用以初始化硬件设备，建立内存空间的映像图，为最终调用系统内核准备好环境；</li>
@@ -197,7 +193,7 @@
 fork不允许存在多线程，而Binder通讯恰巧就是多线程；</p>
 <p><strong>Question 2：什么是窗口？</strong>
 Android系统中的窗体是屏幕上的一块用于绘制各种UI元素并能够响应应用户输入的一个矩形区域，从原理上来讲，窗体的概念是独自占有一个Surface实例的显示区域，比如Dialog、Activity的界面、壁纸、状态栏以及Toast等都是窗体；</p>
-<h2 id="从点击应用图标到activity创建成功">从点击应用图标到Activity创建成功</h2>
+<h1 id="从点击应用图标到activity创建成功">从点击应用图标到Activity创建成功</h1>
 <p>先看流程图：
 <img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/16d3acbc595b7401.jpg" alt=""></p>
 <div class="highlight"><div class="chroma">
@@ -300,7 +296,7 @@ Android系统中的窗体是屏幕上的一块用于绘制各种UI元素并能�
 </span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="n">Activity</span><span class="o">.</span><span class="na">onCreate</span><span class="o">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="解释-1">解释</h3>
+</div><h2 id="解释-1">解释</h2>
 <ul>
 <li><strong>ActivityThread</strong>：App的真正入口。当开启App之后，会调用main()开始运行，开启消息循环队列，这就是传说中的UI线程或者叫主线程。与ActivityManagerServices配合，一起完成Activity的管理工作；</li>
 <li><strong>ApplicationThread</strong>：用来实现ActivityManagerService与ActivityThread之间的交互。在ActivityManagerService需要管理相关Application中的Activity的生命周期时，通过ApplicationThread的代理对象与ActivityThread通讯；</li>
@@ -310,11 +306,11 @@ Android系统中的窗体是屏幕上的一块用于绘制各种UI元素并能�
 </ul>
 <p><strong>Question 1： 如何判断APP是否已经启动？</strong>
 AMS会保存一个ProcessRecord信息，有两部分构成，“uid + process”，每个应用工程序都有自己的uid，而process就是AndroidManifest.xml中Application的process属性，默认为package名。每次在新建新进程前的时候会先判断这个 ProcessRecord 是否已存在，如果已经存在就不会新建进程了，这就属于应用内打开 Activity 的过程了。</p>
-<h2 id="从activity创建成功到显示画面">从Activity创建成功到显示画面</h2>
+<h1 id="从activity创建成功到显示画面">从Activity创建成功到显示画面</h1>
 <p>onCreate()方法中先执行setContentView()方法将对应的xml文件传入，之后会去调用window.setContentView()，最终会在这里创建<strong>Decorview</strong>并填充标题栏、状态栏，然后获取<strong>contentParent</strong>，然后调用LayoutInflater.inflate解析xml文件获取根root（ViewRootImpl），通过root.addView()将contentParent添加到<strong>ViewRootImpl</strong>中去，至此onCreate()结束。</p>
 <p>开始onResume()阶段，在开始会向H类发送一个消息，然后在ActivityThread中获取之前创建的Decorview并调用windowManager.add()，最后在windowManager中将窗口和窗口的参数传到root.setView()，然后ViewRoot通过Binder调用WMS，使WMS所在的SS进程接收到按键事件时，可以回调到该root，同时ViewRoot会向自己的handler发送一条消息，然后进行处理（performTraversals），之后开始绘制过程（在Surface的canvas上绘制）。</p>
 <p>先利用MeasureSpec完成onmeasure()，然后在onlayout()中确定各元素的坐标，ondraw()负责将view画到canvas上，再通过Surface进行跨进程最终调用Native层的<strong>SGL</strong>、openGI，最后再去调用硬件CPU进行渲染操作，最终界面显示在你眼前</p>
-<h3 id="解释-2">解释</h3>
+<h2 id="解释-2">解释</h2>
 <ul>
 <li><strong>DecorView</strong>：界面的根View，PhoneWindow的内部类</li>
 <li><strong>contentParent</strong>：所有View的根View，在DecorView里面</li>
