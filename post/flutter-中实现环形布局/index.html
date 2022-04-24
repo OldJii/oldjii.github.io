@@ -66,7 +66,7 @@
 相邻子 widget 中点的间距保持一致。
 "><meta itemprop="datePublished" content="2022-04-24T10:46:28+08:00" />
 <meta itemprop="dateModified" content="2022-04-24T10:46:28+08:00" />
-<meta itemprop="wordCount" content="286">
+<meta itemprop="wordCount" content="331">
 <meta itemprop="keywords" content="Flutter," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="flutter 中实现环形布局"/>
 <meta name="twitter:description" content="环形布局
@@ -197,26 +197,48 @@
 <div align="center">
 <img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.57.38.png height=400 />
 </div>
+<p>圆心坐标：$ (x_0, y_0) $</p>
 <p>假设：</p>
 <ul>
-<li>圆心坐标：$(x_0, y_0)$</li>
-<li>半径：$r$</li>
-<li>角度：$a$</li>
-<li>圆上任意一点：$(x_1, y_1)$</li>
+<li>圆心坐标：$ (x_0, y_0) $</li>
+<li>半径：$ r $</li>
+<li>角度：$ a $</li>
+<li>圆上任意一点：$ (x_1, y_1) $</li>
 </ul>
 <p>则有：
-$$x_1 = x_0 \pm r \times cos(a)$$</p>
-<p>$$y_1 = y_0 \pm r \times sin(a)$$</p>
+$$
+x_1 = x_0 \pm r \times cos(a)
+$$
+$$
+y_1 = y_0 \pm r \times sin(a)
+$$</p>
 <h2 id="计算子-widget-半径">计算子 widget 半径</h2>
 <p>其实子 widget 的尺寸就是扇形内最大的圆，如下图所示。</p>
 <div align="center">
 <img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_23.42.54.png height=400 />
 </div>
-<p>$$sin(A \div 2) = r \div (R \mp r)$$
-$$r = (R \mp r) \times sin(A \div 2)$$
-$$r = R \times sin(A \div 2) \mp r \times sin(A \div 2)$$
-$$r \pm r \times sin(A \div 2) = R \times sin(A \div 2)$$
-$$r = (R \times sin(A \div 2)) \div (1 \pm sin(A \div 2))$$</p>
+<p>假设：</p>
+<ul>
+<li>扇形半径为 R</li>
+<li>扇形圆心角为 A</li>
+<li>扇形内切圆半径为 r</li>
+</ul>
+<p>则有：</p>
+<p>$$
+sin(A \div 2) = r \div (R \mp r)
+$$
+$$
+r = (R \mp r) \times sin(A \div 2)
+$$
+$$
+r = R \times sin(A \div 2) \mp r \times sin(A \div 2)
+$$
+$$
+r \pm r \times sin(A \div 2) = R \times sin(A \div 2)
+$$
+$$
+r = (R \times sin(A \div 2)) \div (1 \pm sin(A \div 2))
+$$</p>
 <h2 id="实现">实现</h2>
 <p>我们选择使用 <code>CustomMultiChildLayout</code> 实现环形布局的功能，看下官网的定义。</p>
 <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.24.15.png" alt=""></p>
