@@ -6,7 +6,7 @@
     <description>Recent content on oldjii‘s digital space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Apr 2022 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Apr 2022 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/</link>
@@ -15,6 +15,23 @@
       <guid>http://localhost:1313/about/</guid>
       <description>Dear visitor, welcome to my personal website where I write what I have learnt or thought in my daily life. I am glad to hear what brings you here. Do not hesitate to share in the comment below! 😄
 Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is passionate about android platform. I am experienced in native android and cross platform Flutter development.</description>
+    </item>
+    
+    <item>
+      <title>flutter 中实现环形布局</title>
+      <link>http://localhost:1313/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/</guid>
+      <description>&lt;h2 id=&#34;环形布局&#34;&gt;环形布局&lt;/h2&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.15.57.png height=400 /&gt;
+&lt;/div&gt;
+&lt;p&gt;首先明确环形布局的定义：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;子 widget的中点到容器圆心的距离保持一致。&lt;/li&gt;
+&lt;li&gt;相邻子 widget 中点的间距保持一致。&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>

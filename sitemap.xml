@@ -10,28 +10,49 @@
   
   <url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2022-04-10T10:46:28+08:00</lastmod>
+    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/Flutter/</loc>
+    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/Flutter/</loc>
+    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/</loc>
+    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2022-04-10T10:46:28+08:00</lastmod>
+    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2022-04-10T10:46:28+08:00</lastmod>
+    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2022-04-10T10:46:28+08:00</lastmod>
+    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

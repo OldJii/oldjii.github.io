@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>菜谱：豆角焖面 - oldjii‘s digital space</title>
+  <title>flutter 中实现环形布局 - oldjii‘s digital space</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="oldjii" /><meta name="description" content=" 公司园区爆发疫情，被迫居家隔离，心念念外面的豆角焖面，所以自己尝试了下，还算成功。
-" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="oldjii" /><meta name="description" content="环形布局  首先明确环形布局的定义：
+ 子 widget的中点到容器圆心的距离保持一致。 相邻子 widget 中点的间距保持一致。 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -27,7 +27,7 @@
 <meta name="generator" content="Hugo 0.94.2 with theme even" />
 
 
-<link rel="canonical" href="http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/" />
+<link rel="canonical" href="http://localhost:1313/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,29 +40,44 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="菜谱：豆角焖面" />
-<meta property="og:description" content="
+<meta property="og:title" content="flutter 中实现环形布局" />
+<meta property="og:description" content="环形布局
 
 
-公司园区爆发疫情，被迫居家隔离，心念念外面的豆角焖面，所以自己尝试了下，还算成功。" />
+
+首先明确环形布局的定义：
+
+子 widget的中点到容器圆心的距离保持一致。
+相邻子 widget 中点的间距保持一致。
+" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-04-10T10:46:28+08:00" />
-<meta property="article:modified_time" content="2022-04-10T10:46:28+08:00" />
+<meta property="og:url" content="http://localhost:1313/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-24T10:46:28+08:00" />
+<meta property="article:modified_time" content="2022-04-24T10:46:28+08:00" />
 
-<meta itemprop="name" content="菜谱：豆角焖面">
-<meta itemprop="description" content="
-
-
-公司园区爆发疫情，被迫居家隔离，心念念外面的豆角焖面，所以自己尝试了下，还算成功。"><meta itemprop="datePublished" content="2022-04-10T10:46:28+08:00" />
-<meta itemprop="dateModified" content="2022-04-10T10:46:28+08:00" />
-<meta itemprop="wordCount" content="205">
-<meta itemprop="keywords" content="菜谱,豆角焖面," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="菜谱：豆角焖面"/>
-<meta name="twitter:description" content="
+<meta itemprop="name" content="flutter 中实现环形布局">
+<meta itemprop="description" content="环形布局
 
 
-公司园区爆发疫情，被迫居家隔离，心念念外面的豆角焖面，所以自己尝试了下，还算成功。"/>
+
+首先明确环形布局的定义：
+
+子 widget的中点到容器圆心的距离保持一致。
+相邻子 widget 中点的间距保持一致。
+"><meta itemprop="datePublished" content="2022-04-24T10:46:28+08:00" />
+<meta itemprop="dateModified" content="2022-04-24T10:46:28+08:00" />
+<meta itemprop="wordCount" content="286">
+<meta itemprop="keywords" content="Flutter," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="flutter 中实现环形布局"/>
+<meta name="twitter:description" content="环形布局
+
+
+
+首先明确环形布局的定义：
+
+子 widget的中点到容器圆心的距离保持一致。
+相邻子 widget 中点的间距保持一致。
+"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -135,12 +150,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">菜谱：豆角焖面</h1>
+      <h1 class="post-title">flutter 中实现环形布局</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2022-04-10 </span>
+        <span class="post-time"> 2022-04-24 </span>
         <div class="post-category">
-            <a href="/categories/%E7%94%9F%E6%B4%BB/"> 生活 </a>
+            <a href="/categories/Flutter/"> Flutter </a>
             </div>
         
       </div>
@@ -153,14 +168,10 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#原料">原料</a>
-          <ul>
-            <li><a href="#主料">主料</a></li>
-            <li><a href="#配料">配料</a></li>
-          </ul>
-        </li>
-        <li><a href="#原料准备">原料准备</a></li>
-        <li><a href="#制作步骤">制作步骤</a></li>
+        <li><a href="#环形布局">环形布局</a></li>
+        <li><a href="#计算子-widget-位置">计算子 widget 位置</a></li>
+        <li><a href="#计算子-widget-半径">计算子 widget 半径</a></li>
+        <li><a href="#实现">实现</a></li>
       </ul>
     </li>
   </ul>
@@ -168,46 +179,49 @@
   </div>
 </div>
     <div class="post-content">
-      <div align="center">
-<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/doujiaomenmian.jpg width=400 height=400 />
+      <h2 id="环形布局">环形布局</h2>
+<div align="center">
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.15.57.png height=400 />
 </div>
-<p>公司园区爆发疫情，被迫居家隔离，心念念外面的豆角焖面，所以自己尝试了下，还算成功。</p>
-<h2 id="原料">原料</h2>
-<h3 id="主料">主料</h3>
-<ul>
-<li>猪五花肉</li>
-<li>鲜面条</li>
-<li>豆角</li>
-</ul>
-<h3 id="配料">配料</h3>
-<ul>
-<li>盐</li>
-<li>糖</li>
-<li>蒜瓣</li>
-<li>生抽</li>
-<li>蚝油</li>
-<li>老抽</li>
-</ul>
-<h2 id="原料准备">原料准备</h2>
+<p>首先明确环形布局的定义：</p>
 <ol>
-<li>猪五花肉切片</li>
-<li>豆角用手掰断、去掉两头、清洗干净</li>
-<li>鲜面条蒸至8分熟</li>
-<li>一头蒜拍扁剥皮</li>
-<li>调制料汁（两勺生抽、一勺蚝油、半勺老抽、少许盐和糖）</li>
+<li>子 widget的中点到容器圆心的距离保持一致。</li>
+<li>相邻子 widget 中点的间距保持一致。</li>
 </ol>
-<h2 id="制作步骤">制作步骤</h2>
+<p>实际上我们需要确定的只有两部分：</p>
 <ol>
-<li>热锅放油</li>
-<li>煸炒五花肉出油</li>
-<li>煸炒豆角至变色</li>
-<li>添加料汁、加水没过食材</li>
-<li>大火煮开后舀出一半汤汁备用</li>
-<li>放入面条煮5分钟</li>
-<li>放入蒜瓣</li>
-<li>备用汤汁浇上去</li>
-<li>小火焖10分钟</li>
+<li>子 widget 的位置</li>
+<li>子 widget 的大小</li>
 </ol>
+<h2 id="计算子-widget-位置">计算子 widget 位置</h2>
+<div align="center">
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.57.38.png height=400 />
+</div>
+<p>假设：</p>
+<ul>
+<li>圆心坐标：$(x_0, y_0)$</li>
+<li>半径：$r$</li>
+<li>角度：$a$</li>
+<li>圆上任意一点：$(x_1, y_1)$</li>
+</ul>
+<p>则有：
+$$x_1 = x_0 \pm r \times cos(a)$$</p>
+<p>$$y_1 = y_0 \pm r \times sin(a)$$</p>
+<h2 id="计算子-widget-半径">计算子 widget 半径</h2>
+<p>其实子 widget 的尺寸就是扇形内最大的圆，如下图所示。</p>
+<div align="center">
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_23.42.54.png height=400 />
+</div>
+<p>$$sin(A \div 2) = r \div (R \mp r)$$
+$$r = (R \mp r) \times sin(A \div 2)$$
+$$r = R \times sin(A \div 2) \mp r \times sin(A \div 2)$$
+$$r \pm r \times sin(A \div 2) = R \times sin(A \div 2)$$
+$$r = (R \times sin(A \div 2)) \div (1 \pm sin(A \div 2))$$</p>
+<h2 id="实现">实现</h2>
+<p>我们选择使用 <code>CustomMultiChildLayout</code> 实现环形布局的功能，看下官网的定义。</p>
+<p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.24.15.png" alt=""></p>
+<p>“ CustomMultiChildLayout is appropriate when there are complex relationships between the size and positioning of multiple widgets. ”</p>
+<p>所以用 <code>CustomMultiChildLayout</code> 实现再合适不过。</p>
     </div>
 
     <div class="post-copyright">
@@ -218,7 +232,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2022-04-10
+        2022-04-24
         
     </span>
   </p>
@@ -227,17 +241,12 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/%E8%8F%9C%E8%B0%B1/">菜谱</a>
-          <a href="/tags/%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/">豆角焖面</a>
+          <a href="/tags/Flutter/">Flutter</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">flutter 中实现环形布局</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/%E7%9B%B8%E4%BF%A1%E4%BA%BA%E7%B1%BB%E7%9A%84%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%9C%89%E7%88%B1/">
-            <span class="next-text nav-default">相信人类的代码中有爱</span>
+        
+        <a class="next" href="/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/">
+            <span class="next-text nav-default">菜谱：豆角焖面</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
