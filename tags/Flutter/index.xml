@@ -13,14 +13,10 @@
       <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
       
       <guid>http://localhost:1313/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/</guid>
-      <description>&lt;h2 id=&#34;环形布局&#34;&gt;环形布局&lt;/h2&gt;
-&lt;p&gt;环形布局满足以下属性：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;子 widget的中点到容器圆心的距离保持一致。&lt;/li&gt;
-&lt;li&gt;相邻子 widget 中点的间距保持一致。&lt;/li&gt;
-&lt;/ol&gt;
+      <description>&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
+&lt;p&gt;如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 &lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin&#34;&gt;圆心距&lt;/a&gt; 相等。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.15.57.png width=400 height=400 /&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.15.57.png width=300 height=300 /&gt;
 &lt;/div&gt;</description>
     </item>
     

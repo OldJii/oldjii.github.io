@@ -16,15 +16,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="oldjii" /><meta name="description" content="环形布局 环形布局满足以下属性：
- 子 widget的中点到容器圆心的距离保持一致。 相邻子 widget 中点的间距保持一致。  " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="oldjii" /><meta name="description" content="定义 如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 圆心距 相等。
+" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.94.2 with theme even" />
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/flutter-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80/" />
@@ -41,12 +41,8 @@
 
 
 <meta property="og:title" content="flutter 中实现环形布局" />
-<meta property="og:description" content="环形布局
-环形布局满足以下属性：
-
-子 widget的中点到容器圆心的距离保持一致。
-相邻子 widget 中点的间距保持一致。
-
+<meta property="og:description" content="定义
+如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 圆心距 相等。
 
 
 " />
@@ -56,25 +52,17 @@
 <meta property="article:modified_time" content="2022-04-24T10:46:28+08:00" />
 
 <meta itemprop="name" content="flutter 中实现环形布局">
-<meta itemprop="description" content="环形布局
-环形布局满足以下属性：
-
-子 widget的中点到容器圆心的距离保持一致。
-相邻子 widget 中点的间距保持一致。
-
+<meta itemprop="description" content="定义
+如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 圆心距 相等。
 
 
 "><meta itemprop="datePublished" content="2022-04-24T10:46:28+08:00" />
 <meta itemprop="dateModified" content="2022-04-24T10:46:28+08:00" />
-<meta itemprop="wordCount" content="747">
+<meta itemprop="wordCount" content="857">
 <meta itemprop="keywords" content="Flutter," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="flutter 中实现环形布局"/>
-<meta name="twitter:description" content="环形布局
-环形布局满足以下属性：
-
-子 widget的中点到容器圆心的距离保持一致。
-相邻子 widget 中点的间距保持一致。
-
+<meta name="twitter:description" content="定义
+如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 圆心距 相等。
 
 
 "/>
@@ -168,9 +156,19 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#环形布局">环形布局</a></li>
-        <li><a href="#计算子-widget-位置">计算子 widget 位置</a></li>
-        <li><a href="#计算子-widget-半径">计算子 widget 半径</a></li>
+        <li><a href="#定义">定义</a></li>
+        <li><a href="#计算子-widget-位置">计算子 widget 位置</a>
+          <ul>
+            <li><a href="#数学推导">数学推导</a></li>
+            <li><a href="#代码实现">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#计算子-widget-半径">计算子 widget 半径</a>
+          <ul>
+            <li><a href="#数学推导-1">数学推导</a></li>
+            <li><a href="#代码实现-1">代码实现</a></li>
+          </ul>
+        </li>
         <li><a href="#实现">实现</a></li>
       </ul>
     </li>
@@ -179,38 +177,33 @@
   </div>
 </div>
     <div class="post-content">
-      <h2 id="环形布局">环形布局</h2>
-<p>环形布局满足以下属性：</p>
+      <h2 id="定义">定义</h2>
+<p>如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 <a href="https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin">圆心距</a> 相等。</p>
+<div align="center">
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.15.57.png width=300 height=300 />
+</div>
+<p>即环形布局应当满足以下两个属性：</p>
 <ol>
 <li>子 widget的中点到容器圆心的距离保持一致。</li>
 <li>相邻子 widget 中点的间距保持一致。</li>
 </ol>
-<div align="center">
-<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.15.57.png width=400 height=400 />
-</div>
-<p>为了实现以上布局结构，还需要确定两个值：</p>
-<ol>
-<li>子 widget 的位置。</li>
-<li>子 widget 的大小。</li>
-</ol>
+<p>根据以上性质我们可以根据数学公式计算出 <strong>圆 a 相对于圆 A 的位置</strong> ，这是实现环形布局的关键信息。</p>
+<p>在上面的定义中并未提及圆 a 的半径关系，实际上圆 a 的半径是可以不一致的，把圆 a 看作子元素的外切圆，在复杂的生产环境中子元素的外切圆半径往往是不一致的，所以我们还需要确定 <strong>圆 a 的最大半径</strong> 。</p>
 <h2 id="计算子-widget-位置">计算子 widget 位置</h2>
+<h3 id="数学推导">数学推导</h3>
+<p>要确定圆 a 相对于圆 A 的位置，首先要计算 <strong>圆心 a 相对于圆心 A 的偏移量</strong>。</p>
+<p>设圆心 A 坐标为 $ (x_0, y_0) $ 、半径为 $ r $、圆心 a 坐标为 $ (x_1, y_1) $ ，圆心 A 和圆心 a 的连线和坐标系横轴的夹角角度为 $ \theta $ 。</p>
 <div align="center">
-<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.57.38.png width=400 height=400/>
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.57.38.png width=300 height=300/>
 </div>
-<p>假设：</p>
-<ul>
-<li>圆心坐标：$ (x_0, y_0) $</li>
-<li>半径：$ r $</li>
-<li>角度：$ a $</li>
-<li>圆上任意一点：$ (x_1, y_1) $</li>
-</ul>
-<p>则有：
-$$
-x_1 = x_0 \pm r \times cos(a)
+<p>坐标系中点坐标为$ (0, 0) $，则圆心 a 相对于圆心 A 的偏移量即为圆心 a 的坐标。</p>
+<p>$$
+x_1 = x_0 + r \times cos(\theta)
 $$</p>
 <p>$$
-y_1 = y_0 \pm r \times sin(a)
+y_1 = y_0 + r \times sin(\theta)
 $$</p>
+<h3 id="代码实现">代码实现</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -237,57 +230,36 @@ $$</p>
 </span><span class="lnt">22
 </span><span class="lnt">23
 </span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">/// 获得子部件中心点在容器中的偏移量
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">/// 计算圆心a相对于圆心A的偏移量
 </span></span></span><span class="line"><span class="cl"><span class="c1">///
-</span></span></span><span class="line"><span class="cl"><span class="c1">///  [centerPoint] 容器中心点
-</span></span></span><span class="line"><span class="cl"><span class="c1">///
-</span></span></span><span class="line"><span class="cl"><span class="c1">/// * [radius] 容器半径
-</span></span></span><span class="line"><span class="cl"><span class="c1">///
-</span></span></span><span class="line"><span class="cl"><span class="c1">/// * [which] 第几个child
-</span></span></span><span class="line"><span class="cl"><span class="c1">///
-</span></span></span><span class="line"><span class="cl"><span class="c1">/// * [count] 子部件总数
-</span></span></span><span class="line"><span class="cl"><span class="c1">///
-</span></span></span><span class="line"><span class="cl"><span class="c1">/// * [initAngle] 用来决定起始位置,建议取值范围0-360
-</span></span></span><span class="line"><span class="cl"><span class="c1">///
-</span></span></span><span class="line"><span class="cl"><span class="c1">/// * [direction] 用来决定排列方向 1顺时针,-1逆时针
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param centerPoint 圆心A的坐标
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param radius 圆A的半径
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param count 圆a的数量
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param which 圆a的序号
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param initAngle 起始位置
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param direction 排列方向
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Offset</span> <span class="nf">_getChildCenterOffset</span><span class="o">({</span>
-</span></span><span class="line"><span class="cl">  <span class="n">Offset</span> <span class="n">centerPoint</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Offset</span> <span class="n">circleCenter</span><span class="o">,</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">radius</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">which</span><span class="o">,</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">count</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">initAngle</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">which</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">firstAngle</span><span class="o">,</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">direction</span><span class="o">,</span>
 </span></span><span class="line"><span class="cl"><span class="o">})</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">/// 圆心坐标(a, b)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// 半径: r
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// 弧度: radian (π / 180 * 角度)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">///
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// 求圆上任一点为(x, y)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// 则
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// x = a + r * cos(radian)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// y = b + r * sin(radian)
+</span></span><span class="line"><span class="cl">  <span class="c1">// 扇形弧度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">double</span> <span class="n">radian</span> <span class="o">=</span> <span class="n">_radian</span><span class="o">(</span><span class="n">360</span> <span class="o">/</span> <span class="n">count</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">radianOffset</span> <span class="o">=</span> <span class="n">_radian</span><span class="o">(</span><span class="n">initAngle</span> <span class="o">*</span> <span class="n">direction</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">centerPoint</span><span class="o">.</span><span class="na">dx</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">cos</span><span class="o">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">centerPoint</span><span class="o">.</span><span class="na">dy</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="o">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 处理起始位置偏移和排列方向
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">double</span> <span class="n">radianOffset</span> <span class="o">=</span> <span class="n">_radian</span><span class="o">(</span><span class="n">firstAngle</span> <span class="o">*</span> <span class="n">direction</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">circleCenter</span><span class="o">.</span><span class="na">dx</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">cos</span><span class="o">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">circleCenter</span><span class="o">.</span><span class="na">dy</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="o">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">Offset</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="计算子-widget-半径">计算子 widget 半径</h2>
+<h3 id="数学推导-1">数学推导</h3>
 <p>其实子 widget 的尺寸就是扇形内最大的圆，如下图所示。</p>
 <div align="center">
 <img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_23.42.54.png width=400 height=400 />
@@ -300,20 +272,21 @@ $$</p>
 </ul>
 <p>则有：
 $$
-sin(A \div 2) = r \div (R \mp r)
+sin(\frac{A}{2}) = \frac{r}{R - r}
 $$</p>
 <p>$$
-r = (R \mp r) \times sin(A \div 2)
+r = (R - r) \times sin(\frac{A}{2})
 $$</p>
 <p>$$
-r = R \times sin(A \div 2) \mp r \times sin(A \div 2)
+r = R \times sin(\frac{A}{2}) - r \times sin(\frac{A}{2})
 $$</p>
 <p>$$
-r \pm r \times sin(A \div 2) = R \times sin(A \div 2)
+r + r \times sin(\frac{A}{2}) = R \times sin(\frac{A}{2})
 $$</p>
 <p>$$
-r = (R \times sin(A \div 2)) \div (1 \pm sin(A \div 2))
+r = \frac{R \times sin(\frac{A}{2})}{1 + sin(\frac{A}{2})}
 $$</p>
+<h3 id="代码实现-1">代码实现</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -335,24 +308,26 @@ $$</p>
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
+</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">/// 获取child半径
-</span></span></span><span class="line"><span class="cl"><span class="c1">/// 根据扇形半径内最大圆公式计算
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">_getChildRadius</span><span class="o">(</span><span class="kt">double</span> <span class="n">r</span><span class="o">,</span> <span class="kt">double</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">/// 大于180因为只放了一个child，因为公式无法计算钝角直接return容器半径算了。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">180</span><span class="o">)</span> <span class="k">return</span> <span class="n">r</span><span class="o">;</span>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">/// 计算圆a的半径
+</span></span></span><span class="line"><span class="cl"><span class="c1">///
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param radius 圆A的半径
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param angle 扇形的角度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">_getChildRadius</span><span class="o">(</span><span class="kt">double</span> <span class="n">radius</span><span class="o">,</span> <span class="kt">double</span> <span class="n">angle</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 扇形角度大于180度，只可以放置一个。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">angle</span> <span class="o">&gt;</span> <span class="n">180</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">radius</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">/// 扇形的半径为R，扇形的圆心角为A，扇形的内切圆的半径为r。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// SIN(A/2)=r/(R-r)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// r=(R-r)*SIN(A/2)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// r=R*SIN(A/2)-r*SIN(A/2)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// r+r*SIN(A/2)=R*SIN(A/2)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// r=(R*SIN(A/2))/(1+SIN(A/2))
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="o">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="o">(</span><span class="n">_radian</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">2</span><span class="o">)))</span> <span class="o">/</span> <span class="o">(</span><span class="n">1</span> <span class="o">+</span> <span class="n">sin</span><span class="o">(</span><span class="n">_radian</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">2</span><span class="o">)));</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">/// 扇形最大内切圆公式，见公式推导。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="o">(</span><span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="o">(</span><span class="n">_radian</span><span class="o">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">2</span><span class="o">)))</span> <span class="o">/</span> <span class="o">(</span><span class="n">1</span> <span class="o">+</span> <span class="n">sin</span><span class="o">(</span><span class="n">_radian</span><span class="o">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">2</span><span class="o">)));</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">/// 角度转换弧度
+</span></span><span class="line"><span class="cl"><span class="c1">/// 计算弧度
+</span></span></span><span class="line"><span class="cl"><span class="c1">///
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @param angle 角度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">_radian</span><span class="o">(</span><span class="kt">double</span> <span class="n">angle</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">pi</span> <span class="o">/</span> <span class="n">180</span> <span class="o">*</span> <span class="n">angle</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
