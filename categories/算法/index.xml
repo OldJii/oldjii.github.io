@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 14 May 2021 01:19:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>一些算法题解</title>
-      <link>http://localhost:1313/post/%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3%E5%95%A6/</link>
+      <link>http://localhost:1313/post/algorithm/</link>
       <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3%E5%95%A6/</guid>
+      <guid>http://localhost:1313/post/algorithm/</guid>
       <description>对于每一位求职的 Coder 来说，在 LeetCode 上熟练刷数据结构和算法题的重要性不言而喻，甚至某一程度上直接决定了面试的成败。 最近有在准备跳槽，所以重新把 剑指O</description>
     </item>
     

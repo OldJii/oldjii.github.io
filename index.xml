@@ -19,10 +19,10 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
     
     <item>
       <title>Ring_layout：Flutter 环形布局实现</title>
-      <link>http://localhost:1313/post/ring_layout%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0/</link>
+      <link>http://localhost:1313/post/ring_layout/</link>
       <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/ring_layout%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://localhost:1313/post/ring_layout/</guid>
       <description>&lt;h2 id=&#34;环形布局的定义&#34;&gt;环形布局的定义&lt;/h2&gt;
 &lt;p&gt;如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 &lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin&#34;&gt;圆心距&lt;/a&gt; 相等。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
@@ -32,10 +32,10 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
     
     <item>
       <title>菜谱：豆角焖面</title>
-      <link>http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/</link>
+      <link>http://localhost:1313/post/braised_noodles/</link>
       <pubDate>Sun, 10 Apr 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/</guid>
+      <guid>http://localhost:1313/post/braised_noodles/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/doujiaomenmian.jpg width=400 height=400 /&gt;
 &lt;/div&gt;
@@ -44,46 +44,46 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
     
     <item>
       <title>相信人类的代码中有爱</title>
-      <link>http://localhost:1313/post/%E7%9B%B8%E4%BF%A1%E4%BA%BA%E7%B1%BB%E7%9A%84%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%9C%89%E7%88%B1/</link>
+      <link>http://localhost:1313/post/gene/</link>
       <pubDate>Thu, 24 Mar 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E7%9B%B8%E4%BF%A1%E4%BA%BA%E7%B1%BB%E7%9A%84%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%9C%89%E7%88%B1/</guid>
+      <guid>http://localhost:1313/post/gene/</guid>
       <description>初开始听说《自私的基因》这本书，是在 21 年末的时候，那时候刚从小米离职，与新公司约定的入职时间稍晚了些，计划的是来一场说走就走的离职旅行、散散</description>
     </item>
     
     <item>
       <title>HLS直播协议m3u8</title>
-      <link>http://localhost:1313/post/HLS%E7%9B%B4%E6%92%AD%E5%8D%8F%E8%AE%AEm3u8/</link>
+      <link>http://localhost:1313/post/m3u8/</link>
       <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/HLS%E7%9B%B4%E6%92%AD%E5%8D%8F%E8%AE%AEm3u8/</guid>
+      <guid>http://localhost:1313/post/m3u8/</guid>
       <description>为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。 三者关系： HLS是一种流媒体传输协议 M3U8是HLS传输内容中</description>
     </item>
     
     <item>
       <title>一些算法题解</title>
-      <link>http://localhost:1313/post/%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3%E5%95%A6/</link>
+      <link>http://localhost:1313/post/algorithm/</link>
       <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3%E5%95%A6/</guid>
+      <guid>http://localhost:1313/post/algorithm/</guid>
       <description>对于每一位求职的 Coder 来说，在 LeetCode 上熟练刷数据结构和算法题的重要性不言而喻，甚至某一程度上直接决定了面试的成败。 最近有在准备跳槽，所以重新把 剑指O</description>
     </item>
     
     <item>
       <title>Android中的IPC</title>
-      <link>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</link>
+      <link>http://localhost:1313/post/android_ipc/</link>
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</guid>
+      <guid>http://localhost:1313/post/android_ipc/</guid>
       <description>什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p</description>
     </item>
     
     <item>
       <title>Rxjava源码阅读</title>
-      <link>http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</link>
+      <link>http://localhost:1313/post/rxjava/</link>
       <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</guid>
+      <guid>http://localhost:1313/post/rxjava/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/&gt;
 &lt;/div&gt;
@@ -96,10 +96,10 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
     
     <item>
       <title>App的启动流程</title>
-      <link>http://localhost:1313/post/App%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
+      <link>http://localhost:1313/post/app_start_process/</link>
       <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/App%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
+      <guid>http://localhost:1313/post/app_start_process/</guid>
       <description>本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流程分为三部分： 从开机到显示应用列表 从点击应</description>
     </item>
     

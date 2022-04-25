@@ -51,7 +51,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/ring_layout%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0/</loc>
+    <loc>http://localhost:1313/post/ring_layout/</loc>
     <lastmod>2022-04-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -79,7 +79,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/%E8%8F%9C%E8%B0%B1%E8%B1%86%E8%A7%92%E7%84%96%E9%9D%A2/</loc>
+    <loc>http://localhost:1313/post/braised_noodles/</loc>
     <lastmod>2022-04-10T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -93,7 +93,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/%E7%9B%B8%E4%BF%A1%E4%BA%BA%E7%B1%BB%E7%9A%84%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%9C%89%E7%88%B1/</loc>
+    <loc>http://localhost:1313/post/gene/</loc>
     <lastmod>2022-03-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/HLS%E7%9B%B4%E6%92%AD%E5%8D%8F%E8%AE%AEm3u8/</loc>
+    <loc>http://localhost:1313/post/m3u8/</loc>
     <lastmod>2021-09-25T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -149,7 +149,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/%E4%B8%80%E4%BA%9B%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3%E5%95%A6/</loc>
+    <loc>http://localhost:1313/post/algorithm/</loc>
     <lastmod>2021-05-14T01:19:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -184,7 +184,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/Android%E4%B8%AD%E7%9A%84IPC/</loc>
+    <loc>http://localhost:1313/post/android_ipc/</loc>
     <lastmod>2020-01-08T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -205,7 +205,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</loc>
+    <loc>http://localhost:1313/post/rxjava/</loc>
     <lastmod>2019-09-20T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -233,7 +233,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/App%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</loc>
+    <loc>http://localhost:1313/post/app_start_process/</loc>
     <lastmod>2019-09-17T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
