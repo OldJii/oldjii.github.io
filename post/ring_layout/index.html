@@ -266,23 +266,23 @@ $$</p>
 </div>
 <p>设扇形半径为 $ R $、扇形圆心角为 $ \alpha $、扇形内切圆半径为 $ r $。</p>
 <div align="center">
-<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/20220425155356.png width=400 height=400 />
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-25_20.50.01.png width=400 height=400 />
 </div>
 <p>最大子元素半径推导过程如下。</p>
 <p>$$
-sin(\frac{A}{2}) = \frac{r}{R - r}
+sin(\frac{\alpha}{2}) = \frac{r}{R - r}
 $$</p>
 <p>$$
-r = (R - r) \times sin(\frac{A}{2})
+r = (R - r) \times sin(\frac{\alpha}{2})
 $$</p>
 <p>$$
-r = R \times sin(\frac{A}{2}) - r \times sin(\frac{A}{2})
+r = R \times sin(\frac{\alpha}{2}) - r \times sin(\frac{\alpha}{2})
 $$</p>
 <p>$$
-r + r \times sin(\frac{A}{2}) = R \times sin(\frac{A}{2})
+r + r \times sin(\frac{\alpha}{2}) = R \times sin(\frac{\alpha}{2})
 $$</p>
 <p>$$
-r = \frac{R \times sin(\frac{A}{2})}{1 + sin(\frac{A}{2})}
+r = \frac{R \times sin(\frac{\alpha}{2})}{1 + sin(\frac{\alpha}{2})}
 $$</p>
 <h3 id="代码实现-1">代码实现</h3>
 <div class="highlight"><div class="chroma">
