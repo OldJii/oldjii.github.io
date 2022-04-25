@@ -232,7 +232,7 @@ $$</p>
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">/// 计算圆心a相对于圆心A的偏移量
+<pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">/// 计算圆心a相对于圆心A的偏移量
 </span></span></span><span class="line"><span class="cl"><span class="c1">///
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param centerPoint 圆心A的坐标
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param radius 圆A的半径
@@ -240,22 +240,22 @@ $$</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param which 圆a的序号
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param initAngle 起始位置
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param direction 排列方向
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Offset</span> <span class="nf">_getChildCenterOffset</span><span class="o">({</span>
-</span></span><span class="line"><span class="cl">  <span class="n">Offset</span> <span class="n">circleCenter</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">radius</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">count</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">which</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">firstAngle</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">direction</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl"><span class="o">})</span> <span class="o">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Offset</span> <span class="n">_getChildCenterOffset</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Offset</span> <span class="n">circleCenter</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">radius</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">count</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">which</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">firstAngle</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">direction</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 扇形弧度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">double</span> <span class="n">radian</span> <span class="o">=</span> <span class="n">_radian</span><span class="o">(</span><span class="n">360</span> <span class="o">/</span> <span class="n">count</span><span class="o">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">double</span> <span class="n">radian</span> <span class="o">=</span> <span class="n">_radian</span><span class="p">(</span><span class="m">360</span> <span class="o">/</span> <span class="n">count</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 处理起始位置偏移和排列方向
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">double</span> <span class="n">radianOffset</span> <span class="o">=</span> <span class="n">_radian</span><span class="o">(</span><span class="n">firstAngle</span> <span class="o">*</span> <span class="n">direction</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">circleCenter</span><span class="o">.</span><span class="na">dx</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">cos</span><span class="o">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">circleCenter</span><span class="o">.</span><span class="na">dy</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="o">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">Offset</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">double</span> <span class="n">radianOffset</span> <span class="o">=</span> <span class="n">_radian</span><span class="p">(</span><span class="n">firstAngle</span> <span class="o">*</span> <span class="n">direction</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">circleCenter</span><span class="p">.</span><span class="n">dx</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">circleCenter</span><span class="p">.</span><span class="n">dy</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">radian</span> <span class="o">*</span> <span class="n">which</span> <span class="o">+</span> <span class="n">radianOffset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">Offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="计算子元素的半径">计算子元素的半径</h2>
@@ -309,26 +309,26 @@ $$</p>
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">/// 计算圆a的半径
+<pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">/// 计算圆a的半径
 </span></span></span><span class="line"><span class="cl"><span class="c1">///
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param radius 圆A的半径
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param angle 扇形的角度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">_getChildRadius</span><span class="o">(</span><span class="kt">double</span> <span class="n">radius</span><span class="o">,</span> <span class="kt">double</span> <span class="n">angle</span><span class="o">)</span> <span class="o">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="n">_getChildRadius</span><span class="p">(</span><span class="kt">double</span> <span class="n">radius</span><span class="p">,</span> <span class="kt">double</span> <span class="n">angle</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 扇形角度大于180度，只可以放置一个。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="o">(</span><span class="n">angle</span> <span class="o">&gt;</span> <span class="n">180</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">radius</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">angle</span> <span class="o">&gt;</span> <span class="m">180</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">radius</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">/// 扇形最大内切圆公式，见公式推导。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="o">(</span><span class="n">_radian</span><span class="o">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">2</span><span class="o">))</span> <span class="o">/</span> <span class="o">(</span><span class="n">1</span> <span class="o">+</span> <span class="n">sin</span><span class="o">(</span><span class="n">_radian</span><span class="o">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">2</span><span class="o">)));</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">_radian</span><span class="p">(</span><span class="n">angle</span> <span class="o">/</span> <span class="m">2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="m">1</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">_radian</span><span class="p">(</span><span class="n">angle</span> <span class="o">/</span> <span class="m">2</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">/// 计算弧度
 </span></span></span><span class="line"><span class="cl"><span class="c1">///
 </span></span></span><span class="line"><span class="cl"><span class="c1">/// @param angle 角度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="nf">_radian</span><span class="o">(</span><span class="kt">double</span> <span class="n">angle</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">pi</span> <span class="o">/</span> <span class="n">180</span> <span class="o">*</span> <span class="n">angle</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="n">_radian</span><span class="p">(</span><span class="kt">double</span> <span class="n">angle</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">pi</span> <span class="o">/</span> <span class="m">180</span> <span class="o">*</span> <span class="n">angle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="实现">实现</h2>
@@ -377,37 +377,37 @@ $$</p>
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">RingLayout</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">double</span> <span class="n">initAngle</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">bool</span> <span class="n">reverse</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">double</span> <span class="n">radiusRatio</span><span class="o">;</span>
+<pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">RingLayout</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span> <span class="n">children</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">double</span> <span class="n">initAngle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">bool</span> <span class="n">reverse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">double</span> <span class="n">radiusRatio</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="kd">const</span> <span class="nf">RingLayout</span><span class="o">({</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Key</span><span class="o">?</span> <span class="n">key</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">required</span> <span class="k">this</span><span class="o">.</span><span class="na">children</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">reverse</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">radiusRatio</span> <span class="o">=</span> <span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">initAngle</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">  <span class="o">})</span>  <span class="o">:</span> <span class="k">assert</span><span class="o">(</span><span class="n">0</span><span class="o">.</span><span class="na">0</span> <span class="o">&lt;=</span> <span class="n">radiusRatio</span> <span class="o">&amp;&amp;</span> <span class="n">radiusRatio</span> <span class="o">&lt;=</span> <span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">),</span>
-</span></span><span class="line"><span class="cl">        <span class="k">assert</span><span class="o">(</span><span class="n">0</span> <span class="o">&lt;=</span> <span class="n">initAngle</span> <span class="o">&amp;&amp;</span> <span class="n">initAngle</span> <span class="o">&lt;=</span> <span class="n">360</span><span class="o">),</span>
-</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">(</span><span class="n">key</span><span class="o">:</span> <span class="n">key</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">const</span> <span class="n">RingLayout</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Key</span><span class="o">?</span> <span class="n">key</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">required</span> <span class="k">this</span><span class="p">.</span><span class="n">children</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">reverse</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">radiusRatio</span> <span class="o">=</span> <span class="m">1.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">initAngle</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>  <span class="o">:</span> <span class="k">assert</span><span class="p">(</span><span class="m">0.0</span> <span class="o">&lt;=</span> <span class="n">radiusRatio</span> <span class="o">&amp;&amp;</span> <span class="n">radiusRatio</span> <span class="o">&lt;=</span> <span class="m">1.0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span><span class="p">(</span><span class="m">0</span> <span class="o">&lt;=</span> <span class="n">initAngle</span> <span class="o">&amp;&amp;</span> <span class="n">initAngle</span> <span class="o">&lt;=</span> <span class="m">360</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nd">@override</span>
-</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="nf">build</span><span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">CustomMultiChildLayout</span><span class="o">(</span>
-</span></span><span class="line"><span class="cl">      <span class="n">delegate</span><span class="o">:</span> <span class="n">_RingDelegate</span><span class="o">(</span>
-</span></span><span class="line"><span class="cl">          <span class="n">count</span><span class="o">:</span> <span class="n">children</span><span class="o">.</span><span class="na">length</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">          <span class="n">initAngle</span><span class="o">:</span> <span class="n">initAngle</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">          <span class="n">reverse</span><span class="o">:</span> <span class="n">reverse</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">          <span class="n">radiusRatio</span><span class="o">:</span> <span class="n">radiusRatio</span><span class="o">),</span>
-</span></span><span class="line"><span class="cl">      <span class="n">children</span><span class="o">:</span> <span class="o">[</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">children</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
-</span></span><span class="line"><span class="cl">          <span class="n">LayoutId</span><span class="o">(</span><span class="n">id</span><span class="o">:</span> <span class="n">i</span><span class="o">,</span> <span class="n">child</span><span class="o">:</span> <span class="n">children</span><span class="o">[</span><span class="n">i</span><span class="o">])</span>
-</span></span><span class="line"><span class="cl">      <span class="o">],</span>
-</span></span><span class="line"><span class="cl">    <span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">CustomMultiChildLayout</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">delegate:</span> <span class="n">_RingDelegate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">count:</span> <span class="n">children</span><span class="p">.</span><span class="n">length</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">initAngle:</span> <span class="n">initAngle</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">reverse:</span> <span class="n">reverse</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">radiusRatio:</span> <span class="n">radiusRatio</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">children:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">children</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="n">LayoutId</span><span class="p">(</span><span class="nl">id:</span> <span class="n">i</span><span class="p">,</span> <span class="nl">child:</span> <span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>
