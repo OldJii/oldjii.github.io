@@ -18,11 +18,11 @@ Who am I? Hi, I am Guankai Ji. I am a mobile client development engineer who is 
     </item>
     
     <item>
-      <title>ring_layout 环形布局实现</title>
-      <link>http://localhost:1313/post/ring_layout-%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0/</link>
+      <title>ring_layout环形布局实现</title>
+      <link>http://localhost:1313/post/ring_layout%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/ring_layout-%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://localhost:1313/post/ring_layout%E7%8E%AF%E5%BD%A2%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0/</guid>
       <description>&lt;h2 id=&#34;环形布局的定义&#34;&gt;环形布局的定义&lt;/h2&gt;
 &lt;p&gt;如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 &lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin&#34;&gt;圆心距&lt;/a&gt; 相等。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
