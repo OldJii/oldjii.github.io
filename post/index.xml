@@ -47,7 +47,7 @@
       <pubDate>Sat, 18 Dec 2021 01:19:00 +0800</pubDate>
       
       <guid>http://localhost:1313/post/hugo_mathJax/</guid>
-      <description>Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中并不会被识别。 MathJax 是一个适用于所有浏览器的 JavaScript 数学显示引擎，在 Hugo</description>
+      <description>Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax</description>
     </item>
     
     <item>
