@@ -66,7 +66,7 @@ Rxjava
 给Android开发者的RxJava详解
 本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析"><meta itemprop="datePublished" content="2019-09-20T21:34:06+08:00" />
 <meta itemprop="dateModified" content="2019-09-20T21:34:06+08:00" />
-<meta itemprop="wordCount" content="7234">
+<meta itemprop="wordCount" content="7235">
 <meta itemprop="keywords" content="Android,Rxjava,源码,开源框架," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rxjava源码阅读"/>
 <meta name="twitter:description" content="
@@ -735,7 +735,7 @@ Rxjava
 &ndash;&gt; <code>ObservableCreate.subscribeActual(new MapObserver(observer,function))</code></p>
 </blockquote>
 <hr>
-<p>下面进入<strong>线程调度</strong>源码分析的阶段，先看subscribeOn()</p>
+<p>下面进入<strong>线程调度</strong>源码分析的阶段，先看subscribeOn()。</p>
 <h2 id="线程调度-subscribeon">线程调度-subscribeOn()</h2>
 <p>老规矩，先来一个参考代码</p>
 <div class="highlight"><div class="chroma">
