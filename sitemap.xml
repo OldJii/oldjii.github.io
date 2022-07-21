@@ -9,6 +9,13 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/post/inker_privacy_en/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/post/inker_privacy_jp/</loc>
     <lastmod>2022-07-20T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
