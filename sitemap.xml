@@ -10,7 +10,63 @@
   
   <url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/HLS/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/inker_privacy/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/m3u8/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
+    <lastmod>2022-07-20T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30,20 +86,6 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/</loc>
-    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://localhost:1313/tags/ring_layout/</loc>
     <lastmod>2022-04-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -52,13 +94,6 @@
   
   <url>
     <loc>http://localhost:1313/post/ring_layout/</loc>
-    <lastmod>2022-04-24T10:46:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2022-04-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -142,35 +177,7 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/HLS/</loc>
-    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://localhost:1313/post/m3u8/</loc>
-    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/m3u8/</loc>
-    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
-    <lastmod>2021-09-25T21:34:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/</loc>
     <lastmod>2021-09-25T21:34:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
