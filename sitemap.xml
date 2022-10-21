@@ -10,28 +10,56 @@
   
   <url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/king_of_glory/</loc>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80/</loc>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -45,6 +73,13 @@
   
   <url>
     <loc>http://localhost:1313/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/</loc>
+    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/relationship-2/</loc>
     <lastmod>2022-10-16T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -123,13 +158,6 @@
   <url>
     <loc>http://localhost:1313/post/ring_layout/</loc>
     <lastmod>2022-04-24T10:46:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/categories/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2022-04-10T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
