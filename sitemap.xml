@@ -86,6 +86,13 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/post/relationship/</loc>
+    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/tags/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB/</loc>
     <lastmod>2022-10-16T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -94,13 +101,6 @@
   
   <url>
     <loc>http://localhost:1313/tags/%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB/</loc>
-    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/relationship/</loc>
     <lastmod>2022-10-16T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
