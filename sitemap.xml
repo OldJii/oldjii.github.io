@@ -10,28 +10,49 @@
   
   <url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2022-10-19T10:46:28+08:00</lastmod>
+    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/china_economy/</loc>
+    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/%E7%BD%AE%E8%BA%AB%E4%BA%8B%E5%86%85/</loc>
+    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -80,13 +101,6 @@
   
   <url>
     <loc>http://localhost:1313/post/relationship/</loc>
-    <lastmod>2022-10-16T10:46:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-10-16T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

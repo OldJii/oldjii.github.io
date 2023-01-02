@@ -6,7 +6,7 @@
     <description>Recent content on oldjii‘s digital space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Oct 2022 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2023 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/</link>
@@ -15,6 +15,15 @@
       <guid>http://localhost:1313/about/</guid>
       <description>Dear visitor, welcome to my personal website where I write what I have learnt or thought in my daily life. I am glad to hear what brings you here. 😄😄😄
 Who am I? I am OldJii. I am a mobile client development engineer who is passionate about android platform. I am experienced in native android and cross platform Flutter development.</description>
+    </item>
+    
+    <item>
+      <title>政府与经济发展</title>
+      <link>http://localhost:1313/post/china_economy/</link>
+      <pubDate>Mon, 02 Jan 2023 10:46:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/china_economy/</guid>
+      <description>在我国，政府不但影响“蛋糕”的分配，也参与“蛋糕”的生产，所以我们不可能脱离政府谈经济。 微观 地方政府的权利与事务 要理解政府治理和运作的模式，</description>
     </item>
     
     <item>
