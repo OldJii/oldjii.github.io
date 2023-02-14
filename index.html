@@ -132,7 +132,28 @@
   
   <div class="post-content">
     <div class="post-summary">
-      清除配置 查看 Git 本地配置 1 git config --list 清除用户名和邮箱 1 2 git config --global --unset user.name git config --global --unset user.email 生成 ssh-key 使用 ssh-keygen 命令生成 ssh-key，并手动指定 id 1 ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C &#34;xx1@gmail.com&#34; 生成成
+      <h2 id="清除配置">清除配置</h2>
+<p>查看 Git 本地配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>清除用户名和邮箱</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --global --unset user.name
+</span></span><span class="line"><span class="cl">git config --global --unset user.email
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
     <div class="read-more">
       <a href="/post/git_account/" class="read-more-link">Read more...</a>
