@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Rxjava源码阅读 - oldjii‘s digital space</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="oldjii" /><meta name="description" content=" 本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译 Rxjava 给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析
+" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.94.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Rxjava源码阅读" />
+<meta property="og:description" content="
+
+
+本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译
+Rxjava
+给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/Rxjava%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-09-20T21:34:06+08:00" />
+<meta property="article:modified_time" content="2019-09-20T21:34:06+08:00" />
+
+<meta itemprop="name" content="Rxjava源码阅读">
+<meta itemprop="description" content="
+
+
+本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译
+Rxjava
+给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析"><meta itemprop="datePublished" content="2019-09-20T21:34:06+08:00" />
+<meta itemprop="dateModified" content="2019-09-20T21:34:06+08:00" />
+<meta itemprop="wordCount" content="7234">
+<meta itemprop="keywords" content="Android,Rxjava,源码,开源框架," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rxjava源码阅读"/>
+<meta name="twitter:description" content="
+
+
+本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文
+ReactiveX文档中文翻译
+Rxjava
+给Android开发者的RxJava详解
+本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">oldjii‘s digital space</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">oldjii‘s digital space</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Rxjava源码阅读</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-09-20 </span>
+        <div class="post-category">
+            <a href="/categories/Android/"> Android </a>
+            <a href="/categories/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/"> 开源框架 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#正文">正文</a>
+      <ul>
+        <li><a href="#create方法">Create()方法</a></li>
+        <li><a href="#subscribe方法">subscribe()方法</a></li>
+        <li><a href="#操作符map">操作符（Map）</a></li>
+        <li><a href="#线程调度-subscribeon">线程调度-subscribeOn()</a></li>
+        <li><a href="#线程调度-observeon">线程调度-observeOn()</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <div align="center">
+<img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/>
+</div>
+<p>本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文</p>
+<p><a href="https://mcxiaoke.gitbooks.io/rxdocs/content/Operators.html">ReactiveX文档中文翻译</a><br/>
+<a href="https://github.com/ReactiveX/RxJava">Rxjava</a><br/>
+<a href="http://gank.io/post/560e15be2dca930e00da1083">给Android开发者的RxJava详解</a></p>
+<p>本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析</p>
+<h1 id="正文">正文</h1>
+<h2 id="create方法">Create()方法</h2>
+<p>这里给出一个最简单的Rxjava的实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Observable</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">ObservableEmitter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="s">&#34;next&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}).</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSubscribe</span><span class="o">(</span><span class="n">Disposable</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onSubscribe: &#34;</span> <span class="o">+</span> <span class="n">d</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onNext: &#34;</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onError: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onComplete: &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>直接看create()方法主体</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="n">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ObjectHelper</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="s">&#34;source is null&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">RxJavaPlugins</span><span class="o">.</span><span class="na">onAssembly</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableCreate</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;(</span><span class="n">source</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>调用对象和返回对象都为Observable，而传入参数为ObservableOnSubscribe</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">ObservableEmitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这是一个接口，仅包含一个方法，就是上面我们在new ObservableOnSubscribe时候需要重写的那个方法。
+再看subscribe()的形参类型ObservableEmitter</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ObservableEmitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">Emitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">setDisposable</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Disposable</span> <span class="n">d</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">setCancellable</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Cancellable</span> <span class="n">c</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">boolean</span> <span class="nf">isDisposed</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nd">@NonNull</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ObservableEmitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">serialize</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="nd">@Experimental</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">boolean</span> <span class="nf">tryOnError</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">Throwable</span> <span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现这也是一个接口，不需要太过关注，值得关注的是他的上层，由接口特性我们知道Emitter肯定也是一个接口，我们来看下它定义了什么方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Emitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">T</span> <span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">Throwable</span> <span class="n">error</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看到这三个熟悉的方法，你就知道为什么我们实例化的ObservableEmitter对象e可以调用onNext()、onError()、onComplete()这三个方法了</p>
+<p><strong>create()的参数已经看完了，下面看下create()的内容</strong></p>
+<p>第一句<code>ObjectHelper.requireNonNull(source, &quot;source is null&quot;);</code>是判空代码。
+返回值是<code>RxJavaPlugins.onAssembly(new ObservableCreate&lt;T&gt;(source))</code>，我看看下这个方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">onAssembly</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">...</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">source</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体的内容我们不需要去解读，我们只看他的返回值和传入参数，经过观察发现都是Observable类型，乍看好像没什么问题，但是看上面，源码中传入的是一个ObservableCreate类型，所以这里ObservableCreate有适配器的作用，将ObservableOnSubscribe适配为Observable类型。
+下面我们就看看这个适配器ObservableCreate</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ObservableCreate</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">final</span> <span class="n">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">source</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="nf">ObservableCreate</span><span class="o">(</span><span class="n">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">this</span><span class="o">.</span><span class="na">source</span> <span class="o">=</span> <span class="n">source</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">subscribeActual</span><span class="o">(</span><span class="n">Observer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="n">CreateEmitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CreateEmitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;(</span><span class="n">observer</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="n">observer</span><span class="o">.</span><span class="na">onSubscribe</span><span class="o">(</span><span class="n">parent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="n">source</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">parent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="o">...</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>成员变量、构造方法略过，我们先看看这里频频出现的观察者observer</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Observer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">onSubscribe</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">Disposable</span> <span class="n">d</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">T</span> <span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">Throwable</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同样的也是一个接口，定义的这个四个方法就是我们在订阅时，观察者需要重写的四个方法，注意与上面的Emitter接口及其三个方法进行区分。
+看这行<code>observer.onSubscribe(parent);</code>，由上面我们知道observer.onSubscribe()是接受Disposable类型，而这里的parent是CreateEmitter类型，你可能已经猜出来了，没错，这里的CreateEmitter也是一个适配器，前面的ObservableCreate对被观察者进行了适配，CreateEmitter则对观察者进行了适配，将observer类型转化为Disposable类型，下面看下他的源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">CreateEmitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">Disposable</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">ObservableEmitter</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;,</span> <span class="n">Disposable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="o">...</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">(</span><span class="n">t</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">onError</span><span class="o">(</span><span class="k">new</span> <span class="n">NullPointerException</span><span class="o">(</span><span class="s">&#34;...&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">(!</span><span class="n">isDisposed</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">observer</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">(!</span><span class="n">tryOnError</span><span class="o">(</span><span class="n">t</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				
+</span></span><span class="line"><span class="cl">				<span class="n">RxJavaPlugins</span><span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">(!</span><span class="n">isDisposed</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">observer</span><span class="o">.</span><span class="na">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">dispose</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispose</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">DisposableHelper</span><span class="o">.</span><span class="na">dispose</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>主要就是重写了那四个方法，定义了规则，比如：</p>
+<ul>
+<li>onComplete()与onError()互斥，切CreateEmitter在回调他们两中任意一个后，都会自动dispose()</li>
+<li>Observable和Observer的关系没有被dispose，才会回调Observer的onXXXX()方法</li>
+</ul>
+<blockquote>
+<p>并且，到这里你对onCreate()中的数据流动也一定有了一定的理解：<br/>
+&ndash;&gt; <code>e.onNext(&quot;next&quot;)</code> e是ObservableEmitter，是一个接口 <br/>
+&ndash;&gt; <code>ObservableCreate.CreateEmitter.onNext(&quot;next&quot;)</code> ObservableCreate是Observable装饰类，CreateEmitter使其内部类也是Observer的装饰类并实现了上面的这个接口 <br/>
+&ndash;&gt; <code>Observer.onNext(&quot;next&quot;)</code> <br/>
+&ndash;&gt; <code>Log.d(TAG, &quot;onNext: &quot;+value)</code></p>
+</blockquote>
+<p>我们再回到ObservableCreate的subscribeActual()中。</p>
+<p><code>source.subscribe(parent);</code>，最重要的是这一行，调用者是被观察者，传入的参数为观察者，基本可以猜出来了，这里是订阅的作用，真正将被观察者与观察者联系起来的地方</p>
+<h2 id="subscribe方法">subscribe()方法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">Observer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ObjectHelper</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">observer</span><span class="o">,</span> <span class="s">&#34;observer is null&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">observer</span> <span class="o">=</span> <span class="n">RxJavaPlugins</span><span class="o">.</span><span class="na">onSubscribe</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">observer</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">subscribeActual</span><span class="o">(</span><span class="n">observer</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第一句的作用同样是判空，接下来先获取了传入的observer并进行了相关配置，然后调用<code>subscribeActual(observer);</code>，细心的同学可能注意到了，subscribeActual()正是在上面ObservableCreate中被重写的方法，而具有“<strong>订阅</strong>”意义的那行代码也包含其中，结合subscribe()的本意，这行代码的作用也很明朗了</p>
+<p>如果你只是想对Rxjava基本的数据传输流程、订阅的原理感兴趣，那么就不用看下去了，下面的内容主要是<strong>Rxjava操作符</strong>、<strong>线程调度</strong>、<strong>背包</strong>的源码分析</p>
+<hr>
+<h2 id="操作符map">操作符（Map）</h2>
+<p>开始分析Rxjava的操作符部分</p>
+<p>我们以Map操作符为例展开分析，首先，还是给出一个最简单的实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Observable</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">ObservableEmitter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="s">&#34;next&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}).</span><span class="na">map</span><span class="o">(</span><span class="k">new</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="n">Integer</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}).</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSubscribe</span><span class="o">(</span><span class="n">Disposable</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onSubscribe: &#34;</span> <span class="o">+</span> <span class="n">d</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">Integer</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onNext: &#34;</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onError: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onComplete: &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>先看map()方法整体</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="o">&lt;</span><span class="n">R</span> <span class="o">&gt;</span> <span class="n">Observable</span> <span class="o">&lt;</span> <span class="n">R</span> <span class="o">&gt;</span> <span class="n">map</span><span class="o">(</span><span class="n">Function</span> <span class="o">&lt;</span> <span class="o">?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span> <span class="o">&gt;</span> <span class="n">mapper</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">			<span class="n">ObjectHelper</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">mapper</span><span class="o">,</span> <span class="s">&#34;mapper is null&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">RxJavaPlugins</span><span class="o">.</span><span class="na">onAssembly</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableMap</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">R</span><span class="o">&gt;(</span><span class="k">this</span><span class="o">,</span> <span class="n">mapper</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回值肯定是Observable，参数是一个泛型接口，我们看下这个接口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Function</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">R</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">R</span> <span class="nf">apply</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">T</span> <span class="n">t</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>传入T，返回R，符合Map操作符传入两个数据类型进行转换的效果，在意料之中。
+继续看map()的方法内容，第一行按照惯例是判空语句，我们发现map()的return语句与create()极为相似，都是调用了RxJavaPlugins.onAssembly()，仅是传入的参数不同，其实不只是Map操作符，大多操作符都是这样的，他们的不同仅仅是传入参数的不同，也就是适配器的不同，这说明，操作符的具体实现（比如Map的类型转换）都是在各自的适配器中做的。</p>
+<blockquote>
+<p>小结：create以及对大多数操作符的retun语句都是RxJavaPlugins.onAssembly()，仅是传入参数不同</p>
+</blockquote>
+<p>进入ObservableMap的部分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ObservableMap</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">AbstractObservableWithUpstream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">final</span> <span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">function</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="nf">ObservableMap</span><span class="o">(</span><span class="n">ObservableSource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">source</span><span class="o">,</span> <span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">function</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="kd">super</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="k">this</span><span class="o">.</span><span class="na">function</span> <span class="o">=</span> <span class="n">function</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">subscribeActual</span><span class="o">(</span><span class="n">Observer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">source</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">MapObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;(</span><span class="n">t</span><span class="o">,</span> <span class="n">function</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们发现，ObservableMap做的事情很少，就三件事，第一：在构造方法中，将传入的Observable也就是本身抛给父类（ObservableSource是Observable的父类，所以可以接受）；第二：对转换逻辑funtion进行保存；第三：重写subscribeActual()方法并在其中实现<strong>订阅</strong>，这里与ObservableCreate是一样的，只是传递的参数不同</p>
+<blockquote>
+<p>小结：create以及对大多数操作符的第一层适配器中都会重写subscribeActual()并实现<strong>订阅</strong>逻辑</p>
+</blockquote>
+<p>我们并没有在ObservableMap的代码中发现进行类型转换的代码，不要心急，有的同学估计已经发现了，这里的进行订阅操作的<code>source.subscribe()</code>传入的参数类型改变了 ，之前是CreateEmitter，现在变为了一个叫MapObserver的类，我们知道CreateEmitter中实现了那四个常用的方法并制定了相关规则，所以你推测MapObserver中做了同样的操作，其实不是的，但也差不了太多，除onNext()之外的三个方法是在它的父类BasicFuseableObserver中重写的，MapObserver中只对onNext()进行的重写，而且在其中<strong>进行了数据类型转换</strong>的工作，我们看一下源码(这里我们只看onNext()部分就可以了)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">MapObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">BasicFuseableObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="o">(</span><span class="n">done</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="o">(</span><span class="n">sourceMode</span> <span class="o">!=</span> <span class="n">NONE</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">actual</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span>
+</span></span><span class="line"><span class="cl">				<span class="n">U</span> <span class="n">v</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">				<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">v</span> <span class="o">=</span> <span class="n">ObjectHelper</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">mapper</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">t</span><span class="o">),</span> <span class="s">&#34;The mapper function returned a null value.&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">fail</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span>
+</span></span><span class="line"><span class="cl">				<span class="n">actual</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="o">...</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到再代码中利用ObjectHelper将上游传过来的T，转换成了下游需要的U</p>
+<blockquote>
+<p>到这里你对.map()下的数据流动也一定有了一定的理解：<br/>
+&ndash;&gt; <code>e.onNext(&quot;next&quot;)</code><br/>
+&ndash;&gt; <code>ObservableMap.MapObserver.onNext (&quot;next&quot;)</code><br/>
+&ndash;&gt; <code>Observer.onNext(&quot;next&quot;)</code> <br/>
+&ndash;&gt; <code>Log.d(TAG, &quot;onNext: &quot;+value)</code><br/>
+订阅的发送顺序：<br/>
+&ndash;&gt; <code>.subscribe(observer)</code><br/>
+&ndash;&gt; <code>ObservableMap.subscribeActual(observer)</code><br/>
+&ndash;&gt; <code>ObservableCreate.subscribeActual(new MapObserver(observer,function))</code></p>
+</blockquote>
+<hr>
+<p>下面进入<strong>线程调度</strong>源码分析的阶段，先看subscribeOn()</p>
+<h2 id="线程调度-subscribeon">线程调度-subscribeOn()</h2>
+<p>老规矩，先来一个参考代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Observable</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">ObservableEmitter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="s">&#34;next&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}).</span><span class="na">subscribeOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">io</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">				<span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSubscribe</span><span class="o">(</span><span class="n">Disposable</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onSubscribe: &#34;</span> <span class="o">+</span> <span class="n">d</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onNext: &#34;</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onError: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onComplete&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">				<span class="o">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>还是一样，直接看SubscribeOn()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">subscribeOn</span><span class="o">(</span><span class="n">Scheduler</span> <span class="n">scheduler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">ObjectHelper</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="s">&#34;scheduler is null&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">RxJavaPlugins</span><span class="o">.</span><span class="na">onAssembly</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableSubscribeOn</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;(</span><span class="k">this</span><span class="o">,</span> <span class="n">scheduler</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回值Observable情理之中，return返回RxJavaPlugins.onAssembly()也是一样，两点不同：</p>
+<ul>
+<li>装饰类（也就是上文说的适配器）是ObservableSubscribeOn</li>
+<li>传入参数为一个Scheduler</li>
+</ul>
+<p>进入ObservableSubscribeOn</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ObservableSubscribeOn</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">AbstractObservableWithUpstream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">Scheduler</span> <span class="n">scheduler</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">ObservableSubscribeOn</span><span class="o">(</span><span class="n">ObservableSource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">source</span><span class="o">,</span> <span class="n">Scheduler</span> <span class="n">scheduler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">scheduler</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">subscribeActual</span><span class="o">(</span><span class="kd">final</span> <span class="n">Observer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">final</span> <span class="n">SubscribeOnObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubscribeOnObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">s</span><span class="o">.</span><span class="na">onSubscribe</span><span class="o">(</span><span class="n">parent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">parent</span><span class="o">.</span><span class="na">setDisposable</span><span class="o">(</span><span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleDirect</span><span class="o">(</span><span class="k">new</span> <span class="n">SubscribeTask</span><span class="o">(</span><span class="n">parent</span><span class="o">)));</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>根据经验，构造中进行调用父类、存值一些操作，没什么可看的，直接看订阅的实现subscribeActual()方法，可以看见，这次对下游观察者进行封装的适配器是SubscribeOnObserver类，根据CreateEmitter、MapObserver的经验，我们可以猜测出它或它的父类肯定实现了那四个方法，下面我们看一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">SubscribeOnObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">Disposable</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;,</span> <span class="n">Disposable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="n">8094547886072529208L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">Observer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">actual</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">Disposable</span><span class="o">&gt;</span> <span class="n">s</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">SubscribeOnObserver</span><span class="o">(</span><span class="n">Observer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">actual</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">actual</span> <span class="o">=</span> <span class="n">actual</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">Disposable</span><span class="o">&gt;();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSubscribe</span><span class="o">(</span><span class="n">Disposable</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">DisposableHelper</span><span class="o">.</span><span class="na">setOnce</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">s</span><span class="o">,</span> <span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">actual</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">actual</span><span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">actual</span><span class="o">.</span><span class="na">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispose</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">DisposableHelper</span><span class="o">.</span><span class="na">dispose</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">DisposableHelper</span><span class="o">.</span><span class="na">dispose</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isDisposed</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">DisposableHelper</span><span class="o">.</span><span class="na">isDisposed</span><span class="o">(</span><span class="n">get</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">setDisposable</span><span class="o">(</span><span class="n">Disposable</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">DisposableHelper</span><span class="o">.</span><span class="na">setOnce</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">d</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除去构造、四个方法、基本的存储语句就剩下一个setDisposable()方法了，如果你对Scheduler有研究，你就知道在Scheduler中真正处理线程调用逻辑的是Worker类，这里setDisposable()的作用就是将你传入的Scheduler返回的worker加入管理。</p>
+<p>目光回到subscribeActual()中，调用观察者的onSubscribe()之后，马上调用了parent.setDisposable()，这里停一下，你可以翻上去观察一下其他方法的subscribeActual()部分，都是在这时候执行<strong>订阅</strong>操作，但是我们在这里并没有发现，订阅操作不可能没有发生，那么是不是发生在了parent.setDisposable()这个方法里面呢？我们之前只关注了这个方法的内容，对于传入的参数还没有解析，我们现在看一下，希望有新的发现。</p>
+<p>传入的参数是<code>scheduler.scheduleDirect(new SubscribeTask(parent))</code>。
+先看SubscribeTask这个类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">final</span> <span class="kd">class</span> <span class="nc">SubscribeTask</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">final</span> <span class="n">SubscribeOnObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">parent</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">SubscribeTask</span><span class="o">(</span><span class="n">SubscribeOnObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">source</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">parent</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个类继承Runnable，所以实现了一个子线程，在run()中执行操作，没错，<code>source.subscribe(parent);</code>，熟悉的语句，这就证明了这里的<strong>订阅</strong>操作发生在了Scheduler的线程中。</p>
+<p>我们继续看scheduleDirect()这个方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Disposable</span> <span class="nf">scheduleDirect</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">Runnable</span> <span class="n">run</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">scheduleDirect</span><span class="o">(</span><span class="n">run</span><span class="o">,</span> <span class="n">0L</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>继续</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Disposable</span> <span class="nf">scheduleDirect</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">Runnable</span> <span class="n">run</span><span class="o">,</span> <span class="kt">long</span> <span class="n">delay</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">Worker</span> <span class="n">w</span> <span class="o">=</span> <span class="n">createWorker</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">Runnable</span> <span class="n">decoratedRun</span> <span class="o">=</span> <span class="n">RxJavaPlugins</span><span class="o">.</span><span class="na">onSchedule</span><span class="o">(</span><span class="n">run</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">DisposeTask</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DisposeTask</span><span class="o">(</span><span class="n">decoratedRun</span><span class="o">,</span> <span class="n">w</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">w</span><span class="o">.</span><span class="na">schedule</span><span class="o">(</span><span class="n">task</span><span class="o">,</span> <span class="n">delay</span><span class="o">,</span> <span class="n">unit</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">task</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们可以发现，传入的子线程被包装配置之后，开始在Worker也就是Scheduler线程中执行
+我们继续看DisposeTask这个类，具体的订阅子线程的启动就在这里</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">DisposeTask</span> <span class="kd">implements</span> <span class="n">Runnable</span><span class="o">,</span> <span class="n">Disposable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">Runnable</span> <span class="n">decoratedRun</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">Worker</span> <span class="n">w</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Thread</span> <span class="n">runner</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">DisposeTask</span><span class="o">(</span><span class="n">Runnable</span> <span class="n">decoratedRun</span><span class="o">,</span> <span class="n">Worker</span> <span class="n">w</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">decoratedRun</span> <span class="o">=</span> <span class="n">decoratedRun</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">w</span> <span class="o">=</span> <span class="n">w</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">runner</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">decoratedRun</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">dispose</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">runner</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispose</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">runner</span> <span class="o">==</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">w</span> <span class="k">instanceof</span> <span class="n">NewThreadWorker</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="o">((</span><span class="n">NewThreadWorker</span><span class="o">)</span> <span class="n">w</span><span class="o">).</span><span class="na">shutdown</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">w</span><span class="o">.</span><span class="na">dispose</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isDisposed</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">w</span><span class="o">.</span><span class="na">isDisposed</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到run()中调用了<code>ecoratedRun.run();</code>来启动线程，注意<strong>这里是使用的run()而不是start()</strong>，而且整个rxjava流程走完后会自己调用<code>dispose();</code>关闭线程。</p>
+<blockquote>
+<p>到这里，你应该明白了subscribeOn()线程调度的过程，正如它的效果描述一样：将观察者的操作运行在Scheduler.io()线程中<br/>
+&ndash;&gt; subscribeOn(Schedulers.io())<br/>
+&ndash;&gt; 返回一个ObservableSubscribeOn的包装类<br/>
+&ndash;&gt; 当上游的被观察者被订阅之后，回调ObservableSubscribeOn包装类中的subscribeActual()<br/>
+&ndash;&gt; 线程切换至Schedulers.io()，并进行<strong>订阅操作</strong><code>source.subscribe(parent)</code></p>
+</blockquote>
+<blockquote>
+<p>理顺思路之后我们发现，这里订阅，模式与之前相同，还是下游观察者对上游被观察者进行订阅，依旧是自下向上的，但是我们通过之前的源码分析知道，上游发送数据时调用的那个四个方法实际是调用下游观察者对应重写的四个方法，所以这边满足了线程调度的目的：将观察者所做的操作置与Schedulers.io()线程中</p>
+</blockquote>
+<blockquote>
+<p>并且，我们这里还可以解释一个问题
+<strong>为什么subscribeOn(Schedulers.xxx())切换线程N次，总是以第一次为准</strong>？
+我们知道使用subscribeOn()进行线程调度时订阅的顺序是从下往上，所以有多个subscribeOn()时，从最后一个开始执行，一直执行到第一个，最后的结果还是以第一个为准</p>
+</blockquote>
+<hr>
+<p>然后看obsweveOn()，有了上面subscribeOn()的经验，分析obsweveOn()就快了</p>
+<h2 id="线程调度-observeon">线程调度-observeOn()</h2>
+<p>实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Observable</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableOnSubscribe</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">ObservableEmitter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="s">&#34;next&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="n">e</span><span class="o">.</span><span class="na">onComplete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}).</span><span class="na">subscribeOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">io</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">				<span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="n">AndroidSchedulers</span><span class="o">.</span><span class="na">mainThread</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">				<span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSubscribe</span><span class="o">(</span><span class="n">Disposable</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onSubscribe: &#34;</span> <span class="o">+</span> <span class="n">d</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onNext: &#34;</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onError: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">					<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">					<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">						<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&#34;onComplete: &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">				<span class="o">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>observeOn()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">observeOn</span> <span class="o">(</span><span class="n">Scheduler</span> <span class="n">scheduler</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">observeOn</span><span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">bufferSize</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>没看见RxJavaPlugins.onAssembly()，担心不一样？不存在的，被包了一层而已</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">observeOn</span> <span class="o">(</span><span class="n">Scheduler</span> <span class="n">scheduler</span><span class="o">,</span><span class="kt">boolean</span> <span class="n">delayError</span><span class="o">,</span> <span class="kt">int</span> <span class="n">bufferSize</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ObjectHelper</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="s">&#34;scheduler is null&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ObjectHelper</span><span class="o">.</span><span class="na">verifyPositive</span><span class="o">(</span><span class="n">bufferSize</span><span class="o">,</span> <span class="s">&#34;bufferSize&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">RxJavaPlugins</span><span class="o">.</span><span class="na">onAssembly</span><span class="o">(</span><span class="k">new</span> <span class="n">ObservableObserveOn</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;(</span><span class="k">this</span><span class="o">,</span> <span class="n">scheduler</span><span class="o">,</span> <span class="n">delayError</span><span class="o">,</span> <span class="n">bufferSize</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>还是那个顺序，ObservableObserveOn</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ObservableObserveOn</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">AbstractObservableWithUpstream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">Scheduler</span> <span class="n">scheduler</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="kt">boolean</span> <span class="n">delayError</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="kt">int</span> <span class="n">bufferSize</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">ObservableObserveOn</span><span class="o">(</span><span class="n">ObservableSource</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">source</span><span class="o">,</span> <span class="n">Scheduler</span> <span class="n">scheduler</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">delayError</span><span class="o">,</span> <span class="kt">int</span> <span class="n">bufferSize</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">scheduler</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">delayError</span> <span class="o">=</span> <span class="n">delayError</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">bufferSize</span> <span class="o">=</span> <span class="n">bufferSize</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">subscribeActual</span><span class="o">(</span><span class="n">Observer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">observer</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">scheduler</span> <span class="k">instanceof</span> <span class="n">TrampolineScheduler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">source</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">observer</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">Scheduler</span><span class="o">.</span><span class="na">Worker</span> <span class="n">w</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createWorker</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">source</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">ObserveOnObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;(</span><span class="n">observer</span><span class="o">,</span> <span class="n">w</span><span class="o">,</span> <span class="n">delayError</span><span class="o">,</span> <span class="n">bufferSize</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看subscribeActual()，很好理解，就是先判断是不是在主线程，是的话，直接<strong>订阅</strong>完事，不是的话跳到主线程去，在<strong>订阅</strong>，切换线程依旧是使用的Worker那一套，与subscribeOn()中类似，先创建一个主线程的Worker，然后把Worker放进观察者的包装类ObserveOnObserver中，不用多说，里面肯定有对那四个方法的实现，我这里简化一下他的代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ObserveOnObserver</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">BasicIntQueueDisposable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;,</span> <span class="n">Runnable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">done</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">sourceMode</span> <span class="o">!=</span> <span class="n">QueueDisposable</span><span class="o">.</span><span class="na">ASYNC</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">schedule</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">schedule</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">getAndIncrement</span><span class="o">()</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">worker</span><span class="o">.</span><span class="na">schedule</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其他那三个方法与onNext()大致相同，只看这一个就可以了，<code>schedule();</code>这行代码上面都是取数据的操作，并没有对数据进行发送，所以说即使使用线程调用将被观察者的操作放在主线程，他的数据准备阶段仍然是在原线程执行的，当<code>schedule();</code>执行后，进入上面传入Workder线程，也就是主线程，然后才将queue中的T取出，继而发送给下游的观察者。其他方法也是一样的流程，比如onError()、onComplete()，都是将错误或完成的信息先保存，等待切换线程后在执行发送操作。</p>
+<blockquote>
+<p>由此，我们可知ObserverOn()是向下作用的，每次调用都对下游的代码产生作用，所以多次调用ObserverOn()，是最后一次生效的</p>
+</blockquote>
+<hr>
+<p>好了，Rxjava的源码分析到这里结束了，文中有很多没有讲到的地方，日后有时间的会继续讲解剩余部分。</p>
+<h1 id="总结">总结</h1>
+<p>我们来整理一下文中出现的各个装饰者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">Observable.create()
+</span></span><span class="line"><span class="cl">	- ObservableCreate
+</span></span><span class="line"><span class="cl">	- CreateEmitter
+</span></span><span class="line"><span class="cl">Observable.map()
+</span></span><span class="line"><span class="cl">	- ObservableMap
+</span></span><span class="line"><span class="cl">	- MapObserver
+</span></span><span class="line"><span class="cl">Observable.subscribeOn()
+</span></span><span class="line"><span class="cl">	- ObservableSubscribeOn
+</span></span><span class="line"><span class="cl">	- SubscribeOnObserver
+</span></span><span class="line"><span class="cl">Observable.observeOn()：
+</span></span><span class="line"><span class="cl">	- ObservableObserveOn
+</span></span><span class="line"><span class="cl">	- ObserveOnObserver
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-------------
+</span></span><span class="line"><span class="cl">第一层装饰者的作用：
+</span></span><span class="line"><span class="cl">	- 对被观察者进行适配
+</span></span><span class="line"><span class="cl">	- 根据自己的需求实现subscribeActual()
+</span></span><span class="line"><span class="cl">第二层装饰者的作用：
+</span></span><span class="line"><span class="cl">	- 对观察者进行适配
+</span></span><span class="line"><span class="cl">	- 根据自己的需求实现onNext()、onError()、onComplete()...等上层定义的方法
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>本文中，我们对create()、subscribe()、map()、subscribeOn()、observeOn()的源码进行的阅读，想你已经可以从源码的角度回答以下问题：</p>
+<ul>
+<li>被观察者如何发送数据？</li>
+<li>观察者如何接受数据？</li>
+<li>操作符的实现原理是什么？</li>
+<li>Map关键字是如何实现类型转换的？</li>
+<li>线程调度是如何实现的？</li>
+<li>为什么多次调用subscribeOn()，只有第一次生效？</li>
+<li>为什么多次调用observeOn()，只有最后一次生效？</li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">oldjii</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-09-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Android/">Android</a>
+          <a href="/tags/Rxjava/">Rxjava</a>
+          <a href="/tags/%E6%BA%90%E7%A0%81/">源码</a>
+          <a href="/tags/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/">开源框架</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/Android%E4%B8%AD%E7%9A%84IPC/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Android中的IPC</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/App%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">
+            <span class="next-text nav-default">App的启动流程</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+  <script src="https://utteranc.es/client.js"
+            repo="Oldjii/oldjii"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<div class="social-links">
+      <a href="mailto:mail@jiguankai.cn" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/OldJii" class="iconfont icon-github" title="github"></a>
+      <a href="hhttps://www.zhihu.com/people/404-21" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>oldjii</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
