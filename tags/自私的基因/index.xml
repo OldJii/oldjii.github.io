@@ -16,14 +16,5 @@
       <description>初开始听说《自私的基因》这本书，是在 21 年末的时候，那时候刚从小米离职，与新公司约定的入职时间稍晚了些，计划的是来一场说走就走的离职旅行、散散</description>
     </item>
     
-    <item>
-      <title>《自私的基因》读书笔记</title>
-      <link>http://localhost:1313/post/git_account/</link>
-      <pubDate>Thu, 24 Mar 2022 10:46:28 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/git_account/</guid>
-      <description>清除配置 查看 Git 本地配置 1 git config --list 清除用户名和邮箱 1 2 git config --global --unset user.name git config --global --unset user.email 生成 ssh-key 使用 ssh-keygen 命令生成 ssh-key，并手动指定 id 1 ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C &amp;#34;xx1@gmail.com&amp;#34; 生成成</description>
-    </item>
-    
   </channel>
 </rss>

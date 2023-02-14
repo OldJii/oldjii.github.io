@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on oldjii‘s digital space</title>
+    <link>http://localhost:1313/tags/Git/</link>
+    <description>Recent content in Git on oldjii‘s digital space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 14 Feb 2023 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/Git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mac多个Git账户共存</title>
+      <link>http://localhost:1313/post/git_account/</link>
+      <pubDate>Tue, 14 Feb 2023 10:46:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/git_account/</guid>
+      <description>清除配置 查看 Git 本地配置 1 git config --list 清除用户名和邮箱 1 2 git config --global --unset user.name git config --global --unset user.email 生成 ssh-key 使用 ssh-keygen 命令生成 ssh-key，并手动指定 id 1 ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C &amp;#34;xx1@gmail.com&amp;#34; 生成成</description>
+    </item>
+    
+  </channel>
+</rss>

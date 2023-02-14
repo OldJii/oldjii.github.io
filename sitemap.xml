@@ -9,35 +9,56 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/china_economy/</loc>
-    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2023-02-14T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
+    <loc>http://localhost:1313/tags/Git/</loc>
+    <lastmod>2023-02-14T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/git_account/</loc>
+    <lastmod>2023-02-14T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
+    <lastmod>2023-02-14T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2023-01-02T10:46:28+08:00</lastmod>
+    <lastmod>2023-02-14T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2023-02-14T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/%E5%B7%A5%E4%BD%9C/</loc>
+    <lastmod>2023-02-14T10:46:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/china_economy/</loc>
     <lastmod>2023-01-02T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -192,13 +213,6 @@
   
   <url>
     <loc>http://localhost:1313/post/gene/</loc>
-    <lastmod>2022-03-24T10:46:28+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/git_account/</loc>
     <lastmod>2022-03-24T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
