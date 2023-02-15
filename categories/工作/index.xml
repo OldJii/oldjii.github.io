@@ -37,5 +37,79 @@
 &lt;/div&gt;</description>
     </item>
     
+    <item>
+      <title>Ring_layout：Flutter 环形布局实现</title>
+      <link>http://localhost:1313/post/ring_layout/</link>
+      <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/ring_layout/</guid>
+      <description>&lt;h2 id=&#34;环形布局的定义&#34;&gt;环形布局的定义&lt;/h2&gt;
+&lt;p&gt;如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 &lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin&#34;&gt;圆心距&lt;/a&gt; 相等。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-04-24_22.15.57.png width=400 height=400 /&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hugo中支持LaTeX的数学表达式</title>
+      <link>http://localhost:1313/post/hugo_mathJax/</link>
+      <pubDate>Sat, 18 Dec 2021 01:19:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/hugo_mathJax/</guid>
+      <description>Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax</description>
+    </item>
+    
+    <item>
+      <title>HLS直播协议m3u8</title>
+      <link>http://localhost:1313/post/m3u8/</link>
+      <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/m3u8/</guid>
+      <description>为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。 三者关系： HLS是一种流媒体传输协议 M3U8是HLS传输内容中</description>
+    </item>
+    
+    <item>
+      <title>一些算法题解</title>
+      <link>http://localhost:1313/post/algorithm/</link>
+      <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/algorithm/</guid>
+      <description>对于每一位求职的 Coder 来说，在 LeetCode 上熟练刷数据结构和算法题的重要性不言而喻，甚至某一程度上直接决定了面试的成败。 最近有在准备跳槽，所以重新把 剑指O</description>
+    </item>
+    
+    <item>
+      <title>Android中的IPC</title>
+      <link>http://localhost:1313/post/android_ipc/</link>
+      <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/android_ipc/</guid>
+      <description>什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p</description>
+    </item>
+    
+    <item>
+      <title>Rxjava源码阅读</title>
+      <link>http://localhost:1313/post/rxjava/</link>
+      <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/rxjava/</guid>
+      <description>&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/&gt;
+&lt;/div&gt;
+&lt;p&gt;本文不对Rxjava的基本使用进行讲解，仅对源码做分析，如果你对Rxjava的基本使用还有不清楚的，建议学习官方文档之后再阅读本文&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mcxiaoke.gitbooks.io/rxdocs/content/Operators.html&#34;&gt;ReactiveX文档中文翻译&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&#34;https://github.com/ReactiveX/RxJava&#34;&gt;Rxjava&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&#34;http://gank.io/post/560e15be2dca930e00da1083&#34;&gt;给Android开发者的RxJava详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;本文会逐一解析Rxjava的create()、subscribe()、操作符、subscribeOn()、obsweveOn()的源码，模式是先给出一段模版代码，然后逐渐深入分析&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>App的启动流程</title>
+      <link>http://localhost:1313/post/app_start_process/</link>
+      <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/app_start_process/</guid>
+      <description>本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流程分为三部分： 从开机到显示应用列表 从点击应</description>
+    </item>
+    
   </channel>
 </rss>

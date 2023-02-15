@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>读书笔记 on oldjii‘s digital space</title>
+    <link>http://localhost:1313/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 读书笔记 on oldjii‘s digital space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 02 Jan 2023 10:46:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《置身事内》读书笔记</title>
+      <link>http://localhost:1313/post/china_economy/</link>
+      <pubDate>Mon, 02 Jan 2023 10:46:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/china_economy/</guid>
+      <description>微观 在我国，政府不但影响“蛋糕”的分配，也参与“蛋糕”的生产，所以我们不可能脱离政府谈经济。 地方政府的权利与事务 要理解政府治理和运作的模式，</description>
+    </item>
+    
+    <item>
+      <title>《自私的基因》读书笔记</title>
+      <link>http://localhost:1313/post/gene/</link>
+      <pubDate>Thu, 24 Mar 2022 10:46:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/gene/</guid>
+      <description>初开始听说《自私的基因》这本书，是在 21 年末的时候，那时候刚从小米离职，与新公司约定的入职时间稍晚了些，计划的是来一场说走就走的离职旅行、散散</description>
+    </item>
+    
+  </channel>
+</rss>
