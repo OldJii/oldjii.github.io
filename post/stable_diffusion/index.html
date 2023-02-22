@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Colab部署Stable Diffusion - oldjii‘s digital space</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="oldjii" /><meta name="description" content="Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/ 分配资源 进入 Stable_Diffusion_WebUi_Altryne Colab 工程。 https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb 点击右上角的连接获取云主机资源并连接运行时。 运行 1.0 单元格中的命令可以获主机信息。 ![image-20230222142936172](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222142936172.png) 一般分配到的都是 Tesla" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.95.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/stable_diffusion/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Colab部署Stable Diffusion" />
+<meta property="og:description" content="Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/ 分配资源 进入 Stable_Diffusion_WebUi_Altryne Colab 工程。 https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb 点击右上角的连接获取云主机资源并连接运行时。 运行 1.0 单元格中的命令可以获主机信息。 ![image-20230222142936172](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222142936172.png) 一般分配到的都是 Tesla" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/stable_diffusion/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-02-22T15:49:06+08:00" />
+<meta property="article:modified_time" content="2023-02-22T15:49:06+08:00" />
+
+<meta itemprop="name" content="Colab部署Stable Diffusion">
+<meta itemprop="description" content="Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/ 分配资源 进入 Stable_Diffusion_WebUi_Altryne Colab 工程。 https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb 点击右上角的连接获取云主机资源并连接运行时。 运行 1.0 单元格中的命令可以获主机信息。 ![image-20230222142936172](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222142936172.png) 一般分配到的都是 Tesla"><meta itemprop="datePublished" content="2023-02-22T15:49:06+08:00" />
+<meta itemprop="dateModified" content="2023-02-22T15:49:06+08:00" />
+<meta itemprop="wordCount" content="493">
+<meta itemprop="keywords" content="Ai 绘画,Stable Diffusion," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Colab部署Stable Diffusion"/>
+<meta name="twitter:description" content="Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/ 分配资源 进入 Stable_Diffusion_WebUi_Altryne Colab 工程。 https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb 点击右上角的连接获取云主机资源并连接运行时。 运行 1.0 单元格中的命令可以获主机信息。 ![image-20230222142936172](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222142936172.png) 一般分配到的都是 Tesla"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">oldjii‘s digital space</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">oldjii‘s digital space</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Colab部署Stable Diffusion</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-02-22 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%B7%A5%E4%BD%9C/"> 工作 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#分配资源">分配资源</a></li>
+            <li><a href="#配置模型">配置模型</a></li>
+            <li><a href="#设置密码">设置密码</a></li>
+            <li><a href="#运行服务">运行服务</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/Untitled.png" alt="Untitled"></p>
+<blockquote>
+<p>Form Weird Wonderful Ai Art - <a href="https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/">https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/</a></p>
+</blockquote>
+<h3 id="分配资源">分配资源</h3>
+<p>进入 <a href="https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb">Stable_Diffusion_WebUi_Altryne</a> Colab 工程。</p>
+<blockquote>
+<p><a href="https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb">https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb</a></p>
+</blockquote>
+<p>点击右上角的<strong>连接</strong>获取云主机资源并连接运行时。</p>
+<p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222142539642.png" alt="image-20230222142539642"></p>
+<p>运行 1.0 单元格中的命令可以获主机信息。</p>
+<p>![image-20230222142936172](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222142936172.png)</p>
+<p>一般分配到的都是 Tesla T4 机型，如果人品欧分配到 V100，那可以好好的吹一波了。</p>
+<h3 id="配置模型">配置模型</h3>
+<p>首先注册 <a href="https://huggingface.co/">Hugging Face</a> 账号，并生成 WRITE 类型的 <a href="https://huggingface.co/settings/tokens">Access Tokens</a>。</p>
+<blockquote>
+<p><a href="https://huggingface.co/settings/tokens">https://huggingface.co/settings/tokens</a></p>
+</blockquote>
+<p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222144043327.png" alt="image-20230222144043327"></p>
+<p>返回到 Colab 界面，展开 <em>1.4 Connect to Google Drive</em> 单元格，勾选 download_if_missing 并输入 Hugging Face 的 Accsee Token。</p>
+<p>![image-20230222144232989](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222144232989.png)</p>
+<h3 id="设置密码">设置密码</h3>
+<p>在 <em>2.1 Optional - Set webUI settings and configs before running</em> 中配置密码。</p>
+<p>![image-20230222144551905](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222144551905.png)</p>
+<h3 id="运行服务">运行服务</h3>
+<p>将所有单元块收起，依次运行所有单元块部署服务即可。</p>
+<p>运行耗时</p>
+<ul>
+<li>Setup stage：5min</li>
+<li>Run the Stable Diffusion webui：1s</li>
+<li>Launch WebUI for stable diffusion：1min</li>
+</ul>
+<p>![image-20230222144857944](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222144857944.png)</p>
+<p>运行过程中会弹窗请求登录 Google Drive，正常登录并允许即可。</p>
+<p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222145720360.png" alt="image-20230222145720360"></p>
+<p>运行完成点击 Public URL 进入 Stable Diffusion WebUI 界面。账号为 wubei，密码为上面自己配置的。</p>
+<p>![image-20230222150541478](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222150541478.png)</p>
+<p>然后就可以尽情的享用了。</p>
+<p>输入 prompt，即可生成对应的图像，比如输入 “ an astronaut in the water ”。</p>
+<p>![image-20230222151132661](/Users/jiguankai/Library/Application Support/typora-user-images/image-20230222151132661.png)</p>
+<p>当然，你可以输入更多的 prompt 信息，来生成更加具体准确的图像。</p>
+<blockquote>
+<p>(((masterpiece))),((best quality)), flat chest,((loli)),((one girl)),very long light white hair, beautiful detailed red eyes,aqua eyes,white robe, cat ears,(flower hairpin),sunlight, light smile,blue necklace,see-through,</p>
+<p>杰作，最佳品质，贫乳，萝莉，1个女孩，很长的头发，淡白色头发，红色眼睛，浅绿色眼睛，白色长裙，猫耳，发夹，阳光下，淡淡的微笑，蓝色项链，透明</p>
+</blockquote>
+<p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222154010936.png" alt="image-20230222154010936"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">oldjii</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-02-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Ai-%E7%BB%98%E7%94%BB/">Ai 绘画</a>
+          <a href="/tags/Stable-Diffusion/">Stable Diffusion</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/git_account/">
+            <span class="next-text nav-default">Mac多个Git账户共存</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+  <script src="https://utteranc.es/client.js"
+            repo="Oldjii/oldjii"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<div class="social-links">
+      <a href="mailto:mail@jiguankai.cn" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/OldJii" class="iconfont icon-github" title="github"></a>
+      <a href="hhttps://www.zhihu.com/people/404-21" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>oldjii</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
