@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Colab部署Stable Diffusion - oldjii‘s digital space</title>
+  <title>Stable-Diffusion-Colab - oldjii‘s digital space</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -40,7 +40,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Colab部署Stable Diffusion" />
+<meta property="og:title" content="Stable-Diffusion-Colab" />
 <meta property="og:description" content="
 
 
@@ -50,7 +50,7 @@ Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffu
 <meta property="article:published_time" content="2023-02-22T15:49:06+08:00" />
 <meta property="article:modified_time" content="2023-02-22T15:49:06+08:00" />
 
-<meta itemprop="name" content="Colab部署Stable Diffusion">
+<meta itemprop="name" content="Stable-Diffusion-Colab">
 <meta itemprop="description" content="
 
 
@@ -58,7 +58,7 @@ Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffu
 <meta itemprop="dateModified" content="2023-02-22T15:49:06+08:00" />
 <meta itemprop="wordCount" content="479">
 <meta itemprop="keywords" content="Ai 绘画,Stable Diffusion," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Colab部署Stable Diffusion"/>
+<meta name="twitter:title" content="Stable-Diffusion-Colab"/>
 <meta name="twitter:description" content="
 
 
@@ -139,7 +139,7 @@ Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffu
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Colab部署Stable Diffusion</h1>
+      <h1 class="post-title">Stable-Diffusion-Colab</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2023-02-22 </span>
@@ -157,14 +157,10 @@ Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffu
   <ul>
     <li>
       <ul>
-        <li>
-          <ul>
-            <li><a href="#分配资源">分配资源</a></li>
-            <li><a href="#配置模型">配置模型</a></li>
-            <li><a href="#设置密码">设置密码</a></li>
-            <li><a href="#运行服务">运行服务</a></li>
-          </ul>
-        </li>
+        <li><a href="#分配资源">分配资源</a></li>
+        <li><a href="#配置模型">配置模型</a></li>
+        <li><a href="#设置密码">设置密码</a></li>
+        <li><a href="#运行服务">运行服务</a></li>
       </ul>
     </li>
   </ul>
@@ -176,22 +172,22 @@ Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffu
 <img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 />
 </div>
 <p><em>Form Weird Wonderful Ai Art - <a href="https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/">https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies/</a></em></p>
-<h3 id="分配资源">分配资源</h3>
+<h2 id="分配资源">分配资源</h2>
 <p>进入 <a href="https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb">Stable_Diffusion_WebUi_Altryne</a> Colab 工程。</p>
 <p>点击右上角的<strong>连接</strong>获取云主机资源并连接运行时。</p>
 <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222142539642.png" alt="image-20230222142539642"></p>
 <p>运行 1.0 单元格中的命令可以获主机信息。</p>
 <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222142936172.png" alt="image-20230222142936172"></p>
 <p>一般分配到的都是 Tesla T4 机型，如果人品欧分配到 V100，那可以好好的吹一波了。</p>
-<h3 id="配置模型">配置模型</h3>
+<h2 id="配置模型">配置模型</h2>
 <p>首先注册 <a href="https://huggingface.co/">Hugging Face</a> 账号，并生成 WRITE 类型的 <a href="https://huggingface.co/settings/tokens">Access Tokens</a>。</p>
 <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222144043327.png" alt="image-20230222144043327"></p>
 <p>返回到 Colab 界面，展开 <em>1.4 Connect to Google Drive</em> 单元格，勾选 download_if_missing 并输入 Hugging Face 的 Accsee Token。</p>
 <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222144232989.png" alt="image-20230222144232989"></p>
-<h3 id="设置密码">设置密码</h3>
+<h2 id="设置密码">设置密码</h2>
 <p>在 <em>2.1 Optional - Set webUI settings and configs before running</em> 中配置密码。</p>
 <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/image-20230222144551905.png" alt="image-20230222144551905"></p>
-<h3 id="运行服务">运行服务</h3>
+<h2 id="运行服务">运行服务</h2>
 <p>将所有单元块收起，依次运行所有单元块部署服务即可。</p>
 <p>运行耗时</p>
 <ul>
