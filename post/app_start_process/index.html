@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.95.0 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/app_start_process/" />
@@ -45,7 +45,6 @@
 <meta property="og:url" content="http://localhost:1313/post/app_start_process/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-09-17T21:34:06+08:00" />
 <meta property="article:modified_time" content="2019-09-17T21:34:06+08:00" />
-
 <meta itemprop="name" content="App的启动流程">
 <meta itemprop="description" content="本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流程分为三部分： 从开机到显示应用列表 从点击应"><meta itemprop="datePublished" content="2019-09-17T21:34:06+08:00" />
 <meta itemprop="dateModified" content="2019-09-17T21:34:06+08:00" />
@@ -266,8 +265,8 @@ Android系统中的窗体是屏幕上的一块用于绘制各种UI元素并能�
 </span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="n">ActivityStackSupervisor</span><span class="o">.</span><span class="na">startActivityMayWait</span><span class="o">()</span>
 </span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="n">ActivityStackSupervisor</span><span class="o">.</span><span class="na">resolveActivity</span><span class="o">()</span>
 </span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="n">ActivityStackSupervisor</span><span class="o">.</span><span class="na">startActivityLocked</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="k">new</span> <span class="n">ActivityRecord对象</span><span class="err">，</span><span class="n">获取ActivityStack</span>
-</span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="n">找到ActivityStack后Launcher</span><span class="o">.</span><span class="na">onPause</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="k">new</span> <span class="n">ActivityRecord</span><span class="err">对象，获取</span><span class="n">ActivityStack</span>
+</span></span><span class="line"><span class="cl"><span class="o">--&gt;</span> <span class="err">找到</span><span class="n">ActivityStack</span><span class="err">后</span><span class="n">Launcher</span><span class="o">.</span><span class="na">onPause</span><span class="o">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//准备启动进程
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">--&gt;</span> <span class="n">ActivityManagerService</span><span class="o">.</span><span class="na">startProcessLocked</span><span class="o">()</span>
@@ -450,7 +449,7 @@ code.has-jax {
 
 
 
-<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 
