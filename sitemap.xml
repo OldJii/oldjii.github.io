@@ -9,42 +9,56 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/post/318/</loc>
+    <lastmod>2023-10-16T15:49:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2023-04-30T10:46:28+08:00</lastmod>
+    <lastmod>2023-10-16T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2023-04-30T10:46:28+08:00</lastmod>
+    <lastmod>2023-10-16T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2023-04-30T10:46:28+08:00</lastmod>
+    <lastmod>2023-10-16T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2023-04-30T10:46:28+08:00</lastmod>
+    <lastmod>2023-10-16T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/tags/%E6%A2%81%E6%B0%B8%E5%AE%89/</loc>
-    <lastmod>2023-04-30T10:46:28+08:00</lastmod>
+    <loc>http://localhost:1313/tags/%E6%97%85%E6%B8%B8/</loc>
+    <lastmod>2023-10-16T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/categories/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2023-10-16T15:49:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/%E6%A2%81%E6%B0%B8%E5%AE%89/</loc>
     <lastmod>2023-04-30T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
