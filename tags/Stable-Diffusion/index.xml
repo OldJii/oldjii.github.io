@@ -23,5 +23,14 @@
 *Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies*</description>
     </item>
     
+    <item>
+      <title>Stable Diffusion 的光影艺术</title>
+      <link>http://localhost:1313/post/sd_controlnet/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/sd_controlnet/</guid>
+      <description>最近在网上经常有看到类似上面这种图片，图片里的建筑物或者是光影形成了一些文字，给图片附加了更多的信息。评论有很多人很好奇，所以记录下制作方式</description>
+    </item>
+    
   </channel>
 </rss>
