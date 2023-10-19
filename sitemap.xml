@@ -58,6 +58,34 @@
   </url>
   
   <url>
+    <loc>http://localhost:1313/tags/AICG/</loc>
+    <lastmod>2023-09-26T15:49:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/tags/Stable-Diffusion/</loc>
+    <lastmod>2023-09-26T15:49:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/sd_controlnet/</loc>
+    <lastmod>2023-09-26T15:49:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/categories/%E5%B7%A5%E4%BD%9C/</loc>
+    <lastmod>2023-09-26T15:49:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://localhost:1313/tags/%E6%A2%81%E6%B0%B8%E5%AE%89/</loc>
     <lastmod>2023-04-30T10:46:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -80,20 +108,6 @@
   
   <url>
     <loc>http://localhost:1313/tags/Ai-%E7%BB%98%E7%94%BB/</loc>
-    <lastmod>2023-02-22T15:49:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/Stable-Diffusion/</loc>
-    <lastmod>2023-02-22T15:49:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/categories/%E5%B7%A5%E4%BD%9C/</loc>
     <lastmod>2023-02-22T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -389,18 +403,6 @@
   <url>
     <loc>http://localhost:1313/tags/%E5%BC%80%E6%9C%BA%E6%B5%81%E7%A8%8B/</loc>
     <lastmod>2019-09-17T21:34:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/AICG/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/sd_controlnet/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
