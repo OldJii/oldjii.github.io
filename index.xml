@@ -12,6 +12,25 @@
     
     
     <item>
+      <title>About</title>
+      <link>https://jiguankai.cn/about/</link>
+      <pubDate>Sun, 20 Mar 2022 22:17:35 +0800</pubDate>
+      
+      <guid>https://jiguankai.cn/about/</guid>
+      <description>Dear visitor, welcome to my personal website where I write what I have learnt or thought in my daily life. I am glad to hear what brings you here. 😄😄😄
+Who am I? I am OldJii. I am a mobile client development engineer who is passionate about android platform. I am experienced in native android and cross platform Flutter development.</description>
+    </item>
+    
+    <item>
+      <title>Links</title>
+      <link>https://jiguankai.cn/links/</link>
+      <pubDate>Sun, 20 Mar 2022 22:17:35 +0800</pubDate>
+      
+      <guid>https://jiguankai.cn/links/</guid>
+      <description>友情链接 jiguankai.cn</description>
+    </item>
+    
+    <item>
       <title>2023 年国庆自驾川藏线摄影记录</title>
       <link>https://jiguankai.cn/post/318/</link>
       <pubDate>Thu, 19 Oct 2023 15:49:06 +0800</pubDate>
