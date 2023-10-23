@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on oldjii‘s digital space</title>
-    <link>http://localhost:1313/post/</link>
+    <link>https://jiguankai.cn/post/</link>
     <description>Recent content in Posts on oldjii‘s digital space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 19 Oct 2023 15:49:06 +0800</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jiguankai.cn/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>2023 年国庆自驾川藏线摄影记录</title>
-      <link>http://localhost:1313/post/318/</link>
+      <link>https://jiguankai.cn/post/318/</link>
       <pubDate>Thu, 19 Oct 2023 15:49:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/318/</guid>
+      <guid>https://jiguankai.cn/post/318/</guid>
       <description>&lt;p&gt;成都太古里裸眼 3D 巨幕，很震撼。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162320454.jpg&#34; alt=&#34;f87a1afd-55a5-4f84-82a0-039d2185e59e_1_201_a-fotor-20231016231950&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Stable Diffusion 的光影艺术</title>
-      <link>http://localhost:1313/post/sd_controlnet/</link>
+      <link>https://jiguankai.cn/post/sd_controlnet/</link>
       <pubDate>Tue, 26 Sep 2023 15:49:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/sd_controlnet/</guid>
+      <guid>https://jiguankai.cn/post/sd_controlnet/</guid>
       <description>&lt;p&gt;最近在网上经常有看到类似上面这种图片，图片里的建筑物或者是光影形成了一些文字，给图片附加了更多的信息。评论有很多人很好奇，所以记录下制作方式。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192146502.png width=100%/&gt;
@@ -35,19 +35,19 @@
     
     <item>
       <title>阅读、游历和爱情</title>
-      <link>http://localhost:1313/post/read_travel_love/</link>
+      <link>https://jiguankai.cn/post/read_travel_love/</link>
       <pubDate>Sun, 30 Apr 2023 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/read_travel_love/</guid>
+      <guid>https://jiguankai.cn/post/read_travel_love/</guid>
       <description>现代生活无时无刻不经受着冲击，滚滚历史八面来风，如何在纷纭中走自己的人生路？将阅读梁永安老师的《阅读、游历和爱情&amp;rdquo;》一书过程中的</description>
     </item>
     
     <item>
       <title>🎨 Stable-Diffusion-Colab</title>
-      <link>http://localhost:1313/post/stable_diffusion/</link>
+      <link>https://jiguankai.cn/post/stable_diffusion/</link>
       <pubDate>Wed, 22 Feb 2023 15:49:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/stable_diffusion/</guid>
+      <guid>https://jiguankai.cn/post/stable_diffusion/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 /&gt;
 &lt;/div&gt;
@@ -56,10 +56,10 @@
     
     <item>
       <title>Mac多个Git账户共存</title>
-      <link>http://localhost:1313/post/git_account/</link>
+      <link>https://jiguankai.cn/post/git_account/</link>
       <pubDate>Tue, 14 Feb 2023 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/git_account/</guid>
+      <guid>https://jiguankai.cn/post/git_account/</guid>
       <description>&lt;h2 id=&#34;清除配置&#34;&gt;清除配置&lt;/h2&gt;
 &lt;p&gt;查看 Git 本地配置&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -86,19 +86,19 @@ git config --global --unset user.email
     
     <item>
       <title>《置身事内》读书笔记</title>
-      <link>http://localhost:1313/post/china_economy/</link>
+      <link>https://jiguankai.cn/post/china_economy/</link>
       <pubDate>Mon, 02 Jan 2023 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/china_economy/</guid>
+      <guid>https://jiguankai.cn/post/china_economy/</guid>
       <description>微观 在我国，政府不但影响“蛋糕”的分配，也参与“蛋糕”的生产，所以我们不可能脱离政府谈经济。 地方政府的权利与事务 要理解政府治理和运作的模式，</description>
     </item>
     
     <item>
       <title>在家享受王者荣耀金牌商户特权</title>
-      <link>http://localhost:1313/post/king_of_glory/</link>
+      <link>https://jiguankai.cn/post/king_of_glory/</link>
       <pubDate>Wed, 19 Oct 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/king_of_glory/</guid>
+      <guid>https://jiguankai.cn/post/king_of_glory/</guid>
       <description>&lt;h2 id=&#34;商户特权&#34;&gt;商户特权&lt;/h2&gt;
 &lt;p&gt;该教程适用于普通家用路由器网络以及 iOS 系统的手机，操作可以分为以下几步：&lt;/p&gt;
 &lt;ol&gt;
@@ -111,66 +111,21 @@ git config --global --unset user.email
     
     <item>
       <title>《亲密关系》读书笔记</title>
-      <link>http://localhost:1313/post/relationship/</link>
+      <link>https://jiguankai.cn/post/relationship/</link>
       <pubDate>Sun, 16 Oct 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/relationship/</guid>
+      <guid>https://jiguankai.cn/post/relationship/</guid>
       <description>&lt;h1 id=&#34;写在前面&#34;&gt;写在前面&lt;/h1&gt;
 &lt;p&gt;记录阅读 罗兰·米勒 的《亲密关系》过程中的收获。&lt;/p&gt;
 &lt;p&gt;人际关系是由多种影响因素构成的，其范围从当前文化的流行时尚到人类种族的基本属性，非常广泛。在这些一般的影响因素之外，还有很多个体独有的影响因素如人格和经验，它们有些是习得的，有些是遗传的。最终，两个来自同一星球，但在很多方面存在一定程度差异的人，开始了他们的互动。互动的结果或许令人沮丧，或许令人满意。&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>Inker Privacy Policy</title>
-      <link>http://localhost:1313/post/inker_privacy_en/</link>
-      <pubDate>Wed, 20 Jul 2022 21:34:06 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/inker_privacy_en/</guid>
-      <description>Inker Privacy Policy Welcome to visit our products. Inker (including services provided by products such as App, hereinafter referred to as &amp;ldquo;products and services&amp;rdquo;) is developed and operated by Jiguan Kai (hereinafter referred to as &amp;ldquo;we&amp;rdquo;). Ensuring the data security and privacy protection of our users is our top priority, and this Privacy Policy sets out the data collected when you visit and use our products and services and how they are handled.</description>
-    </item>
-    
-    <item>
-      <title>Inker プライバシーポリシー</title>
-      <link>http://localhost:1313/post/inker_privacy_jp/</link>
-      <pubDate>Wed, 20 Jul 2022 21:34:06 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/inker_privacy_jp/</guid>
-      <description>Inker プライバシーポリシー 当社の製品へようこそ。 Inker（以下、Appなどの製品が提供するサービスを含む。以下「製品およびサービス」といいます</description>
-    </item>
-    
-    <item>
-      <title>Inker 隐私政策</title>
-      <link>http://localhost:1313/post/inker_privacy_cn/</link>
-      <pubDate>Wed, 20 Jul 2022 21:34:06 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/inker_privacy_cn/</guid>
-      <description>Inker 隐私政策 欢迎您访问我们的产品。 Inker （包括App等产品提供的服务，以下简称“产品和服务”）是由 纪官凯 （以下简称“我们”）开发并运营的。 确保用户</description>
-    </item>
-    
-    <item>
-      <title>Inker 隱私政策</title>
-      <link>http://localhost:1313/post/inker_privacy_tw/</link>
-      <pubDate>Wed, 20 Jul 2022 21:34:06 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/inker_privacy_tw/</guid>
-      <description>Inker 隱私政策 歡迎您訪問我們的產品。 Inker （包括App等產品提供的服務，以下簡稱“產品和服務”）是由 紀官凱 （以下簡稱“我們”）開發並運營的。確保用戶</description>
-    </item>
-    
-    <item>
-      <title>Inker 개인 정보 보호 정책</title>
-      <link>http://localhost:1313/post/inker_privacy_kr/</link>
-      <pubDate>Wed, 20 Jul 2022 21:34:06 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/inker_privacy_kr/</guid>
-      <description>Inker 개인 정보 보호 정책 저희 제품을 방문해 주셔서 감사합니다. Inker(앱 등 제품이 제공하는 서비스를 포함, 이하 &amp;ldquo;제품 및 서비스&amp;quot;라</description>
-    </item>
-    
-    <item>
       <title>Ring_layout：Flutter 环形布局实现</title>
-      <link>http://localhost:1313/post/ring_layout/</link>
+      <link>https://jiguankai.cn/post/ring_layout/</link>
       <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/ring_layout/</guid>
+      <guid>https://jiguankai.cn/post/ring_layout/</guid>
       <description>&lt;h2 id=&#34;环形布局的定义&#34;&gt;环形布局的定义&lt;/h2&gt;
 &lt;p&gt;如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 &lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin&#34;&gt;圆心距&lt;/a&gt; 相等。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
@@ -180,10 +135,10 @@ git config --global --unset user.email
     
     <item>
       <title>菜谱：豆角焖面</title>
-      <link>http://localhost:1313/post/braised_noodles/</link>
+      <link>https://jiguankai.cn/post/braised_noodles/</link>
       <pubDate>Sun, 10 Apr 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/braised_noodles/</guid>
+      <guid>https://jiguankai.cn/post/braised_noodles/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/doujiaomenmian.jpg width=400 height=400 /&gt;
 &lt;/div&gt;
@@ -192,55 +147,55 @@ git config --global --unset user.email
     
     <item>
       <title>《自私的基因》读书笔记</title>
-      <link>http://localhost:1313/post/gene/</link>
+      <link>https://jiguankai.cn/post/gene/</link>
       <pubDate>Thu, 24 Mar 2022 10:46:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/gene/</guid>
+      <guid>https://jiguankai.cn/post/gene/</guid>
       <description>初开始听说《自私的基因》这本书，是在 21 年末的时候，那时候刚从小米离职，与新公司约定的入职时间稍晚了些，计划的是来一场说走就走的离职旅行、散散</description>
     </item>
     
     <item>
       <title>Hugo中支持LaTeX的数学表达式</title>
-      <link>http://localhost:1313/post/hugo_mathJax/</link>
+      <link>https://jiguankai.cn/post/hugo_mathJax/</link>
       <pubDate>Sat, 18 Dec 2021 01:19:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/hugo_mathJax/</guid>
+      <guid>https://jiguankai.cn/post/hugo_mathJax/</guid>
       <description>Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax</description>
     </item>
     
     <item>
       <title>HLS直播协议m3u8</title>
-      <link>http://localhost:1313/post/m3u8/</link>
+      <link>https://jiguankai.cn/post/m3u8/</link>
       <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/m3u8/</guid>
+      <guid>https://jiguankai.cn/post/m3u8/</guid>
       <description>为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。 三者关系： HLS是一种流媒体传输协议 M3U8是HLS传输内容中</description>
     </item>
     
     <item>
       <title>一些算法题解</title>
-      <link>http://localhost:1313/post/algorithm/</link>
+      <link>https://jiguankai.cn/post/algorithm/</link>
       <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/algorithm/</guid>
+      <guid>https://jiguankai.cn/post/algorithm/</guid>
       <description>对于每一位求职的 Coder 来说，在 LeetCode 上熟练刷数据结构和算法题的重要性不言而喻，甚至某一程度上直接决定了面试的成败。 最近有在准备跳槽，所以重新把 剑指O</description>
     </item>
     
     <item>
       <title>Android中的IPC</title>
-      <link>http://localhost:1313/post/android_ipc/</link>
+      <link>https://jiguankai.cn/post/android_ipc/</link>
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/android_ipc/</guid>
+      <guid>https://jiguankai.cn/post/android_ipc/</guid>
       <description>什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p</description>
     </item>
     
     <item>
       <title>Rxjava源码阅读</title>
-      <link>http://localhost:1313/post/rxjava/</link>
+      <link>https://jiguankai.cn/post/rxjava/</link>
       <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/rxjava/</guid>
+      <guid>https://jiguankai.cn/post/rxjava/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/&gt;
 &lt;/div&gt;
@@ -253,10 +208,10 @@ git config --global --unset user.email
     
     <item>
       <title>App的启动流程</title>
-      <link>http://localhost:1313/post/app_start_process/</link>
+      <link>https://jiguankai.cn/post/app_start_process/</link>
       <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/app_start_process/</guid>
+      <guid>https://jiguankai.cn/post/app_start_process/</guid>
       <description>本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流程分为三部分： 从开机到显示应用列表 从点击应</description>
     </item>
     
