@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Mac多个Git账户共存 - oldjii‘s digital space</title>
+  <title>Mac多个Git账户共存 - Folay‘s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,15 +17,15 @@
 
 
 <meta name="author" content="oldjii" /><meta name="description" content="清除配置 查看 Git 本地配置
-1  git config --list   清除用户名和邮箱
-1 2  git config --global --unset user.name git config --global --unset user.email   " /><meta name="keywords" content="Hugo, theme, even" />
+1 git config --list 清除用户名和邮箱
+1 2 git config --global --unset user.name git config --global --unset user.email " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.0 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="https://jiguankai.cn/post/git_account/" />
@@ -37,7 +37,7 @@
 
 
 
-<link href="/sass/main.min.2e81bbed97b8b282c1aeb57488cc71c8d8c8ec559f3931531bd396bf31e0d4dd.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -65,7 +65,7 @@ git config --global --unset user.email
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jiguankai.cn/post/git_account/" />
+<meta property="og:url" content="https://jiguankai.cn/post/git_account/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-02-14T10:46:28+08:00" />
 <meta property="article:modified_time" content="2023-02-14T10:46:28+08:00" />
 <meta itemprop="name" content="Mac多个Git账户共存">
@@ -90,13 +90,9 @@ git config --global --unset user.name
 git config --global --unset user.email
 
 
-">
-<meta itemprop="datePublished" content="2023-02-14T10:46:28&#43;08:00" />
-<meta itemprop="dateModified" content="2023-02-14T10:46:28&#43;08:00" />
+"><meta itemprop="datePublished" content="2023-02-14T10:46:28+08:00" />
+<meta itemprop="dateModified" content="2023-02-14T10:46:28+08:00" />
 <meta itemprop="wordCount" content="512">
-
-
-
 <meta itemprop="keywords" content="Git," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Mac多个Git账户共存"/>
 <meta name="twitter:description" content="清除配置
@@ -238,37 +234,37 @@ git config --global --unset user.email
 <p>查看 Git 本地配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">git config --list
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --list
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>清除用户名和邮箱</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">git config --global --unset user.name
-git config --global --unset user.email
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --global --unset user.name
+</span></span><span class="line"><span class="cl">git config --global --unset user.email
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="生成-ssh-key">生成 ssh-key</h2>
 <p>使用 <code>ssh-keygen</code> 命令生成 ssh-key，并手动指定 id</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C <span class="s2">&#34;xx1@gmail.com&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C <span class="s2">&#34;xx1@gmail.com&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成成功会输出以下内容</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -290,81 +286,81 @@ git config --global --unset user.email
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">Generating public/private rsa key pair.
-Enter file in which to save the key <span class="o">(</span>/Users/james/.ssh/id_rsa<span class="o">)</span>:
-Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:
-Enter same passphrase again:
-Your identification has been saved in /Users/james/.ssh/id_rsa.
-Your public key has been saved in /Users/james/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:rwtxjGTJPoV9Mg8lFSf8D4X6jFexWVXKOMRaVyo+RO8 xx1@gmail.com
-The key<span class="err">&#39;</span>s randomart image is:
-+---<span class="o">[</span>RSA 3072<span class="o">]</span>----+
-<span class="p">|</span>        .o<span class="o">=</span>o+. .*<span class="p">|</span>
-<span class="p">|</span>     . + o.<span class="o">=</span>+++o.<span class="p">|</span>
-<span class="p">|</span>      * * .<span class="o">==</span><span class="nv">o</span><span class="o">==</span> <span class="p">|</span>
-<span class="p">|</span>     + + *ooo++  <span class="p">|</span>
-<span class="p">|</span>      <span class="o">=</span> S .+o+E  <span class="p">|</span>
-<span class="p">|</span>       + .. +..  <span class="p">|</span>
-<span class="p">|</span>      .   ..     <span class="p">|</span>
-<span class="p">|</span>       . .       <span class="p">|</span>
-<span class="p">|</span>        o.       <span class="p">|</span>
-+----<span class="o">[</span>SHA256<span class="o">]</span>-----+
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Generating public/private rsa key pair.
+</span></span><span class="line"><span class="cl">Enter file in which to save the key <span class="o">(</span>/Users/james/.ssh/id_rsa<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">Enter same passphrase again:
+</span></span><span class="line"><span class="cl">Your identification has been saved in /Users/james/.ssh/id_rsa.
+</span></span><span class="line"><span class="cl">Your public key has been saved in /Users/james/.ssh/id_rsa.pub.
+</span></span><span class="line"><span class="cl">The key fingerprint is:
+</span></span><span class="line"><span class="cl">SHA256:rwtxjGTJPoV9Mg8lFSf8D4X6jFexWVXKOMRaVyo+RO8 xx1@gmail.com
+</span></span><span class="line"><span class="cl">The key<span class="err">&#39;</span>s randomart image is:
+</span></span><span class="line"><span class="cl">+---<span class="o">[</span>RSA 3072<span class="o">]</span>----+
+</span></span><span class="line"><span class="cl"><span class="p">|</span>        .o<span class="o">=</span>o+. .*<span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>     . + o.<span class="o">=</span>+++o.<span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      * * .<span class="o">==</span><span class="nv">o</span><span class="o">==</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>     + + *ooo++  <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      <span class="o">=</span> S .+o+E  <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>       + .. +..  <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      .   ..     <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>       . .       <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>        o.       <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+----<span class="o">[</span>SHA256<span class="o">]</span>-----+
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后继续生成你的其他 Git 账号对应的 ssh-key</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx2@gmail.com -C <span class="s2">&#34;xx2@gmail.com&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx2@gmail.com -C <span class="s2">&#34;xx2@gmail.com&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="信任-ssh-key">信任 ssh-key</h2>
 <p>使用 <code>ssh-add</code> 命令将生成的 ssh-key 添加到 ssh-agent 信任列表</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh-add ~/.ssh/id_rsa_xx1@gmail.com
-ssh-add ~/.ssh/id_rsa_xx2@gmail.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-add ~/.ssh/id_rsa_xx1@gmail.com
+</span></span><span class="line"><span class="cl">ssh-add ~/.ssh/id_rsa_xx2@gmail.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果遇到 <code>Could not open a connection to your authentication agent.</code> ，输入</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh-agent bash
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-agent bash
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后重复执行 <code>ssh-add</code> 即可解决</p>
 <h2 id="配置公钥">配置公钥</h2>
 <p>复制对应公钥，配置到对应 Git 网站中（GitHub / GitLab）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">pbcopy &lt; ~/.ssh/id_rsa_xx1@gmail.com.pub
-pbcopy &lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pbcopy &lt; ~/.ssh/id_rsa_xx1@gmail.com.pub
+</span></span><span class="line"><span class="cl">pbcopy &lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这步具体的操作如果有不清楚的可以参考 <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Adding a new SSH key to your GitHub account</a></p>
 <h2 id="配置-config">配置 config</h2>
 <p>进入 ssh 目录</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">open ~/.ssh/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">open ~/.ssh/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>按照以下规则编辑 config 文件，没有则创建</p>
 <table>
@@ -401,7 +397,7 @@ pbcopy &lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
 <p>编辑完 config 内容如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -412,37 +408,37 @@ pbcopy &lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">Host github1.com
-Hostname github.com
-IdentityFile ~/.ssh/id_rsa_xx1@gmail.com
-User xx1@gmail.com
-
-Host github2.com
-Hostname github.com
-IdentityFile ~/.ssh/id_rsa_xx2@gmail.com
-User xx2@gmail.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Host github1.com
+</span></span><span class="line"><span class="cl">Hostname github.com
+</span></span><span class="line"><span class="cl">IdentityFile ~/.ssh/id_rsa_xx1@gmail.com
+</span></span><span class="line"><span class="cl">User xx1@gmail.com
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Host github2.com
+</span></span><span class="line"><span class="cl">Hostname github.com
+</span></span><span class="line"><span class="cl">IdentityFile ~/.ssh/id_rsa_xx2@gmail.com
+</span></span><span class="line"><span class="cl">User xx2@gmail.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试链接">测试链接</h2>
 <p>测试 Git 账号是否连接成功，<code>git@</code> 之后是 config 文件中配置的 Host</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh -T git@github1.com
-ssh -T git@github2.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh -T git@github1.com
+</span></span><span class="line"><span class="cl">ssh -T git@github2.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>连接成功会有以下输出</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">Hi xxx! You<span class="err">&#39;</span>ve successfully authenticated, but GitHub does not provide shell access.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Hi xxx! You<span class="err">&#39;</span>ve successfully authenticated, but GitHub does not provide shell access.
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -469,7 +465,7 @@ ssh -T git@github2.com
       <nav class="post-nav">
         <a class="prev" href="/post/stable_diffusion/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">🎨 Stable-Diffusion-Colab</span>
+            <span class="prev-text nav-default">在 Colab 搭建 Stable Diffusion</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/china_economy/">
@@ -576,7 +572,7 @@ code.has-jax {
 
 
 
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

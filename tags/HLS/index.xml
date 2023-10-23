@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>HLS on oldjii‘s digital space</title>
+    <title>HLS on Folay‘s Blog</title>
     <link>https://jiguankai.cn/tags/HLS/</link>
-    <description>Recent content in HLS on oldjii‘s digital space</description>
+    <description>Recent content in HLS on Folay‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 25 Sep 2021 21:34:06 +0800</lastBuildDate>
-    
-	<atom:link href="https://jiguankai.cn/tags/HLS/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 25 Sep 2021 21:34:06 +0800</lastBuildDate><atom:link href="https://jiguankai.cn/tags/HLS/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HLS直播协议m3u8</title>
       <link>https://jiguankai.cn/post/m3u8/</link>

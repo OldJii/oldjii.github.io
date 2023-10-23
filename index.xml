@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>oldjii‘s digital space</title>
+    <title>Folay‘s Blog</title>
     <link>https://jiguankai.cn/</link>
-    <description>Recent content on oldjii‘s digital space</description>
+    <description>Recent content on Folay‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 19 Oct 2023 15:49:06 +0800</lastBuildDate>
-    
-	<atom:link href="https://jiguankai.cn/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 19 Oct 2023 15:49:06 +0800</lastBuildDate><atom:link href="https://jiguankai.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://jiguankai.cn/about/</link>
@@ -57,11 +53,11 @@
       <pubDate>Sun, 30 Apr 2023 10:46:28 +0800</pubDate>
       
       <guid>https://jiguankai.cn/post/read_travel_love/</guid>
-      <description>现代生活无时无刻不经受着冲击，滚滚历史八面来风，如何在纷纭中走自己的人生路？将阅读梁永安老师的《阅读、游历和爱情&amp;rdquo;》一书过程中的</description>
+      <description>现代生活无时无刻不经受着冲击，滚滚历史八面来风，如何在纷纭中走自己的人生路？将阅读梁永安老师的《阅读、游历和爱情&amp;quot;》一书过程中的所</description>
     </item>
     
     <item>
-      <title>🎨 Stable-Diffusion-Colab</title>
+      <title>在 Colab 搭建 Stable Diffusion</title>
       <link>https://jiguankai.cn/post/stable_diffusion/</link>
       <pubDate>Wed, 22 Feb 2023 15:49:06 +0800</pubDate>
       
@@ -69,7 +65,7 @@
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 /&gt;
 &lt;/div&gt;
-*Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies*</description>
+&lt;p&gt;Form &lt;a href=&#34;https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies&#34;&gt;Weird Wonderful Ai Art&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -82,22 +78,22 @@
 &lt;p&gt;查看 Git 本地配置&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --list
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;清除用户名和邮箱&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --global --unset user.name
-git config --global --unset user.email
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global --unset user.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global --unset user.email
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>

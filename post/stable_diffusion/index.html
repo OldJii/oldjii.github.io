@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>🎨 Stable-Diffusion-Colab - oldjii‘s digital space</title>
+  <title>在 Colab 搭建 Stable Diffusion - Folay‘s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,14 +16,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="oldjii" /><meta name="description" content=" *Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies*" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="oldjii" /><meta name="description" content=" Form Weird Wonderful Ai Art
+" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.0 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="https://jiguankai.cn/post/stable_diffusion/" />
@@ -35,36 +36,32 @@
 
 
 
-<link href="/sass/main.min.2e81bbed97b8b282c1aeb57488cc71c8d8c8ec559f3931531bd396bf31e0d4dd.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="🎨 Stable-Diffusion-Colab" />
+<meta property="og:title" content="在 Colab 搭建 Stable Diffusion" />
 <meta property="og:description" content="
 
 
-*Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies*" />
+Form Weird Wonderful Ai Art" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jiguankai.cn/post/stable_diffusion/" />
+<meta property="og:url" content="https://jiguankai.cn/post/stable_diffusion/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-02-22T15:49:06+08:00" />
 <meta property="article:modified_time" content="2023-02-22T15:49:06+08:00" />
-<meta itemprop="name" content="🎨 Stable-Diffusion-Colab">
+<meta itemprop="name" content="在 Colab 搭建 Stable Diffusion">
 <meta itemprop="description" content="
 
 
-*Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies*">
-<meta itemprop="datePublished" content="2023-02-22T15:49:06&#43;08:00" />
-<meta itemprop="dateModified" content="2023-02-22T15:49:06&#43;08:00" />
-<meta itemprop="wordCount" content="607">
-
-
-
+Form Weird Wonderful Ai Art"><meta itemprop="datePublished" content="2023-02-22T15:49:06+08:00" />
+<meta itemprop="dateModified" content="2023-02-22T15:49:06+08:00" />
+<meta itemprop="wordCount" content="651">
 <meta itemprop="keywords" content="Ai 绘画,Stable Diffusion," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="🎨 Stable-Diffusion-Colab"/>
+<meta name="twitter:title" content="在 Colab 搭建 Stable Diffusion"/>
 <meta name="twitter:description" content="
 
 
-*Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies*"/>
+Form Weird Wonderful Ai Art"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,14 +142,14 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">🎨 Stable-Diffusion-Colab</h1>
+      <h1 class="post-title">在 Colab 搭建 Stable Diffusion</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2023-02-22 </span>
         <div class="post-category">
             <a href="/categories/%E5%B7%A5%E4%BD%9C/"> 工作 </a>
             </div>
-          <span class="more-meta"> 607 words </span>
+          <span class="more-meta"> 651 words </span>
           <span class="more-meta"> 2 mins read </span>
         
       </div>
@@ -163,7 +160,10 @@
       <div align="center">
 <img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 />
 </div>
-*Form Weird Wonderful Ai Art - https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies*
+<p>Form <a href="https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies">Weird Wonderful Ai Art</a></p>
+<blockquote>
+<p>2023 年 9 月 23 日更新：Colab 官方禁用 Stable Diffusion WebUI，无法解决断网问题，本文方法作废。详情见 <a href="https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban">https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban</a></p>
+</blockquote>
 <h2 id="-ai-绘画">🎨 Ai 绘画</h2>
 <p>Stable Diffusion 是 stability.ai 于 2022 年发布的深度学习文生图模型，可以在大多数配备有适度 GPU 的电脑硬件上运行。</p>
 <p>Colaboratory 简称 Colab，是 Google Research 团队发布的一种托管式 Jupyter 笔记本服务，可以免费使用 GPU / TPU 计算资源。</p>
@@ -337,7 +337,7 @@ code.has-jax {
 
 
 
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 
