@@ -10,42 +10,49 @@
   
   <url>
     <loc>https://jiguankai.cn/categories/</loc>
-    <lastmod>2023-12-07T15:49:06+08:00</lastmod>
+    <lastmod>2024-02-03T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jiguankai.cn/</loc>
-    <lastmod>2023-12-07T15:49:06+08:00</lastmod>
+    <lastmod>2024-02-03T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jiguankai.cn/tags/MBTI/</loc>
-    <lastmod>2023-12-07T15:49:06+08:00</lastmod>
+    <lastmod>2024-02-03T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jiguankai.cn/post/</loc>
-    <lastmod>2023-12-07T15:49:06+08:00</lastmod>
+    <lastmod>2024-02-03T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jiguankai.cn/tags/</loc>
-    <lastmod>2023-12-07T15:49:06+08:00</lastmod>
+    <lastmod>2024-02-03T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jiguankai.cn/categories/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2023-12-07T15:49:06+08:00</lastmod>
+    <lastmod>2024-02-03T15:49:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiguankai.cn/post/infj/</loc>
+    <lastmod>2024-02-03T15:49:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
