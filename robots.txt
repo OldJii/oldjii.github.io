@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://jiguankai.cn/sitemap.xml
+Sitemap: https://folay.top/sitemap.xml

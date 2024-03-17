@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ring_layout on Folay‘s Blog</title>
-    <link>https://jiguankai.cn/tags/ring_layout/</link>
+    <link>https://folay.top/tags/ring_layout/</link>
     <description>Recent content in ring_layout on Folay‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 24 Apr 2022 10:46:28 +0800</lastBuildDate><atom:link href="https://jiguankai.cn/tags/ring_layout/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Apr 2022 10:46:28 +0800</lastBuildDate><atom:link href="https://folay.top/tags/ring_layout/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ring_layout：Flutter 环形布局实现</title>
-      <link>https://jiguankai.cn/post/ring_layout/</link>
+      <link>https://folay.top/post/ring_layout/</link>
       <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/ring_layout/</guid>
+      <guid>https://folay.top/post/ring_layout/</guid>
       <description>&lt;h2 id=&#34;环形布局的定义&#34;&gt;环形布局的定义&lt;/h2&gt;
 &lt;p&gt;如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 &lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin&#34;&gt;圆心距&lt;/a&gt; 相等。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;

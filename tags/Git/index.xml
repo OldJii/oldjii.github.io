@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on Folay‘s Blog</title>
-    <link>https://jiguankai.cn/tags/Git/</link>
+    <link>https://folay.top/tags/Git/</link>
     <description>Recent content in Git on Folay‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 14 Feb 2023 10:46:28 +0800</lastBuildDate><atom:link href="https://jiguankai.cn/tags/Git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Feb 2023 10:46:28 +0800</lastBuildDate><atom:link href="https://folay.top/tags/Git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mac多个Git账户共存</title>
-      <link>https://jiguankai.cn/post/git_account/</link>
+      <link>https://folay.top/post/git_account/</link>
       <pubDate>Tue, 14 Feb 2023 10:46:28 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/git_account/</guid>
+      <guid>https://folay.top/post/git_account/</guid>
       <description>&lt;h2 id=&#34;清除配置&#34;&gt;清除配置&lt;/h2&gt;
 &lt;p&gt;查看 Git 本地配置&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

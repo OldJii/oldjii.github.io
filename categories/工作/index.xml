@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>工作 on Folay‘s Blog</title>
-    <link>https://jiguankai.cn/categories/%E5%B7%A5%E4%BD%9C/</link>
+    <link>https://folay.top/categories/%E5%B7%A5%E4%BD%9C/</link>
     <description>Recent content in 工作 on Folay‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 26 Sep 2023 15:49:06 +0800</lastBuildDate><atom:link href="https://jiguankai.cn/categories/%E5%B7%A5%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Sep 2023 15:49:06 +0800</lastBuildDate><atom:link href="https://folay.top/categories/%E5%B7%A5%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Stable Diffusion 的光影艺术</title>
-      <link>https://jiguankai.cn/post/sd_controlnet/</link>
+      <link>https://folay.top/post/sd_controlnet/</link>
       <pubDate>Tue, 26 Sep 2023 15:49:06 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/sd_controlnet/</guid>
+      <guid>https://folay.top/post/sd_controlnet/</guid>
       <description>&lt;p&gt;最近在网上经常有看到类似上面这种图片，图片里的建筑物或者是光影形成了一些文字，给图片附加了更多的信息。评论有很多人很好奇，所以记录下制作方式。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192146502.png width=100%/&gt;
@@ -21,10 +21,10 @@
     
     <item>
       <title>在 Colab 搭建 Stable Diffusion</title>
-      <link>https://jiguankai.cn/post/stable_diffusion/</link>
+      <link>https://folay.top/post/stable_diffusion/</link>
       <pubDate>Wed, 22 Feb 2023 15:49:06 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/stable_diffusion/</guid>
+      <guid>https://folay.top/post/stable_diffusion/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 /&gt;
 &lt;/div&gt;
@@ -33,10 +33,10 @@
     
     <item>
       <title>Mac多个Git账户共存</title>
-      <link>https://jiguankai.cn/post/git_account/</link>
+      <link>https://folay.top/post/git_account/</link>
       <pubDate>Tue, 14 Feb 2023 10:46:28 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/git_account/</guid>
+      <guid>https://folay.top/post/git_account/</guid>
       <description>&lt;h2 id=&#34;清除配置&#34;&gt;清除配置&lt;/h2&gt;
 &lt;p&gt;查看 Git 本地配置&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -63,10 +63,10 @@
     
     <item>
       <title>Ring_layout：Flutter 环形布局实现</title>
-      <link>https://jiguankai.cn/post/ring_layout/</link>
+      <link>https://folay.top/post/ring_layout/</link>
       <pubDate>Sun, 24 Apr 2022 10:46:28 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/ring_layout/</guid>
+      <guid>https://folay.top/post/ring_layout/</guid>
       <description>&lt;h2 id=&#34;环形布局的定义&#34;&gt;环形布局的定义&lt;/h2&gt;
 &lt;p&gt;如果存在一个圆 A 和若干个圆 a，圆 a 皆于圆 A 相交，圆 a 的圆心皆位于圆 A 上，且圆 a 间的 &lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E5%BF%83%E8%B7%9D/9556681?fr=aladdin&#34;&gt;圆心距&lt;/a&gt; 相等。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
@@ -76,46 +76,46 @@
     
     <item>
       <title>Hugo中支持LaTeX的数学表达式</title>
-      <link>https://jiguankai.cn/post/hugo_mathJax/</link>
+      <link>https://folay.top/post/hugo_mathJax/</link>
       <pubDate>Sat, 18 Dec 2021 01:19:00 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/hugo_mathJax/</guid>
+      <guid>https://folay.top/post/hugo_mathJax/</guid>
       <description>Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax</description>
     </item>
     
     <item>
       <title>HLS直播协议m3u8</title>
-      <link>https://jiguankai.cn/post/m3u8/</link>
+      <link>https://folay.top/post/m3u8/</link>
       <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/m3u8/</guid>
+      <guid>https://folay.top/post/m3u8/</guid>
       <description>为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。 三者关系： HLS是一种流媒体传输协议 M3U8是HLS传输内容中</description>
     </item>
     
     <item>
       <title>一些算法题解</title>
-      <link>https://jiguankai.cn/post/algorithm/</link>
+      <link>https://folay.top/post/algorithm/</link>
       <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/algorithm/</guid>
+      <guid>https://folay.top/post/algorithm/</guid>
       <description>对于每一位求职的 Coder 来说，在 LeetCode 上熟练刷数据结构和算法题的重要性不言而喻，甚至某一程度上直接决定了面试的成败。 最近有在准备跳槽，所以重新把 剑指O</description>
     </item>
     
     <item>
       <title>Android中的IPC</title>
-      <link>https://jiguankai.cn/post/android_ipc/</link>
+      <link>https://folay.top/post/android_ipc/</link>
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/android_ipc/</guid>
+      <guid>https://folay.top/post/android_ipc/</guid>
       <description>什么是IPC IPC是Interprocess communication的缩写，即进程间通讯。 Linux现有IPC方式 管道：在创建时分配一个p</description>
     </item>
     
     <item>
       <title>Rxjava源码阅读</title>
-      <link>https://jiguankai.cn/post/rxjava/</link>
+      <link>https://folay.top/post/rxjava/</link>
       <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/rxjava/</guid>
+      <guid>https://folay.top/post/rxjava/</guid>
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/rxjava0022.png width=80%/&gt;
 &lt;/div&gt;
@@ -128,10 +128,10 @@
     
     <item>
       <title>App的启动流程</title>
-      <link>https://jiguankai.cn/post/app_start_process/</link>
+      <link>https://folay.top/post/app_start_process/</link>
       <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
       
-      <guid>https://jiguankai.cn/post/app_start_process/</guid>
+      <guid>https://folay.top/post/app_start_process/</guid>
       <description>本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。 本文把这段流程分为三部分： 从开机到显示应用列表 从点击应</description>
     </item>
     
