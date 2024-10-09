@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>m3u8 on Folay‘s Blog</title>
     <link>https://folay.top/tags/m3u8/</link>
-    <description>Recent content in m3u8 on Folay‘s Blog</description>
+    <description>Recent content in m3u8 on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 25 Sep 2021 21:34:06 +0800</lastBuildDate>
     
-	<atom:link href="https://folay.top/tags/m3u8/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://folay.top/tags/m3u8/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,7 +16,158 @@
       <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
       
       <guid>https://folay.top/post/m3u8/</guid>
-      <description>为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。 三者关系： HLS是一种流媒体传输协议 M3U8是HLS传输内容中</description>
+      <description>&lt;p&gt;为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。&lt;/p&gt;
+&lt;p&gt;三者关系：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HLS是一种流媒体传输协议&lt;/li&gt;
+&lt;li&gt;M3U8是HLS传输内容中的一部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;流媒体传输协议&#34;&gt;流媒体传输协议&lt;/h1&gt;
+&lt;h2 id=&#34;常见的流媒体传输协议&#34;&gt;常见的流媒体传输协议&lt;/h2&gt;
+&lt;p&gt;流媒体就是以数据流的方式，实时发布音频、视频多媒体内容的媒体形式，关键技术在于&lt;code&gt;流式传输&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;流媒体传输协议就是用来定义如何流式传输的，设计、制定了流媒体服务器和客户端通讯的方式。&lt;/p&gt;
+&lt;p&gt;主流的流媒体传输协议：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RTMP（Real Time Protocol）：基于 TCP 的 FLV 分块 message 传输协议，用于 Flash 客户端。&lt;/li&gt;
+&lt;li&gt;HTTP-FLV：基于 HTTP 长连接的 FLV 分块 tag 传输协议，可用于点播和直播场景。&lt;/li&gt;
+&lt;li&gt;HLS（HTTP Live Streaming）：基于 HTTP，由 Apple 推出的 MP4 分片传输协议，可以用于点播、直播，每次下载一次分片都需要发生一次 HTTP 请求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文只详细介绍 HLS，不涉及 RTMP 与 RTSP&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;流媒体加密原理&#34;&gt;流媒体加密原理&lt;/h2&gt;
+&lt;p&gt;大多数流媒体传输协议都可以分为拆分、加密两部分。&lt;/p&gt;
+&lt;p&gt;拆分是 将完整的视频流拆分为连续的视频片段，不同的传输协议的区别在于拆分片段的大小、视频容器的格式不同。&lt;/p&gt;
+&lt;p&gt;加密是 对每段视频片段进行加密，使用对称加密算法，在服务端加密，在客户端解密，且通过一定手段限制解密密钥的获取。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一般使用 AES 加密算法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;为什么是对称加密&#34;&gt;为什么是对称加密？&lt;/h2&gt;
+&lt;p&gt;对称加密效率相对较高，非对称加密效率相对较低，但是更安全。流媒体场景对实时性的要求很高，而且数据量也很大，所以选用效率相对较高的对称加密算法。&lt;/p&gt;
+&lt;p&gt;类似的场景还有很多，比如 HTTPS 的请求过程，内容传输为了效率选用对称加密（TLS），证书校验为了安全选用非对称加密（SSL）。&lt;/p&gt;
+&lt;h1 id=&#34;hls&#34;&gt;HLS&lt;/h1&gt;
+&lt;p&gt;HLS 全称 HTTP Live Streaming， 是由 Apple 提出的基于 HTTP 的流媒体传输协议，用于实时音视频流的传输，目前已被广泛应用与视频点播、直播场景。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考资料：&lt;a href=&#34;https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008332-CH1-SW1&#34;&gt;HTTP Live Streaming Document&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;工作原理&#34;&gt;工作原理&lt;/h2&gt;
+&lt;p&gt;完整的 HLS 架构可以划分为 3 个部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务器 Server：负责视频流的编码、切割为连续的 MPEG-TS 格式的视频片段，并提供配套的 M3U8 类型的媒体列表文件和索引文件。&lt;/li&gt;
+&lt;li&gt;分发组件 CDN：由标准的网络服务器组成，负责接收客户端的请求并分发资源。&lt;/li&gt;
+&lt;li&gt;客户端 Client：先下载 m3u8 索引文件，根据带宽等字段选择合适的 m3u8 媒体播放列表文件下载，按顺序下载列表中的所有 ts 视频片段文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;完整的 HLS 的&lt;strong&gt;过程&lt;/strong&gt;可以参考下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2021/09/16/6Bp37ZFcPfqbAvy.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;大体可以划分为 6 个阶段：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;采集媒体源&lt;/li&gt;
+&lt;li&gt;媒体编码器（Media encoder） 对媒体源进行编码&lt;/li&gt;
+&lt;li&gt;编码后以MPEG-2的传输串形式传递给切片器&lt;/li&gt;
+&lt;li&gt;切片器（Steam Segmenter）将媒体切割为若干 &lt;code&gt;Media Segment&lt;/code&gt;，并创建配套的媒体列表文件 &lt;code&gt;Media Playlist&lt;/code&gt; 以及索引文件 &lt;code&gt;Master Platlist&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;上传：将资源上传到 HTTP 服务器。&lt;/li&gt;
+&lt;li&gt;播放：客户端请求播放。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;组成结构&#34;&gt;组成结构&lt;/h2&gt;
+&lt;p&gt;经过上面第 4 步骤的加工可以形成完整的结构，由 &lt;code&gt;Master Playlist&lt;/code&gt;、&lt;code&gt;Media Playlist&lt;/code&gt;、&lt;code&gt;Media Segment&lt;/code&gt; 构成，关系结构如图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2021/09/16/F7fcQpGuyiNUYH8.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;完整的 HLS 结构由两部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;m3u8 类型的 Master Playlist 文件：其中会提供若干根据带宽等字段区分的 Media Playlist 的请求链接。&lt;/li&gt;
+&lt;li&gt;m3u8 类型的 Media Playlist 文件：其中会有视频的基本信息和若干 Media Segment 的请求链接，这些片段就组成了完整的视频。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Media Segment 就是单纯的 ts 格式的视频文件，并无任何描述信息，可以单独使用播放器进行播放。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;M3U8 是 Unicode 版本的 M3U，8 代表使用的是 UTF-8 编码，M3U 和 M3U8 都是多媒体列表的文件格式。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;m3u8&#34;&gt;M3U8&lt;/h1&gt;
+&lt;p&gt;M3U8 描述文件中由各种描述字段构成，下面解释部分主要字段的含义。&lt;/p&gt;
+&lt;p&gt;我在网上随便找的一个 m3u8 视频的链接：&lt;code&gt;https://mgtv-com.jjyl12349.com/20210519/fXE0kuJ7/index.m3u8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;请求该链接的返回结果为一个 m3u8 文件，也就是 Master Playlist 文件。&lt;/p&gt;
+&lt;h2 id=&#34;master-playlist&#34;&gt;Master Playlist&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTM3U&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;416x234&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;416x234&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1000000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1280x720&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1000kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;字节解释&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EXTM3U：表示该文件为m3u8文件，每个M3U文件都是以EXTM3U开头&lt;/li&gt;
+&lt;li&gt;EXT-X-STREAM-INF：表示一个备份源，并提供备份源的相关信息
+&lt;ul&gt;
+&lt;li&gt;BANDWIDTH：表示每秒传输的比特数，即带宽&lt;/li&gt;
+&lt;li&gt;RESOLUTION：表示备份源的最佳像素方案&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们根据 BANDWIDTH、RESOLUTION 等信息选取合适的 Media Playlist 的请求链接，并将链接与视频链接的域名结合，即可得到完整的链接。&lt;/p&gt;
+&lt;p&gt;比如，BANDWIDTH 为 1000kb、RESOLUTION 为 1280x720 的备用源的请求链接为：&lt;code&gt;https://mgtv-com.jjyl12349.com/20210519/fXE0kuJ7/1000kb/hls/index.m3u8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;请求该链接的返回结果也为一个 m3u8 文件，也就是 Media Playlist 文件。&lt;/p&gt;
+&lt;h2 id=&#34;media-playlist&#34;&gt;Media Playlist&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTM3U&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VERSION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TARGETDURATION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;6&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PLAYLIST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TYPE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VOD&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MEDIA&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SEQUENCE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;METHOD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;128&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;URI&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/key.key&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTINF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nl&#34;&gt;https:&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/mDHy0Stk.ts
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTINF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nl&#34;&gt;https:&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/FWZjOCHy.ts
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENDLIST&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;字节解释&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EXT-X-VERSION：表示 HLS 协议版本号&lt;/li&gt;
+&lt;li&gt;EXT-X-TARGETDURATION：表示 ts 视频片段允许最大的时长&lt;/li&gt;
+&lt;li&gt;EXT-X-PLAYLIST-TYPE：表示流媒体类型&lt;/li&gt;
+&lt;li&gt;EXT-X-MEDIA-SEQUENCE：表示播放列表第一个 ts 视频片段文件的序列号&lt;/li&gt;
+&lt;li&gt;EXT-X-KEY：表示 ts 视频文件的加密信息
+&lt;ul&gt;
+&lt;li&gt;METHOD：加密方法，可选 &lt;code&gt;NONE&lt;/code&gt;、&lt;code&gt;AES-128&lt;/code&gt;、&lt;code&gt;SAMPLE-AES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;URI：密钥路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;EXTINF：表示下面 url 对应的 ts 视频片段的时长&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
   </channel>

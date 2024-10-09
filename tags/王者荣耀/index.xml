@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>王者荣耀 on Folay‘s Blog</title>
     <link>https://folay.top/tags/%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80/</link>
-    <description>Recent content in 王者荣耀 on Folay‘s Blog</description>
+    <description>Recent content in 王者荣耀 on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 19 Oct 2022 10:46:28 +0800</lastBuildDate>
     
-	<atom:link href="https://folay.top/tags/%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://folay.top/tags/%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -24,7 +23,57 @@
 &lt;li&gt;修改连接 WiFi 名称&lt;/li&gt;
 &lt;li&gt;修改定位&lt;/li&gt;
 &lt;li&gt;开启商户特权&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;/ol&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/4431666347115_.pic.jpg width=600/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;获取商户-wifi-名称&#34;&gt;获取商户 WiFi 名称&lt;/h2&gt;
+&lt;p&gt;通过 “ 王者人生 ” 微信小程序获取商户 WiFi 名称，具体步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;微信搜索进入 “ 王者人生 ” 小程序&lt;/li&gt;
+&lt;li&gt;选择到店游戏特权&lt;/li&gt;
+&lt;li&gt;在附近特权合作商户列表中选择目标商户&lt;/li&gt;
+&lt;li&gt;点击 “ 切换到店 WiFi ” 按钮&lt;/li&gt;
+&lt;li&gt;记录 WiFi 名称&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;操作视频如下：&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;video  height=&#34;400&#34; controls&gt;
+    &lt;source src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/441_1666345189.mp4&#34; type=&#34;video/mp4&#34;&gt;
+&lt;/video&gt;
+&lt;/div&gt;
+&lt;p&gt;⚠️ 值得注意的是，请选择与手机 IP 地址所在城市的商户，另外最好选择 WiFi 很少变化的商户，如电影院、KFC 等。&lt;/p&gt;
+&lt;h2 id=&#34;修改连接-wifi-名称&#34;&gt;修改连接 WiFi 名称&lt;/h2&gt;
+&lt;p&gt;在路由器管理后台修改当前 WiFi 名称为第一步获取的商户 WiFi 名称即可，常见路由器管理后台地址为：&lt;a href=&#34;192.168.1.1&#34;&gt;192.168.1.1&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;⚠️ 值得注意的是，如果你是合租房等与他人共享 WiFi 的情况，可以通过 “ 朋友专属网络 ” 功能避免修改 WiFi 名称对他人的网络状态造成影响。现在大多路由器的管理后台都提供了开辟朋友专属子网络的功能，修改该网路的名称即可在不影响他人使用的情况下完成该步骤。&lt;/p&gt;
+&lt;h2 id=&#34;修改定位&#34;&gt;修改定位&lt;/h2&gt;
+&lt;p&gt;最后一步，使用爱思助手修改手机定位。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;电脑安装爱思助手&lt;/li&gt;
+&lt;li&gt;手机连接电脑并完成爱思助手初始化插件的安装&lt;/li&gt;
+&lt;li&gt;使用工具箱中的虚拟定位功能&lt;/li&gt;
+&lt;li&gt;修改手机定位为第一步获取商户的地址&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-10-21-123213.png width=600/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;开启商户特权&#34;&gt;开启商户特权&lt;/h2&gt;
+&lt;p&gt;完成以上步骤，即可在王者荣耀中开启商家特权了，开启方法很简单：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;设置&lt;/li&gt;
+&lt;li&gt;功能/隐私&lt;/li&gt;
+&lt;li&gt;商户特权管理&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-10-2123134123.png width=600/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;注意事项&#34;&gt;注意事项&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;商户特权为官方活动，并不会导致账号封禁。&lt;/li&gt;
+&lt;li&gt;选定一个商户 WiFi 后需无需更换，一直使用该 WiFi 即可。&lt;/li&gt;
+&lt;li&gt;每次使用爱思助手修改定位都是长时间有效的，即使是短时间的重启手机也不会失效，如果想恢复定位，可以使用爱思助手恢复。&lt;/li&gt;
+&lt;li&gt;请勿勾选 “ 每次登陆自动定位并开启特权 ”。&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
   </channel>

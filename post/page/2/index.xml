@@ -1,0 +1,506 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Folay‘s Blog</title>
+    <link>https://folay.top/post/</link>
+    <description>Recent content in Posts on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 19 Mar 2024 15:49:06 +0800</lastBuildDate>
+    
+        <atom:link href="https://folay.top/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在 Colab 搭建 Stable Diffusion</title>
+      <link>https://folay.top/post/stable_diffusion/</link>
+      <pubDate>Wed, 22 Feb 2023 15:49:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/stable_diffusion/</guid>
+      <description>&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 /&gt;
+&lt;/div&gt;
+&lt;p&gt;Form &lt;a href=&#34;https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies&#34;&gt;Weird Wonderful Ai Art&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2023 年 9 月 23 日更新：Colab 官方禁用 Stable Diffusion WebUI，无法解决断网问题，本文方法作废。详情见 &lt;a href=&#34;https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban&#34;&gt;https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;-ai-绘画&#34;&gt;🎨 Ai 绘画&lt;/h2&gt;
+&lt;p&gt;Stable Diffusion 是 stability.ai 于 2022 年发布的深度学习文生图模型，可以在大多数配备有适度 GPU 的电脑硬件上运行。&lt;/p&gt;
+&lt;p&gt;Colaboratory 简称 Colab，是 Google Research 团队发布的一种托管式 Jupyter 笔记本服务，可以免费使用 GPU / TPU 计算资源。&lt;/p&gt;
+&lt;p&gt;这是一份保姆级的在 Colab 搭建 Stable Diffusion 服务的教程，按照以下步骤操作，即可浅尝 Ai 绘画的魅力。&lt;/p&gt;
+&lt;h2 id=&#34;分配资源&#34;&gt;分配资源&lt;/h2&gt;
+&lt;p&gt;进入 &lt;a href=&#34;https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb&#34;&gt;Stable_Diffusion_WebUi_Altryne&lt;/a&gt; Colab 工程。&lt;/p&gt;
+&lt;p&gt;点击右上角的&lt;strong&gt;连接&lt;/strong&gt;获取云主机资源并连接运行时。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222142539642.png&#34; alt=&#34;1-image-20230222142539642&#34;&gt;&lt;/p&gt;
+&lt;p&gt;运行 1.0 单元格中的命令可以获主机信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222142936172.png&#34; alt=&#34;1-image-20230222142936172&#34;&gt;&lt;/p&gt;
+&lt;p&gt;一般分配到的都是 Tesla T4 机型，如果人品欧分配到 V100，那可以好好的吹一波了。&lt;/p&gt;
+&lt;h2 id=&#34;配置模型&#34;&gt;配置模型&lt;/h2&gt;
+&lt;p&gt;首先注册 &lt;a href=&#34;https://huggingface.co/&#34;&gt;Hugging Face&lt;/a&gt; 账号，并生成 WRITE 类型的 &lt;a href=&#34;https://huggingface.co/settings/tokens&#34;&gt;Access Tokens&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144043327.png&#34; alt=&#34;1-image-20230222144043327&#34;&gt;&lt;/p&gt;
+&lt;p&gt;返回到 Colab 界面，展开 &lt;em&gt;1.4 Connect to Google Drive&lt;/em&gt; 单元格，勾选 download_if_missing 并输入 Hugging Face 的 Accsee Token。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144232989.png&#34; alt=&#34;1-image-20230222144232989&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;设置密码&#34;&gt;设置密码&lt;/h2&gt;
+&lt;p&gt;在 &lt;em&gt;2.1 Optional - Set webUI settings and configs before running&lt;/em&gt; 中配置密码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144551905.png&#34; alt=&#34;1-image-20230222144551905&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;运行服务&#34;&gt;运行服务&lt;/h2&gt;
+&lt;p&gt;将所有单元块收起，依次运行所有单元块部署服务即可。&lt;/p&gt;
+&lt;p&gt;运行耗时&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Setup stage：5min&lt;/li&gt;
+&lt;li&gt;Run the Stable Diffusion webui：1s&lt;/li&gt;
+&lt;li&gt;Launch WebUI for stable diffusion：1min&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144857944.png&#34; alt=&#34;1-image-20230222144857944&#34;&gt;&lt;/p&gt;
+&lt;p&gt;运行过程中会弹窗请求登录 Google Drive，正常登录并允许即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222145720360.png&#34; alt=&#34;1-image-20230222145720360&#34;&gt;&lt;/p&gt;
+&lt;p&gt;运行完成点击 Public URL 进入 Stable Diffusion WebUI 界面。账号为 wubei，密码为上面自己配置的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222150541478.png&#34; alt=&#34;1-image-20230222150541478&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后就可以尽情的享用了。&lt;/p&gt;
+&lt;p&gt;输入 prompt，即可生成对应的图像，比如输入 “ an astronaut in the water ”。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222151132661.png&#34; alt=&#34;1-image-20230222151132661&#34;&gt;&lt;/p&gt;
+&lt;p&gt;当然，你可以输入更多的 prompt 信息，来生成更加具体准确的图像。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;(((masterpiece))),((best quality)), flat chest,((loli)),((one girl)),very long light white hair, beautiful detailed red eyes,aqua eyes,white robe, cat ears,(flower hairpin),sunlight, light smile,blue necklace,see-through,&lt;/p&gt;
+&lt;p&gt;杰作，最佳品质，贫乳，萝莉，1个女孩，很长的头发，淡白色头发，红色眼睛，浅绿色眼睛，白色长裙，猫耳，发夹，阳光下，淡淡的微笑，蓝色项链，透明&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222154010936.png&#34; alt=&#34;1-image-20230222154010936&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Mac多个Git账户共存</title>
+      <link>https://folay.top/post/git_account/</link>
+      <pubDate>Tue, 14 Feb 2023 10:46:28 +0800</pubDate>
+      
+      <guid>https://folay.top/post/git_account/</guid>
+      <description>&lt;h2 id=&#34;清除配置&#34;&gt;清除配置&lt;/h2&gt;
+&lt;p&gt;查看 Git 本地配置&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --list
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;清除用户名和邮箱&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --global --unset user.name
+git config --global --unset user.email
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;生成-ssh-key&#34;&gt;生成 ssh-key&lt;/h2&gt;
+&lt;p&gt;使用 &lt;code&gt;ssh-keygen&lt;/code&gt; 命令生成 ssh-key，并手动指定 id&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx1@gmail.com&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;生成成功会输出以下内容&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Generating public/private rsa key pair.
+Enter file in which to save the key &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/Users/james/.ssh/id_rsa&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+Enter passphrase &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;empty &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; no passphrase&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+Enter same passphrase again:
+Your identification has been saved in /Users/james/.ssh/id_rsa.
+Your public key has been saved in /Users/james/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:rwtxjGTJPoV9Mg8lFSf8D4X6jFexWVXKOMRaVyo+RO8 xx1@gmail.com
+The key&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;s randomart image is:
++---&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;RSA 3072&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;----+
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        .o&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;o+. .*&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     . + o.&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;+++o.&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      * * .&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     + + *ooo++  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; S .+o+E  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       + .. +..  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      .   ..     &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       . .       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        o.       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
++----&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;SHA256&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;-----+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后继续生成你的其他 Git 账号对应的 ssh-key&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx2@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx2@gmail.com&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;信任-ssh-key&#34;&gt;信任 ssh-key&lt;/h2&gt;
+&lt;p&gt;使用 &lt;code&gt;ssh-add&lt;/code&gt; 命令将生成的 ssh-key 添加到 ssh-agent 信任列表&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-add ~/.ssh/id_rsa_xx1@gmail.com
+ssh-add ~/.ssh/id_rsa_xx2@gmail.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果遇到 &lt;code&gt;Could not open a connection to your authentication agent.&lt;/code&gt; ，输入&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-agent bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后重复执行 &lt;code&gt;ssh-add&lt;/code&gt; 即可解决&lt;/p&gt;
+&lt;h2 id=&#34;配置公钥&#34;&gt;配置公钥&lt;/h2&gt;
+&lt;p&gt;复制对应公钥，配置到对应 Git 网站中（GitHub / GitLab）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pbcopy &amp;lt; ~/.ssh/id_rsa_xx1@gmail.com.pub
+pbcopy &amp;lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这步具体的操作如果有不清楚的可以参考 &lt;a href=&#34;https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account&#34;&gt;Adding a new SSH key to your GitHub account&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;配置-config&#34;&gt;配置 config&lt;/h2&gt;
+&lt;p&gt;进入 ssh 目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;open ~/.ssh/
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;按照以下规则编辑 config 文件，没有则创建&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;键&lt;/th&gt;
+&lt;th&gt;值&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Host&lt;/td&gt;
+&lt;td&gt;主机&lt;/td&gt;
+&lt;td&gt;自己起&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Hostname&lt;/td&gt;
+&lt;td&gt;主机名&lt;/td&gt;
+&lt;td&gt;Git 公有地址，比如 gitub.com / gittee.com&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;IdentityFile&lt;/td&gt;
+&lt;td&gt;身份文件&lt;/td&gt;
+&lt;td&gt;rsa 文件路径&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;User&lt;/td&gt;
+&lt;td&gt;用户&lt;/td&gt;
+&lt;td&gt;自己起，一般邮箱就好&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;编辑完 config 内容如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Host github1.com
+Hostname github.com
+IdentityFile ~/.ssh/id_rsa_xx1@gmail.com
+User xx1@gmail.com
+
+Host github2.com
+Hostname github.com
+IdentityFile ~/.ssh/id_rsa_xx2@gmail.com
+User xx2@gmail.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;测试链接&#34;&gt;测试链接&lt;/h2&gt;
+&lt;p&gt;测试 Git 账号是否连接成功，&lt;code&gt;git@&lt;/code&gt; 之后是 config 文件中配置的 Host&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh -T git@github1.com
+ssh -T git@github2.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;连接成功会有以下输出&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Hi xxx! You&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;ve successfully authenticated, but GitHub does not provide shell access.
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>《置身事内》读书笔记</title>
+      <link>https://folay.top/post/china_economy/</link>
+      <pubDate>Mon, 02 Jan 2023 10:46:28 +0800</pubDate>
+      
+      <guid>https://folay.top/post/china_economy/</guid>
+      <description>&lt;h1 id=&#34;微观&#34;&gt;微观&lt;/h1&gt;
+&lt;p&gt;在我国，政府不但影响“蛋糕”的分配，也参与“蛋糕”的生产，所以我们不可能脱离政府谈经济。&lt;/p&gt;
+&lt;h2 id=&#34;地方政府的权利与事务&#34;&gt;地方政府的权利与事务&lt;/h2&gt;
+&lt;p&gt;要理解政府治理和运作的模式，必须首先了解权力和资源在政府体系中的分布规则。这一分布取决于两个重要体制特点：一是&lt;strong&gt;央地关系&lt;/strong&gt;，二是&lt;strong&gt;条块分割&lt;/strong&gt;。央地关系是指整体上中央与地方之间权力要平衡；条块分割是指地方部门要同时接受上级垂直部门和横向地方政府的领导，受到双重制约。&lt;/p&gt;
+&lt;p&gt;基于这两个特点，地方政府的权力划分可以从三个视角考察：从&lt;strong&gt;外部性&lt;/strong&gt;的视角，若政府提供的公共服务只影响本地，就可以由本地全权处理，若存在外部性，则需要上级协调；从&lt;strong&gt;信息&lt;/strong&gt;的视角，有信息优势的一方实际权威也会更大，因此上级往往也会花费大量的精力获取下级的信息；从&lt;strong&gt;激励相容&lt;/strong&gt;的视角，与本地发展目标无关或相反的事项更倾向于垂直领导，与本地发展目标相符或本地能受益的事项则倾向于交给本地政府处理。&lt;/p&gt;
+&lt;p&gt;根据这些事权划分原则，地方政府在招商引资、发展经济的过程中享有非常广泛的权力，因此可以&lt;strong&gt;深度参与资源的生产与分配过程&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;财务与政府行为&#34;&gt;财务与政府行为&lt;/h2&gt;
+&lt;p&gt;要发展经济，地方政府除了有事权还不够，更重要的是财权。1985-1993年，推行财政包干，导致中央财政收入占比逐年下降，于是1994年进行&lt;strong&gt;分税制改革&lt;/strong&gt;，增加了中央的收入，却大大降低了地方的财政资源。&lt;/p&gt;
+&lt;p&gt;分税制并没有改变地方政府以经济建设为中心的任务，却减少了其手头可支配的财政来源，地方不得不另谋出路，寻找资金来源，于是轰轰烈烈的&lt;strong&gt;土地财政&lt;/strong&gt;就此登场。土地财政简单来讲就是指地方政府依靠出让土地使用权的收入来维持地方财政支出。&lt;/p&gt;
+&lt;p&gt;1998年，发生了两件改变房地产市场的大事：第一，单位停止福利分房，老百姓从此需要自己买房子了，房地产时代自此拉开大幕；第二，修订后的《中华人民共和国土地管理法》开始实施，简言之就是地方政府拥有卖地的决定权，而卖地的收入也归地方所有。地方政府就可以限制商住用地供给，从不断攀升的地价中赚取土地垄断收益。&lt;/p&gt;
+&lt;p&gt;一些地区政府实行土地财政。一方面补贴工业用地，招商引资，一方面限制商住用地，房价带动地价。但对于无法依靠土地财政的地区，则出现了财政困难，地区间不平等，需要依靠中央转移支付，并继续进行财政改革。如农村税费改革，乡财县管、省直管县等等。&lt;/p&gt;
+&lt;h2 id=&#34;政府投融资与债务&#34;&gt;政府投融资与债务&lt;/h2&gt;
+&lt;p&gt;土地真正的力量还不在土地财政，而在以土地为抵押而撬动的银行信贷和其他各路资金，土地财政一旦嫁接了资本市场，加上了杠杆，就成了&lt;strong&gt;土地金融&lt;/strong&gt;，能像滚雪球般越滚越大，推动经济飞速扩张。&lt;/p&gt;
+&lt;p&gt;政府成立地方政府融资平台，即“城投公司”，以未来的土地收益为抵押撬动大量银行贷款，就可以进行投资以推动城市化和工业化。政府投资主要分两个方向，一是&lt;strong&gt;投资基础建设&lt;/strong&gt;，二是&lt;strong&gt;投资工业&lt;/strong&gt;。投资基础建设就是城投公司开发后再交给政府招商引资，或企业从开发到引资全负责，政府付费使用，这就是“政府与社会资本合作”模式（PPP）。&lt;/p&gt;
+&lt;p&gt;但是地方政府通过土地金融推动经济发展的模式仍然存在一些问题。从&lt;strong&gt;微观层面&lt;/strong&gt;，土地金融会增加&lt;strong&gt;地方政府债务风险&lt;/strong&gt;。地方政府债务除了账面的显性负债，更多的是融资平台公司的“隐性负债”。经济向好时可以以土地增值收益作为还款来源，一旦经济遇冷，低价下跌，就可能出现严重的债务问题。&lt;/p&gt;
+&lt;p&gt;目前改革的主要措施有用政府公债置换城投公司债务，将城投公司转型为普通国企，避免资金继续流入，约束官员的投资冲动。但是从根本上说，现行体制下，地方官员和普通政府工作人员都拥有非常强的激励去发展经济，这一方面导致投资过度，一方面出现了“官商勾结共同发财式”的系统性腐败。因此深层次的改革应当简政放权，从生产投资型政府向服务型政府转变。&lt;/p&gt;
+&lt;h2 id=&#34;工业化中的政府角色&#34;&gt;工业化中的政府角色&lt;/h2&gt;
+&lt;p&gt;我国的经济改革脱胎于计划经济，政府手中掌握大量对产业发展至关重要的资源，如土地、银行、大学和科研机构等，所以必然会以各种方式深度参与工业化进程。&lt;/p&gt;
+&lt;p&gt;上面描述的政府投资的第二个方向就是&lt;strong&gt;投资工业&lt;/strong&gt;，由政府对特定企业进行支持和补贴。此外，政府还会设置&lt;strong&gt;产业引导基金&lt;/strong&gt;，成立投资公司或交给市场化的基金管理人运作，作为“母基金”投资其他基金，再通过后者投资未上市公司的股权，从而将更多社会资本引导至战略新兴产业。&lt;/p&gt;
+&lt;p&gt;书中以京东方、光伏发展为例讲解了具体的地方政府投资工业的过程，在此不做赘述。&lt;/p&gt;
+&lt;h1 id=&#34;宏观&#34;&gt;宏观&lt;/h1&gt;
+&lt;p&gt;上面描述了土地金融模式微观层面上的影响，下面描述&lt;strong&gt;宏观影响&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;城市化与不平衡&#34;&gt;城市化与不平衡&lt;/h2&gt;
+&lt;p&gt;第一，城市化过程中“&lt;strong&gt;重土地、轻人&lt;/strong&gt;”，从而推高房价，增加居民债务负担，加剧收入差距和贫富差距。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;房价升高&lt;/strong&gt;在中长期看来是因为大城市的建设用地指标被严格管理，跟不上人口流入的速度，导致住房供不应求。房价越高，居民债务负担就越重。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;收入差距&lt;/strong&gt;则是由于城市相关公共服务供给不足，劳动力无法自由流动，低技能人员难以在城市立足。在经济快速增长的过程中，低收入群体对于贫富差距的敏感度没有那么高，但一旦经济放缓，社会对不平等的容忍度将会降低。&lt;/p&gt;
+&lt;p&gt;因此&lt;strong&gt;改革办法&lt;/strong&gt;是将重心从土地转移到人，既要让建设用地指标流转起来，打破城市政府对城市住宅用地的垄断，又要改革户籍制度，增加低收入群体的流动性和选择权。&lt;/p&gt;
+&lt;h2 id=&#34;债务与风险&#34;&gt;债务与风险&lt;/h2&gt;
+&lt;p&gt;第二，招商引资过程中“&lt;strong&gt;重规模，重扩张&lt;/strong&gt;”，加重企业债务负担，以及经济整体的债务和金融风险。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;债务的成因&lt;/strong&gt;在于金融危机后我国金融管制的放松，银行更愿意把钱借出去。&lt;/p&gt;
+&lt;p&gt;从&lt;strong&gt;债务人企业&lt;/strong&gt;的角度，主要是地方政府融资平台企业、国有企业、房地产企业债务负担较重。它们为了还贷抛售资产，会造成资产价格下跌，而资产价格下跌又会使银行坏账上升，不愿意继续贷款，使企业资金链断裂，从而带来经济衰退。&lt;/p&gt;
+&lt;p&gt;从&lt;strong&gt;债权人银行&lt;/strong&gt;的角度，一是规模大，杠杆率高；二是银行负债与资产期限的不匹配会带来流动性风险；三是银行信贷大多以房地产或土地为抵押，因此经济衰退时，银行反而不愿放贷，加速经济下行；四是银行风险会传导至其他金融部门，形成系统风险。银行为了逃避监管设立影子银行，资本在金融机构流转，一旦泡沫破裂，将影响整个金融行业。&lt;/p&gt;
+&lt;p&gt;要解决债务问题，可以分为两个部分，一是&lt;strong&gt;偿还已有债务&lt;/strong&gt;，二是&lt;strong&gt;遏制新增债务&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;偿还债务要么变卖资产，要么压缩支出，要么增发货币。后者有三种方法：直接增发、量化宽松、债务货币化。&lt;/p&gt;
+&lt;p&gt;要遏制新增债务，除了严控房价上涨、限制土地金融等金融改革，关键是要找到债务增长的根源。企业为什么总是向银行贷款？根据“谁做投资决策，谁承担投资风险”的原则，&lt;strong&gt;我国的投资主要有政府和国企主导，因此风险也是由政府及其控制的金融机构，即银行承担&lt;/strong&gt;。因为银行的风险归根结底是政府的风险。因此限制债务增长的根本措施是资本市场改革，将权力下放给市场，拓宽直接融资渠道，让企业通过股权、债券筹资。&lt;/p&gt;
+&lt;h2 id=&#34;国内国际失衡&#34;&gt;国内国际失衡&lt;/h2&gt;
+&lt;p&gt;第三，发展战略“&lt;strong&gt;重投资、重生产、轻消费&lt;/strong&gt;”，导致经济结构不平衡。&lt;/p&gt;
+&lt;p&gt;对于内部，结构失衡最突出的特征是&lt;strong&gt;消费不足&lt;/strong&gt;，这一方面是因为计划生育、民生支出不足、房价上涨等因素造成的&lt;strong&gt;储蓄偏高&lt;/strong&gt;，一方面也是因为&lt;strong&gt;居民收入份额较低&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在经济发展初期，大量投入资本可以有效实现工业化，推动经济增长，但当经济发展到一定阶段，这种发展模式会造成产能过剩、债务风险（投资流入房地产，推高房价）、贫富差距过大、外部失衡（出口常年大于进口）等一系列问题。&lt;/p&gt;
+&lt;p&gt;但是，中美之间的贸易冲突，并非因为中国的出口对美国就业的冲击，而是制造业崛起对美国技术的冲击，再加上美国政治保守主义的兴起。这势必要求我国构建以国内大循环为主体的&lt;strong&gt;双循环模式&lt;/strong&gt;，壮大国内市场，实现“市场—研发—迭代—更大市场”的良性循环。&lt;/p&gt;
+&lt;p&gt;这一转型的关键在于&lt;strong&gt;提高居民收入与消费&lt;/strong&gt;。这应当从三个方面入手，一是继续推进城市化，让服务业进一步发展；二是加大民生支出，降低生产性支出；三是发展直接融资渠道，扩宽居民财产性收入。&lt;/p&gt;
+&lt;h2 id=&#34;政府与经济发展&#34;&gt;政府与经济发展&lt;/h2&gt;
+&lt;p&gt;政府过去发展经济的核心在于引入竞争机制，&lt;strong&gt;由中央协调，地方政府竞争&lt;/strong&gt;。竞争的评价标准就是经济建设。&lt;/p&gt;
+&lt;p&gt;这种“&lt;strong&gt;官场+市场&lt;/strong&gt;”的体制优势在于设计了一晰有效的升迁标准，从而给官员提供了极强的激励发展经济。但也会产生地方保护主义、腐败等问题。正如计划经济时代政府干预的特点延续到市场化改革，这一体制也会留下重视经济、忽视民生的路径依赖。&lt;/p&gt;
+&lt;p&gt;在市场机制尚不完善的情况下，政府可以作为其补充动员和调配资源，为完善和建设市场经济争取时间。但当市场机制已经相对成熟，政府也要适时改变自己的角色定位，降低政府投资支出，加大民生支出，从&lt;strong&gt;生产型政府转向服务型政府&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这一转变也契合发展经济学的一般视角：对于发展中国家，提高生产率的关键在于学习已知的技术和管理模式，当生产率提升到一定水平后，又要由组织学习模式转向探索创新模式。而无论是怎样的发展模式，不同的国家、不同的地区都会根据具体的政治社会现实而有所不同。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>在家享受王者荣耀金牌商户特权</title>
+      <link>https://folay.top/post/king_of_glory/</link>
+      <pubDate>Wed, 19 Oct 2022 10:46:28 +0800</pubDate>
+      
+      <guid>https://folay.top/post/king_of_glory/</guid>
+      <description>&lt;h2 id=&#34;商户特权&#34;&gt;商户特权&lt;/h2&gt;
+&lt;p&gt;该教程适用于普通家用路由器网络以及 iOS 系统的手机，操作可以分为以下几步：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;获取商户 WiFi 名称&lt;/li&gt;
+&lt;li&gt;修改连接 WiFi 名称&lt;/li&gt;
+&lt;li&gt;修改定位&lt;/li&gt;
+&lt;li&gt;开启商户特权&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/4431666347115_.pic.jpg width=600/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;获取商户-wifi-名称&#34;&gt;获取商户 WiFi 名称&lt;/h2&gt;
+&lt;p&gt;通过 “ 王者人生 ” 微信小程序获取商户 WiFi 名称，具体步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;微信搜索进入 “ 王者人生 ” 小程序&lt;/li&gt;
+&lt;li&gt;选择到店游戏特权&lt;/li&gt;
+&lt;li&gt;在附近特权合作商户列表中选择目标商户&lt;/li&gt;
+&lt;li&gt;点击 “ 切换到店 WiFi ” 按钮&lt;/li&gt;
+&lt;li&gt;记录 WiFi 名称&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;操作视频如下：&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;video  height=&#34;400&#34; controls&gt;
+    &lt;source src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/441_1666345189.mp4&#34; type=&#34;video/mp4&#34;&gt;
+&lt;/video&gt;
+&lt;/div&gt;
+&lt;p&gt;⚠️ 值得注意的是，请选择与手机 IP 地址所在城市的商户，另外最好选择 WiFi 很少变化的商户，如电影院、KFC 等。&lt;/p&gt;
+&lt;h2 id=&#34;修改连接-wifi-名称&#34;&gt;修改连接 WiFi 名称&lt;/h2&gt;
+&lt;p&gt;在路由器管理后台修改当前 WiFi 名称为第一步获取的商户 WiFi 名称即可，常见路由器管理后台地址为：&lt;a href=&#34;192.168.1.1&#34;&gt;192.168.1.1&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;⚠️ 值得注意的是，如果你是合租房等与他人共享 WiFi 的情况，可以通过 “ 朋友专属网络 ” 功能避免修改 WiFi 名称对他人的网络状态造成影响。现在大多路由器的管理后台都提供了开辟朋友专属子网络的功能，修改该网路的名称即可在不影响他人使用的情况下完成该步骤。&lt;/p&gt;
+&lt;h2 id=&#34;修改定位&#34;&gt;修改定位&lt;/h2&gt;
+&lt;p&gt;最后一步，使用爱思助手修改手机定位。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;电脑安装爱思助手&lt;/li&gt;
+&lt;li&gt;手机连接电脑并完成爱思助手初始化插件的安装&lt;/li&gt;
+&lt;li&gt;使用工具箱中的虚拟定位功能&lt;/li&gt;
+&lt;li&gt;修改手机定位为第一步获取商户的地址&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-10-21-123213.png width=600/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;开启商户特权&#34;&gt;开启商户特权&lt;/h2&gt;
+&lt;p&gt;完成以上步骤，即可在王者荣耀中开启商家特权了，开启方法很简单：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;设置&lt;/li&gt;
+&lt;li&gt;功能/隐私&lt;/li&gt;
+&lt;li&gt;商户特权管理&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-10-2123134123.png width=600/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;注意事项&#34;&gt;注意事项&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;商户特权为官方活动，并不会导致账号封禁。&lt;/li&gt;
+&lt;li&gt;选定一个商户 WiFi 后需无需更换，一直使用该 WiFi 即可。&lt;/li&gt;
+&lt;li&gt;每次使用爱思助手修改定位都是长时间有效的，即使是短时间的重启手机也不会失效，如果想恢复定位，可以使用爱思助手恢复。&lt;/li&gt;
+&lt;li&gt;请勿勾选 “ 每次登陆自动定位并开启特权 ”。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>《亲密关系》读书笔记</title>
+      <link>https://folay.top/post/relationship/</link>
+      <pubDate>Sun, 16 Oct 2022 10:46:28 +0800</pubDate>
+      
+      <guid>https://folay.top/post/relationship/</guid>
+      <description>&lt;h1 id=&#34;写在前面&#34;&gt;写在前面&lt;/h1&gt;
+&lt;p&gt;记录阅读 罗兰·米勒 的《亲密关系》过程中的收获。&lt;/p&gt;
+&lt;p&gt;人际关系是由多种影响因素构成的，其范围从当前文化的流行时尚到人类种族的基本属性，非常广泛。在这些一般的影响因素之外，还有很多个体独有的影响因素如人格和经验，它们有些是习得的，有些是遗传的。最终，两个来自同一星球，但在很多方面存在一定程度差异的人，开始了他们的互动。互动的结果或许令人沮丧，或许令人满意。&lt;/p&gt;
+&lt;h1 id=&#34;亲密关系&#34;&gt;亲密关系&lt;/h1&gt;
+&lt;p&gt;人际关系种类多样，规格不齐，我们上有父母，还可能下有子女，我们还有朋友和爱人，《亲密关系》书中重点关注的是后两种伙伴关系，而且限制于成人之间。&lt;/p&gt;
+&lt;h2 id=&#34;亲密关系的定义&#34;&gt;亲密关系的定义&lt;/h2&gt;
+&lt;p&gt;亲密关系是一个复杂的概念，包含各种成分，很难去下定义，好在研究者和普通人都认为亲密关系和泛泛之交之间存在六个方面的程度差异。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;了解：广泛而私密的了解&lt;/li&gt;
+&lt;li&gt;关心：相互的关心&lt;/li&gt;
+&lt;li&gt;相互依赖性：彼此需要和影响对方的程度时频繁、强烈、多样且持久的&lt;/li&gt;
+&lt;li&gt;相互一致性：自我接纳他人的程度是否高度重合&lt;/li&gt;
+&lt;li&gt;信任：相信对方会善待和尊重自己&lt;/li&gt;
+&lt;li&gt;忠诚：希望关系能地老天长，并不惜时间、人力和物力的消耗&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;归属需要&#34;&gt;归属需要&lt;/h2&gt;
+&lt;p&gt;为什么人们需要亲密关系呢？&lt;/p&gt;
+&lt;p&gt;亲密关系对于人类的重要性主要体现在归属需要上，归属需要是人类长期演化的产物，逐渐成为所有人类共同的自然倾向，让我们觉得与和自己有关联的人的正常社会交往是必不可少的，是对持续关爱和包容的一种需要。&lt;/p&gt;
+&lt;h1 id=&#34;文化的影响&#34;&gt;文化的影响&lt;/h1&gt;
+&lt;p&gt;文化标准是人们建立人际关系的基石，它影响着人们对人际关系的期望，限定了正常的人际关系模式。&lt;/p&gt;
+&lt;p&gt;就拿最近普遍流行的同居现象来说，现在许多高中生认为情侣未婚同居是个“好主意”，因为他们能据此考察彼此是否真正能“和睦相处”（Bachman etal.，2001）。这种态度使未婚同居看上去很有道理，好像是个不错的选择。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot_2022-10-17_00.39.10.png width=600  height=350 /&gt;
+&lt;/div&gt;
+&lt;p&gt;然而，如果人们并没有切实的结婚计划，未婚同居并不能确保随后的婚姻幸福美满；相反，同居增加了夫妻离婚的危险。如上图的研究结果所示，随着时间的推移，同居情侣结婚的可能性逐渐降低，但分手的可能性却不下降。&lt;/p&gt;
+&lt;p&gt;总的说来，草率同居原本用来测试伴侣能否和睦共处，却好像会损害人们对婚姻的积极态度和维持婚姻的决心，这种态度和决心是幸福婚姻的支柱（Rhoades et al.，2009）。&lt;/p&gt;
+&lt;h1 id=&#34;个人经历的影响&#34;&gt;个人经历的影响&lt;/h1&gt;
+&lt;p&gt;依恋类型不受基因影响，是在与生俱来的个体特征和养育水平的影响下塑造的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安全型：对亲密关系和相互依赖安心、乐观、好交际&lt;/li&gt;
+&lt;li&gt;痴迷型：对有损坏亲密关系的任何威胁都不安和警惕、嫉妒、贪婪&lt;/li&gt;
+&lt;li&gt;恐惧型：自立、漠视亲密关系、冷淡、独立&lt;/li&gt;
+&lt;li&gt;疏离型：害怕被遗弃、不信任他人、猜忌多疑、害羞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们幼时对人际交往价值和他人是否可信的观念，起源于我们与照料者的交往，由于运气的好坏，我们就此走向了信任或恐惧的亲密关系之路。这段历程永远不会停止，同行者随后给予的阻碍或帮助会改变我们亲密关系的方向和进程。视乎人际交往经验的不同，我们习得的依恋类型既可随时间发生变化，也可永久保持稳定。&lt;/p&gt;
+&lt;h1 id=&#34;个体差异的影响&#34;&gt;个体差异的影响&lt;/h1&gt;
+&lt;h2 id=&#34;性别差异&#34;&gt;性别差异&lt;/h2&gt;
+&lt;p&gt;两性群体差异确实存在，但远低于同性不同个体间的差异程度。&lt;/p&gt;
+&lt;p&gt;两性性别内的行为和观点差异通常远大于两性之间的平均差异。男性较女性更能接受随意、短暂的性关系（Peterson &amp;amp; Hyde，2010），这未必表示所有男性都喜欢随意的性关系。&lt;/p&gt;
+&lt;p&gt;有些男人喜欢与陌生人发生性行为，但也有些男人根本不喜欢这样做，这两组男性在性生活上的相似程度远不如男性和女性的平均水平。换句话说，尽管在性放任上存在两性差异，一位非常性放任的男人与女性性放任的平均水平的差别，远低于他与另一位性保守的男人在性放任上的差别。&lt;/p&gt;
+&lt;p&gt;书中一则描述刻板化印象的笑话很有趣。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;怎样吸引女人：&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;夸赞她，依偎她，亲吻她，爱抚她，热爱她，安慰她，保护她，拥抱她，不惜千金买笑，奉出美酒佳肴，烦心的时候听她唠叨，微恙的时候悉心照料，永远和她待在一起，永远支持她的意见，为她走遍天涯海角。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;怎样吸引男人：&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;脱光衣服，带上啤酒。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;实际上，两性对亲密关系的期望差异很小，他们根本不是“相反的”两类人（Hyde，2007）。如果认为男女两性差异很大，当面临冲突时（这无法避免）不太可能去努力修复自己与异性的亲密关系。认为异性是来自另一世界的外星人不仅是错误的，更是有害的，它阻碍了对伴侣观点的理解，妨碍了双方协作解决问题。&lt;/p&gt;
+&lt;h2 id=&#34;性认同差异&#34;&gt;性认同差异&lt;/h2&gt;
+&lt;p&gt;性认同差异指的是由文化和教育引起的两性在社会性和心理上的差异，或者叫社会性别（Wood &amp;amp; Eagly，2009）。&lt;/p&gt;
+&lt;p&gt;性认同最好的例子是性别角色（gender roles），即社会文化所期待的男女两性应有的“正常”行为模式，下面是常见的性别角色分类，社会期望和鼓励男人具有工具性，女人具有表达性。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;工具性：自信、独立、有抱负、领导力、果敢，约占 25%&lt;/li&gt;
+&lt;li&gt;表达性：热情、温柔、有同情心、亲切、敏感，约占 25%&lt;/li&gt;
+&lt;li&gt;跨类型：约占 35%&lt;/li&gt;
+&lt;li&gt;未分化：约占 15%&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;人格&#34;&gt;人格&lt;/h2&gt;
+&lt;p&gt;大五人格特质可以很好地区分人们在诸多方面（如行为、思维和情感等）的差异（McCrae &amp;amp; Costa，2010）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;开放性：富有想象力、不墨守成规、艺术气质，相对应的是拘泥、僵化和教条。&lt;/li&gt;
+&lt;li&gt;外倾性：开朗、合群、热情、喜欢社交，相对应的是谨慎、内敛及害羞。&lt;/li&gt;
+&lt;li&gt;尽责性：勤劳、可依赖、有序，相对应的是不可靠、粗心大意。&lt;/li&gt;
+&lt;li&gt;宜人性：同情心、合作性、对人信任，相对应的是易怒、暴躁和充满敌意。&lt;/li&gt;
+&lt;li&gt;神经质：善变、容易担忧、焦虑和愤怒的程度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;重要性从低到高排列的，大五特质中最重要的是那个有消极作用的特质：神经质（Malouff et al.，2010）。神经质的人容易发怒和焦虑，这些不良倾向往往会引起人际摩擦、悲观情绪和争执（Suls &amp;amp; Martin，2005）。&lt;/p&gt;
+&lt;h2 id=&#34;自尊&#34;&gt;自尊&lt;/h2&gt;
+&lt;p&gt;自尊就是人际交往中的自我评价，可以看作一种 “ 社会关系测量仪 ”，如果他人积极地对待我们并看重与我们的关系，自尊水平就高；如果我们不能吸引别人的关注，自尊水平就低。&lt;/p&gt;
+&lt;p&gt;我们人类是高度社会化的动物，如果他人不喜欢我们，我们要喜欢自己非常困难（的确，这样做很不现实）。大多数情况下，如果不能从他人那里获得足够的接纳和欣赏，长期处在低自尊的人就会形成负面的自我评价。&lt;/p&gt;
+&lt;p&gt;值得一提的是自尊在亲密关系中的影响：低自尊的人有时低估伴侣对他们的爱，以致损害亲密关系（Murray et al.，2001）。&lt;/p&gt;
+&lt;p&gt;我们都需要在与他人的联系和自我保护间保持平衡，但低自尊的人总把他们脆弱的自尊心置于亲密关系之上。低自尊者的自我怀疑和敏感脆弱使他们从无数的琐事中制造出堆积如山的问题。他们错误地以为爱情之路上的磕磕碰碰是伴侣拒绝承诺的不祥之兆。然后，又表现出令人反感、自我打击式的伤害和愤怒，完全隔断了自己渴望的伴侣的安慰。相形之下，高自尊者对同样的小磕绊完全不以为意，信心十足地期待伴侣对自己的接纳和正面评价。&lt;/p&gt;
+&lt;h1 id=&#34;人类本性的影响&#34;&gt;人类本性的影响&lt;/h1&gt;
+&lt;p&gt;数千年来人类生存所面临的环境压力遗留下了精神和情感的痕迹。某些遗留下的情感和行为反应源自我们的远祖，在现代已经没有必要了，但前人生存的这些遗迹不可磨灭地刻入了我们的性格，使得每个人都表现出一定的倾向性。&lt;/p&gt;
+&lt;p&gt;演化心理学的三个假设：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;性选择使人类成为今天这样的物种。&lt;/li&gt;
+&lt;li&gt;两性之所以存在差异，只是因为某种程度上他们在过去面临着不同的繁殖困境（养育投入）。&lt;/li&gt;
+&lt;li&gt;文化影响决定了演化形成的行为模式是否具有适应性，并且文化的变化比演化快得多（父系不确定）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;人际互动的影响&#34;&gt;人际互动的影响&lt;/h1&gt;
+&lt;p&gt;人际关系常常大于它各部分相加的总和，这便是人际关系的最后一个构成要素 “ 互动 ” 的影响。&lt;/p&gt;
+&lt;p&gt;比如拿伴侣关系中的信任程度来说，信任是双向的过程，同时收到你和伴侣双方性情的影响，来源于你每天和伴侣不断付出以及不断接受的动态过程，换而言之，信任是流动的过程而非静止不变的事物，它在你所有的人际关系中时起时落。&lt;/p&gt;
+&lt;h1 id=&#34;人际关系的消极面&#34;&gt;人际关系的消极面&lt;/h1&gt;
+&lt;p&gt;我们不得不承认人际关系也有一些潜在的代价，有时我们和他人打交道也会带来不幸和痛苦。&lt;/p&gt;
+&lt;p&gt;当人们与他人接近时，可能害怕自己最在乎的秘密被人揭露或利用。他们还可能担忧伴随相互依赖而来的自主性和自我控制的丧失（Baxter，2004）。他们或许还担心会被自己所依赖的人抛弃。他们认识到人际关系可能存在欺骗，人们有时还会混淆了性和爱（Firestone &amp;amp; Catlett，1999）。实际上，大多数人（56%）在过去的5年中人际关系都曾陷入困境（Levitt et al.，1996）。&lt;/p&gt;
+&lt;p&gt;那么为什么还要冒这种风险呢？书中的回答很是浪漫。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为我们人类是社会化的动物，我们需要彼此。没有与他人的亲密联系，我们就会枯萎和死亡 。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

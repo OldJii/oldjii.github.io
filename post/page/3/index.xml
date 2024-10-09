@@ -1,333 +1,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>工作 on Folay‘s Blog</title>
-    <link>https://folay.top/categories/%E5%B7%A5%E4%BD%9C/</link>
-    <description>Recent content in 工作 on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
+    <title>Posts on Folay‘s Blog</title>
+    <link>https://folay.top/post/</link>
+    <description>Recent content in Posts on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 26 Sep 2023 15:49:06 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Mar 2024 15:49:06 +0800</lastBuildDate>
     
-        <atom:link href="https://folay.top/categories/%E5%B7%A5%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://folay.top/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Stable Diffusion 的光影艺术</title>
-      <link>https://folay.top/post/sd_controlnet/</link>
-      <pubDate>Tue, 26 Sep 2023 15:49:06 +0800</pubDate>
-      
-      <guid>https://folay.top/post/sd_controlnet/</guid>
-      <description>&lt;p&gt;最近在网上经常有看到类似上面这种图片，图片里的建筑物或者是光影形成了一些文字，给图片附加了更多的信息。评论有很多人很好奇，所以记录下制作方式。&lt;/p&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192146502.png width=100%/&gt;
-&lt;/div&gt;
-&lt;p&gt;其实制作的方法很简单，只是在基本 text2img 的基础上使用 ControlNet 进行垫图并附加一些光影性强的 Model 即可。&lt;/p&gt;
-&lt;h2 id=&#34;checkpoint-配置&#34;&gt;Checkpoint 配置&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Checkpoint Model：推荐使用写实类的模型，比如 majicMIX realistic、dalcefoPainting 3rd。&lt;/li&gt;
-&lt;li&gt;Sampler method：推荐使用 DMP++ 2S a Karras、DMP++ 2M Karras。&lt;/li&gt;
-&lt;li&gt;Sampling Steps：推荐 25 左右，不要超过 30，因为要实现光影文字效果，Step 数太多会渲染掉文-字效果。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192143384.png width=100%/&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;底图制作&#34;&gt;底图制作&lt;/h2&gt;
-&lt;p&gt;需要用到一张黑底白字的图片，用什么做随意，用你熟悉工具即可，尺寸需要跟你上面配置的 Size 信息保持一致，以保证文字的位置是准确的，比如下图。&lt;/p&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192150418.png width=100%/&gt;
-&lt;/div&gt;
-&lt;p&gt;另外，如果你能让文字的边缘实现模糊效果就更好了，生成的图片光影文字效果会更贴合。&lt;/p&gt;
-&lt;h2 id=&#34;controlnet-配置&#34;&gt;ControlNet 配置&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;ControlNet Model：对出图效果的影响比较关键，推荐使用 control_v1p_sd15_brightness、lightingBasedPicture_v10，都是比较优秀的光影 Model。&lt;/li&gt;
-&lt;li&gt;ControlNet Type：全部&lt;/li&gt;
-&lt;li&gt;预处理器：推荐 none，也可以使用 tile_colorfix，但是要搭配 control_v11f1e_sd15_tile 模型。&lt;/li&gt;
-&lt;li&gt;Control Weight：0.4 ～ 0.55&lt;/li&gt;
-&lt;li&gt;Starting Control Step：0 ~ 0.1&lt;/li&gt;
-&lt;li&gt;Ending Control Step：0.45 ～ 0.6&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192144711.png width=100%/&gt;
-&lt;/div&gt;
-&lt;p&gt;最后就抽卡吧，慢慢抽，另外附上一张网友测试的 Control Step 与出图效果的对比图。&lt;/p&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192154764.webp width=100%/&gt;
-&lt;/div&gt;</description>
-    </item>
-    
-    <item>
-      <title>在 Colab 搭建 Stable Diffusion</title>
-      <link>https://folay.top/post/stable_diffusion/</link>
-      <pubDate>Wed, 22 Feb 2023 15:49:06 +0800</pubDate>
-      
-      <guid>https://folay.top/post/stable_diffusion/</guid>
-      <description>&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 /&gt;
-&lt;/div&gt;
-&lt;p&gt;Form &lt;a href=&#34;https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies&#34;&gt;Weird Wonderful Ai Art&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;2023 年 9 月 23 日更新：Colab 官方禁用 Stable Diffusion WebUI，无法解决断网问题，本文方法作废。详情见 &lt;a href=&#34;https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban&#34;&gt;https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;-ai-绘画&#34;&gt;🎨 Ai 绘画&lt;/h2&gt;
-&lt;p&gt;Stable Diffusion 是 stability.ai 于 2022 年发布的深度学习文生图模型，可以在大多数配备有适度 GPU 的电脑硬件上运行。&lt;/p&gt;
-&lt;p&gt;Colaboratory 简称 Colab，是 Google Research 团队发布的一种托管式 Jupyter 笔记本服务，可以免费使用 GPU / TPU 计算资源。&lt;/p&gt;
-&lt;p&gt;这是一份保姆级的在 Colab 搭建 Stable Diffusion 服务的教程，按照以下步骤操作，即可浅尝 Ai 绘画的魅力。&lt;/p&gt;
-&lt;h2 id=&#34;分配资源&#34;&gt;分配资源&lt;/h2&gt;
-&lt;p&gt;进入 &lt;a href=&#34;https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb&#34;&gt;Stable_Diffusion_WebUi_Altryne&lt;/a&gt; Colab 工程。&lt;/p&gt;
-&lt;p&gt;点击右上角的&lt;strong&gt;连接&lt;/strong&gt;获取云主机资源并连接运行时。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222142539642.png&#34; alt=&#34;1-image-20230222142539642&#34;&gt;&lt;/p&gt;
-&lt;p&gt;运行 1.0 单元格中的命令可以获主机信息。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222142936172.png&#34; alt=&#34;1-image-20230222142936172&#34;&gt;&lt;/p&gt;
-&lt;p&gt;一般分配到的都是 Tesla T4 机型，如果人品欧分配到 V100，那可以好好的吹一波了。&lt;/p&gt;
-&lt;h2 id=&#34;配置模型&#34;&gt;配置模型&lt;/h2&gt;
-&lt;p&gt;首先注册 &lt;a href=&#34;https://huggingface.co/&#34;&gt;Hugging Face&lt;/a&gt; 账号，并生成 WRITE 类型的 &lt;a href=&#34;https://huggingface.co/settings/tokens&#34;&gt;Access Tokens&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144043327.png&#34; alt=&#34;1-image-20230222144043327&#34;&gt;&lt;/p&gt;
-&lt;p&gt;返回到 Colab 界面，展开 &lt;em&gt;1.4 Connect to Google Drive&lt;/em&gt; 单元格，勾选 download_if_missing 并输入 Hugging Face 的 Accsee Token。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144232989.png&#34; alt=&#34;1-image-20230222144232989&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;设置密码&#34;&gt;设置密码&lt;/h2&gt;
-&lt;p&gt;在 &lt;em&gt;2.1 Optional - Set webUI settings and configs before running&lt;/em&gt; 中配置密码。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144551905.png&#34; alt=&#34;1-image-20230222144551905&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;运行服务&#34;&gt;运行服务&lt;/h2&gt;
-&lt;p&gt;将所有单元块收起，依次运行所有单元块部署服务即可。&lt;/p&gt;
-&lt;p&gt;运行耗时&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Setup stage：5min&lt;/li&gt;
-&lt;li&gt;Run the Stable Diffusion webui：1s&lt;/li&gt;
-&lt;li&gt;Launch WebUI for stable diffusion：1min&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144857944.png&#34; alt=&#34;1-image-20230222144857944&#34;&gt;&lt;/p&gt;
-&lt;p&gt;运行过程中会弹窗请求登录 Google Drive，正常登录并允许即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222145720360.png&#34; alt=&#34;1-image-20230222145720360&#34;&gt;&lt;/p&gt;
-&lt;p&gt;运行完成点击 Public URL 进入 Stable Diffusion WebUI 界面。账号为 wubei，密码为上面自己配置的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222150541478.png&#34; alt=&#34;1-image-20230222150541478&#34;&gt;&lt;/p&gt;
-&lt;p&gt;然后就可以尽情的享用了。&lt;/p&gt;
-&lt;p&gt;输入 prompt，即可生成对应的图像，比如输入 “ an astronaut in the water ”。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222151132661.png&#34; alt=&#34;1-image-20230222151132661&#34;&gt;&lt;/p&gt;
-&lt;p&gt;当然，你可以输入更多的 prompt 信息，来生成更加具体准确的图像。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;(((masterpiece))),((best quality)), flat chest,((loli)),((one girl)),very long light white hair, beautiful detailed red eyes,aqua eyes,white robe, cat ears,(flower hairpin),sunlight, light smile,blue necklace,see-through,&lt;/p&gt;
-&lt;p&gt;杰作，最佳品质，贫乳，萝莉，1个女孩，很长的头发，淡白色头发，红色眼睛，浅绿色眼睛，白色长裙，猫耳，发夹，阳光下，淡淡的微笑，蓝色项链，透明&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222154010936.png&#34; alt=&#34;1-image-20230222154010936&#34;&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Mac多个Git账户共存</title>
-      <link>https://folay.top/post/git_account/</link>
-      <pubDate>Tue, 14 Feb 2023 10:46:28 +0800</pubDate>
-      
-      <guid>https://folay.top/post/git_account/</guid>
-      <description>&lt;h2 id=&#34;清除配置&#34;&gt;清除配置&lt;/h2&gt;
-&lt;p&gt;查看 Git 本地配置&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --list
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;清除用户名和邮箱&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --global --unset user.name
-git config --global --unset user.email
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;生成-ssh-key&#34;&gt;生成 ssh-key&lt;/h2&gt;
-&lt;p&gt;使用 &lt;code&gt;ssh-keygen&lt;/code&gt; 命令生成 ssh-key，并手动指定 id&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx1@gmail.com&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;生成成功会输出以下内容&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Generating public/private rsa key pair.
-Enter file in which to save the key &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/Users/james/.ssh/id_rsa&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
-Enter passphrase &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;empty &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; no passphrase&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
-Enter same passphrase again:
-Your identification has been saved in /Users/james/.ssh/id_rsa.
-Your public key has been saved in /Users/james/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:rwtxjGTJPoV9Mg8lFSf8D4X6jFexWVXKOMRaVyo+RO8 xx1@gmail.com
-The key&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;s randomart image is:
-+---&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;RSA 3072&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;----+
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        .o&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;o+. .*&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     . + o.&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;+++o.&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      * * .&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     + + *ooo++  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; S .+o+E  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       + .. +..  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      .   ..     &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       . .       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        o.       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-+----&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;SHA256&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;-----+
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;然后继续生成你的其他 Git 账号对应的 ssh-key&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx2@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx2@gmail.com&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;信任-ssh-key&#34;&gt;信任 ssh-key&lt;/h2&gt;
-&lt;p&gt;使用 &lt;code&gt;ssh-add&lt;/code&gt; 命令将生成的 ssh-key 添加到 ssh-agent 信任列表&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-add ~/.ssh/id_rsa_xx1@gmail.com
-ssh-add ~/.ssh/id_rsa_xx2@gmail.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;如果遇到 &lt;code&gt;Could not open a connection to your authentication agent.&lt;/code&gt; ，输入&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-agent bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;然后重复执行 &lt;code&gt;ssh-add&lt;/code&gt; 即可解决&lt;/p&gt;
-&lt;h2 id=&#34;配置公钥&#34;&gt;配置公钥&lt;/h2&gt;
-&lt;p&gt;复制对应公钥，配置到对应 Git 网站中（GitHub / GitLab）&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pbcopy &amp;lt; ~/.ssh/id_rsa_xx1@gmail.com.pub
-pbcopy &amp;lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;这步具体的操作如果有不清楚的可以参考 &lt;a href=&#34;https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account&#34;&gt;Adding a new SSH key to your GitHub account&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;配置-config&#34;&gt;配置 config&lt;/h2&gt;
-&lt;p&gt;进入 ssh 目录&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;open ~/.ssh/
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;按照以下规则编辑 config 文件，没有则创建&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;键&lt;/th&gt;
-&lt;th&gt;值&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Host&lt;/td&gt;
-&lt;td&gt;主机&lt;/td&gt;
-&lt;td&gt;自己起&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Hostname&lt;/td&gt;
-&lt;td&gt;主机名&lt;/td&gt;
-&lt;td&gt;Git 公有地址，比如 gitub.com / gittee.com&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;IdentityFile&lt;/td&gt;
-&lt;td&gt;身份文件&lt;/td&gt;
-&lt;td&gt;rsa 文件路径&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;User&lt;/td&gt;
-&lt;td&gt;用户&lt;/td&gt;
-&lt;td&gt;自己起，一般邮箱就好&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;编辑完 config 内容如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Host github1.com
-Hostname github.com
-IdentityFile ~/.ssh/id_rsa_xx1@gmail.com
-User xx1@gmail.com
-
-Host github2.com
-Hostname github.com
-IdentityFile ~/.ssh/id_rsa_xx2@gmail.com
-User xx2@gmail.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;测试链接&#34;&gt;测试链接&lt;/h2&gt;
-&lt;p&gt;测试 Git 账号是否连接成功，&lt;code&gt;git@&lt;/code&gt; 之后是 config 文件中配置的 Host&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh -T git@github1.com
-ssh -T git@github2.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;连接成功会有以下输出&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Hi xxx! You&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;ve successfully authenticated, but GitHub does not provide shell access.
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
-    </item>
     
     <item>
       <title>Ring_layout：Flutter 环形布局实现</title>
@@ -575,6 +256,78 @@ $$&lt;/p&gt;
     </item>
     
     <item>
+      <title>菜谱：豆角焖面</title>
+      <link>https://folay.top/post/braised_noodles/</link>
+      <pubDate>Sun, 10 Apr 2022 10:46:28 +0800</pubDate>
+      
+      <guid>https://folay.top/post/braised_noodles/</guid>
+      <description>&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/doujiaomenmian.jpg width=400 height=400 /&gt;
+&lt;/div&gt;
+&lt;p&gt;公司园区爆发疫情，被迫居家隔离，心念念外面的豆角焖面，在猪屁的指导下尝试了下，还算成功。&lt;/p&gt;
+&lt;h2 id=&#34;原料&#34;&gt;原料&lt;/h2&gt;
+&lt;h3 id=&#34;主料&#34;&gt;主料&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;猪五花肉&lt;/li&gt;
+&lt;li&gt;鲜面条&lt;/li&gt;
+&lt;li&gt;豆角&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;配料&#34;&gt;配料&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;盐&lt;/li&gt;
+&lt;li&gt;糖&lt;/li&gt;
+&lt;li&gt;蒜瓣&lt;/li&gt;
+&lt;li&gt;生抽&lt;/li&gt;
+&lt;li&gt;蚝油&lt;/li&gt;
+&lt;li&gt;老抽&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;原料准备&#34;&gt;原料准备&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;猪五花肉切片&lt;/li&gt;
+&lt;li&gt;豆角用手掰断、去掉两头、清洗干净&lt;/li&gt;
+&lt;li&gt;鲜面条蒸至8分熟&lt;/li&gt;
+&lt;li&gt;一头蒜拍扁剥皮&lt;/li&gt;
+&lt;li&gt;调制料汁（两勺生抽、一勺蚝油、半勺老抽、少许盐和糖）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;制作步骤&#34;&gt;制作步骤&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;热锅放油&lt;/li&gt;
+&lt;li&gt;煸炒五花肉出油&lt;/li&gt;
+&lt;li&gt;煸炒豆角至变色&lt;/li&gt;
+&lt;li&gt;添加料汁、加水没过食材&lt;/li&gt;
+&lt;li&gt;大火煮开后舀出一半汤汁备用&lt;/li&gt;
+&lt;li&gt;放入面条煮5分钟&lt;/li&gt;
+&lt;li&gt;放入蒜瓣&lt;/li&gt;
+&lt;li&gt;备用汤汁浇上去&lt;/li&gt;
+&lt;li&gt;小火焖10分钟&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>《自私的基因》读书笔记</title>
+      <link>https://folay.top/post/gene/</link>
+      <pubDate>Thu, 24 Mar 2022 10:46:28 +0800</pubDate>
+      
+      <guid>https://folay.top/post/gene/</guid>
+      <description>&lt;p&gt;初开始听说&lt;a href=&#34;https://zh.wikipedia.org/zh-hans/%E8%87%AA%E7%A7%81%E7%9A%84%E5%9F%BA%E5%9B%A0&#34;&gt;《自私的基因》&lt;/a&gt;这本书，是在 21 年末的时候，那时候刚从小米离职，与新公司约定的入职时间稍晚了些，计划的是来一场说走就走的离职旅行、散散心，可事与愿违，年底疫情的爆发打乱了所有安排。&lt;/p&gt;
+&lt;p&gt;画地为牢的居家隔离生活总是漫长的，每天都要看几集&lt;a href=&#34;https://baike.baidu.com/item/%E5%9C%86%E6%A1%8C%E6%B4%BE/19543072?fr=aladdin&#34;&gt;《圆桌派》&lt;/a&gt;消磨时光，其中印象最深刻的是第五季的第十一期，这期的嘉宾是华大基因的 CEO 尹烨，一个理科生、三个文科生围绕 “ 基因 ” 展开了热火朝天的讨论，从 “ 体外胚胎技术 ” 到 “ 人体细胞更新 ”，从 “ 忒修斯之船 ” 到 “ 道金斯的自私的基因 ”，每个话题都充斥着思维碰撞的火花，节目的最后尹烨便推荐了这本书 -《自私的基因》。&lt;/p&gt;
+&lt;p&gt;断断续续几个月读完全书后，受益良多，所以在此简单记录下书中作者的主要观点和自己的一些思考。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“ 纵观历史，人类对自己的认识总是不断矮化的。 ”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;从最初哥白尼提出 “ 日心说 ”，地球是宇宙中心的观念在人们心中崩塌，到达尔文提出 “ 进化论 ”，人们意识到自己是由猴子演变而来的，人类和猴子的差距并不大，再然后弗洛伊德提出 “ 性学三论 ” ，表示人类并没有所谓的自控能力，我们的行为只是受到了原始 “ 力比多 ” 的驱使，最后道金斯在《自私的基因》一书中更进一步，指出人类不过是基因的容器，不过是基因复制自己传宗接代的工具而已。&lt;/p&gt;
+&lt;p&gt;道金斯认为是基因在操纵人，或者说是基因在推动人类复制和传播自身，就像人在开车时，汽车是没有方向感的，是人在操控汽车，是人在选择方向，人类驾驶汽车是为了满足自身高速移动的需求，对于汽车而已，本身是盲目，是无意义的。同样，人类个体的生存也是盲目的、无意义的，不过是体内基因复制和传播自己的工具，存在的意义不过是为了满足基因复制更快、传播更远、更加长寿三个目的而已。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“ 明显的利他行为实际上是伪装起来的自私行为。 ”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;动物养育自己的后代，站在生物个体的角度，这会是一种利他行为，但道金斯认为，这种行为是建立在 基因可以通过养育后代这种利他行为来达成复制和传播自身的目的 的前提下的。所有站在生物个体角度看起来属于利他行为的情况，都是基因自私的产物。&lt;/p&gt;
+&lt;p&gt;对基因来说唯一有意义的事情就是不断的复制自己、传播自己，以便在生物进化这场 “ 战争 ” 中获得更多的优势，获得更多活下来的可能性。&lt;/p&gt;
+&lt;p&gt;在书中看到这些，或多或少会有些失望，对人类失望、对自己失望，人类的诞生是偶然的，也是荒谬的，生命的意义可以说是微不足道的。人类世界里那些崇高而辉煌的舍生取义、视死如归，在基因的客观世界里是多么的不合情理。&lt;/p&gt;
+&lt;p&gt;但正如道金斯在书中写到，人们不能对事实视而不见，也不能因为事实而自暴自弃，书中的观点和结论，都只是对动物生物性的观察，是科学事实的陈述，并不代表道金斯本人的道德观。&lt;/p&gt;
+&lt;p&gt;相反，他认为如果我们想要建立一个人与人之间慷慨大度、无私奉献的社会，那我们就不能指望我们的生物学本性，我们必须设法通过教育，把慷慨大度和利他主义灌输到人们的头脑中去，因为我们生来就是自私的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“ 我们具备足够的力量去抗拒我们那些与生俱来的自私基因。我们也可以抗拒那些灌输到我们脑子里的自私觅母。我们甚至可以讨论如何审慎地培植纯粹的、无私的利他主义，这种利他主义在自然界里是没有立足之地的，在世界整个历史上也是前所未有的。我们是作为基因机器而被建造的，是作为觅母机器而被培养的，但我们具备足够的力量去反对我们的缔造者。在这个世界上，只有我们，我们人类，能够反抗自私的复制基因的暴政。 ”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;就像尹烨在节目结尾说道：“ 如果人类是一组代码，那我相信人类的代码中有爱 ”。&lt;/p&gt;
+&lt;p&gt;你我，共勉。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Hugo中支持LaTeX的数学表达式</title>
       <link>https://folay.top/post/hugo_mathJax/</link>
       <pubDate>Sat, 18 Dec 2021 01:19:00 +0800</pubDate>
@@ -672,6 +425,166 @@ $$&lt;/p&gt;
 \lim_{x \to \infty} x^2_{22} - \int_{1}^{5}x\mathrm{d}x + \sum_{n=1}^{20} n^{2} = \prod_{j=1}^{3} y_{j}  + \lim_{x \to -2} \frac{x-2}{x}
 $$&lt;/p&gt;
 &lt;p&gt;好了，开心的在 Hugo 中使用 LaTeX 吧。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>HLS直播协议m3u8</title>
+      <link>https://folay.top/post/m3u8/</link>
+      <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/m3u8/</guid>
+      <description>&lt;p&gt;为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。&lt;/p&gt;
+&lt;p&gt;三者关系：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HLS是一种流媒体传输协议&lt;/li&gt;
+&lt;li&gt;M3U8是HLS传输内容中的一部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;流媒体传输协议&#34;&gt;流媒体传输协议&lt;/h1&gt;
+&lt;h2 id=&#34;常见的流媒体传输协议&#34;&gt;常见的流媒体传输协议&lt;/h2&gt;
+&lt;p&gt;流媒体就是以数据流的方式，实时发布音频、视频多媒体内容的媒体形式，关键技术在于&lt;code&gt;流式传输&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;流媒体传输协议就是用来定义如何流式传输的，设计、制定了流媒体服务器和客户端通讯的方式。&lt;/p&gt;
+&lt;p&gt;主流的流媒体传输协议：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RTMP（Real Time Protocol）：基于 TCP 的 FLV 分块 message 传输协议，用于 Flash 客户端。&lt;/li&gt;
+&lt;li&gt;HTTP-FLV：基于 HTTP 长连接的 FLV 分块 tag 传输协议，可用于点播和直播场景。&lt;/li&gt;
+&lt;li&gt;HLS（HTTP Live Streaming）：基于 HTTP，由 Apple 推出的 MP4 分片传输协议，可以用于点播、直播，每次下载一次分片都需要发生一次 HTTP 请求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文只详细介绍 HLS，不涉及 RTMP 与 RTSP&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;流媒体加密原理&#34;&gt;流媒体加密原理&lt;/h2&gt;
+&lt;p&gt;大多数流媒体传输协议都可以分为拆分、加密两部分。&lt;/p&gt;
+&lt;p&gt;拆分是 将完整的视频流拆分为连续的视频片段，不同的传输协议的区别在于拆分片段的大小、视频容器的格式不同。&lt;/p&gt;
+&lt;p&gt;加密是 对每段视频片段进行加密，使用对称加密算法，在服务端加密，在客户端解密，且通过一定手段限制解密密钥的获取。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一般使用 AES 加密算法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;为什么是对称加密&#34;&gt;为什么是对称加密？&lt;/h2&gt;
+&lt;p&gt;对称加密效率相对较高，非对称加密效率相对较低，但是更安全。流媒体场景对实时性的要求很高，而且数据量也很大，所以选用效率相对较高的对称加密算法。&lt;/p&gt;
+&lt;p&gt;类似的场景还有很多，比如 HTTPS 的请求过程，内容传输为了效率选用对称加密（TLS），证书校验为了安全选用非对称加密（SSL）。&lt;/p&gt;
+&lt;h1 id=&#34;hls&#34;&gt;HLS&lt;/h1&gt;
+&lt;p&gt;HLS 全称 HTTP Live Streaming， 是由 Apple 提出的基于 HTTP 的流媒体传输协议，用于实时音视频流的传输，目前已被广泛应用与视频点播、直播场景。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考资料：&lt;a href=&#34;https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008332-CH1-SW1&#34;&gt;HTTP Live Streaming Document&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;工作原理&#34;&gt;工作原理&lt;/h2&gt;
+&lt;p&gt;完整的 HLS 架构可以划分为 3 个部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务器 Server：负责视频流的编码、切割为连续的 MPEG-TS 格式的视频片段，并提供配套的 M3U8 类型的媒体列表文件和索引文件。&lt;/li&gt;
+&lt;li&gt;分发组件 CDN：由标准的网络服务器组成，负责接收客户端的请求并分发资源。&lt;/li&gt;
+&lt;li&gt;客户端 Client：先下载 m3u8 索引文件，根据带宽等字段选择合适的 m3u8 媒体播放列表文件下载，按顺序下载列表中的所有 ts 视频片段文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;完整的 HLS 的&lt;strong&gt;过程&lt;/strong&gt;可以参考下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2021/09/16/6Bp37ZFcPfqbAvy.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;大体可以划分为 6 个阶段：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;采集媒体源&lt;/li&gt;
+&lt;li&gt;媒体编码器（Media encoder） 对媒体源进行编码&lt;/li&gt;
+&lt;li&gt;编码后以MPEG-2的传输串形式传递给切片器&lt;/li&gt;
+&lt;li&gt;切片器（Steam Segmenter）将媒体切割为若干 &lt;code&gt;Media Segment&lt;/code&gt;，并创建配套的媒体列表文件 &lt;code&gt;Media Playlist&lt;/code&gt; 以及索引文件 &lt;code&gt;Master Platlist&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;上传：将资源上传到 HTTP 服务器。&lt;/li&gt;
+&lt;li&gt;播放：客户端请求播放。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;组成结构&#34;&gt;组成结构&lt;/h2&gt;
+&lt;p&gt;经过上面第 4 步骤的加工可以形成完整的结构，由 &lt;code&gt;Master Playlist&lt;/code&gt;、&lt;code&gt;Media Playlist&lt;/code&gt;、&lt;code&gt;Media Segment&lt;/code&gt; 构成，关系结构如图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2021/09/16/F7fcQpGuyiNUYH8.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;完整的 HLS 结构由两部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;m3u8 类型的 Master Playlist 文件：其中会提供若干根据带宽等字段区分的 Media Playlist 的请求链接。&lt;/li&gt;
+&lt;li&gt;m3u8 类型的 Media Playlist 文件：其中会有视频的基本信息和若干 Media Segment 的请求链接，这些片段就组成了完整的视频。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Media Segment 就是单纯的 ts 格式的视频文件，并无任何描述信息，可以单独使用播放器进行播放。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;M3U8 是 Unicode 版本的 M3U，8 代表使用的是 UTF-8 编码，M3U 和 M3U8 都是多媒体列表的文件格式。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;m3u8&#34;&gt;M3U8&lt;/h1&gt;
+&lt;p&gt;M3U8 描述文件中由各种描述字段构成，下面解释部分主要字段的含义。&lt;/p&gt;
+&lt;p&gt;我在网上随便找的一个 m3u8 视频的链接：&lt;code&gt;https://mgtv-com.jjyl12349.com/20210519/fXE0kuJ7/index.m3u8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;请求该链接的返回结果为一个 m3u8 文件，也就是 Master Playlist 文件。&lt;/p&gt;
+&lt;h2 id=&#34;master-playlist&#34;&gt;Master Playlist&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTM3U&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;416x234&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;416x234&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1000000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1280x720&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1000kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;字节解释&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EXTM3U：表示该文件为m3u8文件，每个M3U文件都是以EXTM3U开头&lt;/li&gt;
+&lt;li&gt;EXT-X-STREAM-INF：表示一个备份源，并提供备份源的相关信息
+&lt;ul&gt;
+&lt;li&gt;BANDWIDTH：表示每秒传输的比特数，即带宽&lt;/li&gt;
+&lt;li&gt;RESOLUTION：表示备份源的最佳像素方案&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们根据 BANDWIDTH、RESOLUTION 等信息选取合适的 Media Playlist 的请求链接，并将链接与视频链接的域名结合，即可得到完整的链接。&lt;/p&gt;
+&lt;p&gt;比如，BANDWIDTH 为 1000kb、RESOLUTION 为 1280x720 的备用源的请求链接为：&lt;code&gt;https://mgtv-com.jjyl12349.com/20210519/fXE0kuJ7/1000kb/hls/index.m3u8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;请求该链接的返回结果也为一个 m3u8 文件，也就是 Media Playlist 文件。&lt;/p&gt;
+&lt;h2 id=&#34;media-playlist&#34;&gt;Media Playlist&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTM3U&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VERSION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TARGETDURATION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;6&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PLAYLIST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TYPE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VOD&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MEDIA&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SEQUENCE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;METHOD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;128&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;URI&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/key.key&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTINF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nl&#34;&gt;https:&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/mDHy0Stk.ts
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTINF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nl&#34;&gt;https:&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/FWZjOCHy.ts
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENDLIST&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;字节解释&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EXT-X-VERSION：表示 HLS 协议版本号&lt;/li&gt;
+&lt;li&gt;EXT-X-TARGETDURATION：表示 ts 视频片段允许最大的时长&lt;/li&gt;
+&lt;li&gt;EXT-X-PLAYLIST-TYPE：表示流媒体类型&lt;/li&gt;
+&lt;li&gt;EXT-X-MEDIA-SEQUENCE：表示播放列表第一个 ts 视频片段文件的序列号&lt;/li&gt;
+&lt;li&gt;EXT-X-KEY：表示 ts 视频文件的加密信息
+&lt;ul&gt;
+&lt;li&gt;METHOD：加密方法，可选 &lt;code&gt;NONE&lt;/code&gt;、&lt;code&gt;AES-128&lt;/code&gt;、&lt;code&gt;SAMPLE-AES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;URI：密钥路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;EXTINF：表示下面 url 对应的 ts 视频片段的时长&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

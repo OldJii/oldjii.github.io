@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>AICG on Folay‘s Blog</title>
     <link>https://folay.top/tags/AICG/</link>
-    <description>Recent content in AICG on Folay‘s Blog</description>
+    <description>Recent content in AICG on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 26 Sep 2023 15:49:06 +0800</lastBuildDate>
     
-	<atom:link href="https://folay.top/tags/AICG/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://folay.top/tags/AICG/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,6 +19,38 @@
       <description>&lt;p&gt;最近在网上经常有看到类似上面这种图片，图片里的建筑物或者是光影形成了一些文字，给图片附加了更多的信息。评论有很多人很好奇，所以记录下制作方式。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192146502.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;其实制作的方法很简单，只是在基本 text2img 的基础上使用 ControlNet 进行垫图并附加一些光影性强的 Model 即可。&lt;/p&gt;
+&lt;h2 id=&#34;checkpoint-配置&#34;&gt;Checkpoint 配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Checkpoint Model：推荐使用写实类的模型，比如 majicMIX realistic、dalcefoPainting 3rd。&lt;/li&gt;
+&lt;li&gt;Sampler method：推荐使用 DMP++ 2S a Karras、DMP++ 2M Karras。&lt;/li&gt;
+&lt;li&gt;Sampling Steps：推荐 25 左右，不要超过 30，因为要实现光影文字效果，Step 数太多会渲染掉文-字效果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192143384.png width=100%/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;底图制作&#34;&gt;底图制作&lt;/h2&gt;
+&lt;p&gt;需要用到一张黑底白字的图片，用什么做随意，用你熟悉工具即可，尺寸需要跟你上面配置的 Size 信息保持一致，以保证文字的位置是准确的，比如下图。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192150418.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;另外，如果你能让文字的边缘实现模糊效果就更好了，生成的图片光影文字效果会更贴合。&lt;/p&gt;
+&lt;h2 id=&#34;controlnet-配置&#34;&gt;ControlNet 配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ControlNet Model：对出图效果的影响比较关键，推荐使用 control_v1p_sd15_brightness、lightingBasedPicture_v10，都是比较优秀的光影 Model。&lt;/li&gt;
+&lt;li&gt;ControlNet Type：全部&lt;/li&gt;
+&lt;li&gt;预处理器：推荐 none，也可以使用 tile_colorfix，但是要搭配 control_v11f1e_sd15_tile 模型。&lt;/li&gt;
+&lt;li&gt;Control Weight：0.4 ～ 0.55&lt;/li&gt;
+&lt;li&gt;Starting Control Step：0 ~ 0.1&lt;/li&gt;
+&lt;li&gt;Ending Control Step：0.45 ～ 0.6&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192144711.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;最后就抽卡吧，慢慢抽，另外附上一张网友测试的 Control Step 与出图效果的对比图。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192154764.webp width=100%/&gt;
 &lt;/div&gt;</description>
     </item>
     

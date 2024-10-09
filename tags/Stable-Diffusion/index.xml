@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Stable Diffusion on Folay‘s Blog</title>
     <link>https://folay.top/tags/Stable-Diffusion/</link>
-    <description>Recent content in Stable Diffusion on Folay‘s Blog</description>
+    <description>Recent content in Stable Diffusion on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 26 Sep 2023 15:49:06 +0800</lastBuildDate>
     
-	<atom:link href="https://folay.top/tags/Stable-Diffusion/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://folay.top/tags/Stable-Diffusion/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,6 +19,38 @@
       <description>&lt;p&gt;最近在网上经常有看到类似上面这种图片，图片里的建筑物或者是光影形成了一些文字，给图片附加了更多的信息。评论有很多人很好奇，所以记录下制作方式。&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192146502.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;其实制作的方法很简单，只是在基本 text2img 的基础上使用 ControlNet 进行垫图并附加一些光影性强的 Model 即可。&lt;/p&gt;
+&lt;h2 id=&#34;checkpoint-配置&#34;&gt;Checkpoint 配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Checkpoint Model：推荐使用写实类的模型，比如 majicMIX realistic、dalcefoPainting 3rd。&lt;/li&gt;
+&lt;li&gt;Sampler method：推荐使用 DMP++ 2S a Karras、DMP++ 2M Karras。&lt;/li&gt;
+&lt;li&gt;Sampling Steps：推荐 25 左右，不要超过 30，因为要实现光影文字效果，Step 数太多会渲染掉文-字效果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192143384.png width=100%/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;底图制作&#34;&gt;底图制作&lt;/h2&gt;
+&lt;p&gt;需要用到一张黑底白字的图片，用什么做随意，用你熟悉工具即可，尺寸需要跟你上面配置的 Size 信息保持一致，以保证文字的位置是准确的，比如下图。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192150418.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;另外，如果你能让文字的边缘实现模糊效果就更好了，生成的图片光影文字效果会更贴合。&lt;/p&gt;
+&lt;h2 id=&#34;controlnet-配置&#34;&gt;ControlNet 配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ControlNet Model：对出图效果的影响比较关键，推荐使用 control_v1p_sd15_brightness、lightingBasedPicture_v10，都是比较优秀的光影 Model。&lt;/li&gt;
+&lt;li&gt;ControlNet Type：全部&lt;/li&gt;
+&lt;li&gt;预处理器：推荐 none，也可以使用 tile_colorfix，但是要搭配 control_v11f1e_sd15_tile 模型。&lt;/li&gt;
+&lt;li&gt;Control Weight：0.4 ～ 0.55&lt;/li&gt;
+&lt;li&gt;Starting Control Step：0 ~ 0.1&lt;/li&gt;
+&lt;li&gt;Ending Control Step：0.45 ～ 0.6&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192144711.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;最后就抽卡吧，慢慢抽，另外附上一张网友测试的 Control Step 与出图效果的对比图。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192154764.webp width=100%/&gt;
 &lt;/div&gt;</description>
     </item>
     
@@ -32,7 +63,51 @@
       <description>&lt;div align=&#34;center&#34;&gt;
 &lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/sdsm.png width=600 /&gt;
 &lt;/div&gt;
-&lt;p&gt;Form &lt;a href=&#34;https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies&#34;&gt;Weird Wonderful Ai Art&lt;/a&gt;&lt;/p&gt;</description>
+&lt;p&gt;Form &lt;a href=&#34;https://weirdwonderfulai.art/resources/disco-diffusion-70-plus-artist-studies&#34;&gt;Weird Wonderful Ai Art&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2023 年 9 月 23 日更新：Colab 官方禁用 Stable Diffusion WebUI，无法解决断网问题，本文方法作废。详情见 &lt;a href=&#34;https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban&#34;&gt;https://decrypt.co/197428/google-colab-stable-diffusion-web-ui-ban&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;-ai-绘画&#34;&gt;🎨 Ai 绘画&lt;/h2&gt;
+&lt;p&gt;Stable Diffusion 是 stability.ai 于 2022 年发布的深度学习文生图模型，可以在大多数配备有适度 GPU 的电脑硬件上运行。&lt;/p&gt;
+&lt;p&gt;Colaboratory 简称 Colab，是 Google Research 团队发布的一种托管式 Jupyter 笔记本服务，可以免费使用 GPU / TPU 计算资源。&lt;/p&gt;
+&lt;p&gt;这是一份保姆级的在 Colab 搭建 Stable Diffusion 服务的教程，按照以下步骤操作，即可浅尝 Ai 绘画的魅力。&lt;/p&gt;
+&lt;h2 id=&#34;分配资源&#34;&gt;分配资源&lt;/h2&gt;
+&lt;p&gt;进入 &lt;a href=&#34;https://colab.research.google.com/github/altryne/sd-webui-colab/blob/main/Stable_Diffusion_WebUi_Altryne.ipynb&#34;&gt;Stable_Diffusion_WebUi_Altryne&lt;/a&gt; Colab 工程。&lt;/p&gt;
+&lt;p&gt;点击右上角的&lt;strong&gt;连接&lt;/strong&gt;获取云主机资源并连接运行时。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222142539642.png&#34; alt=&#34;1-image-20230222142539642&#34;&gt;&lt;/p&gt;
+&lt;p&gt;运行 1.0 单元格中的命令可以获主机信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222142936172.png&#34; alt=&#34;1-image-20230222142936172&#34;&gt;&lt;/p&gt;
+&lt;p&gt;一般分配到的都是 Tesla T4 机型，如果人品欧分配到 V100，那可以好好的吹一波了。&lt;/p&gt;
+&lt;h2 id=&#34;配置模型&#34;&gt;配置模型&lt;/h2&gt;
+&lt;p&gt;首先注册 &lt;a href=&#34;https://huggingface.co/&#34;&gt;Hugging Face&lt;/a&gt; 账号，并生成 WRITE 类型的 &lt;a href=&#34;https://huggingface.co/settings/tokens&#34;&gt;Access Tokens&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144043327.png&#34; alt=&#34;1-image-20230222144043327&#34;&gt;&lt;/p&gt;
+&lt;p&gt;返回到 Colab 界面，展开 &lt;em&gt;1.4 Connect to Google Drive&lt;/em&gt; 单元格，勾选 download_if_missing 并输入 Hugging Face 的 Accsee Token。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144232989.png&#34; alt=&#34;1-image-20230222144232989&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;设置密码&#34;&gt;设置密码&lt;/h2&gt;
+&lt;p&gt;在 &lt;em&gt;2.1 Optional - Set webUI settings and configs before running&lt;/em&gt; 中配置密码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144551905.png&#34; alt=&#34;1-image-20230222144551905&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;运行服务&#34;&gt;运行服务&lt;/h2&gt;
+&lt;p&gt;将所有单元块收起，依次运行所有单元块部署服务即可。&lt;/p&gt;
+&lt;p&gt;运行耗时&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Setup stage：5min&lt;/li&gt;
+&lt;li&gt;Run the Stable Diffusion webui：1s&lt;/li&gt;
+&lt;li&gt;Launch WebUI for stable diffusion：1min&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222144857944.png&#34; alt=&#34;1-image-20230222144857944&#34;&gt;&lt;/p&gt;
+&lt;p&gt;运行过程中会弹窗请求登录 Google Drive，正常登录并允许即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222145720360.png&#34; alt=&#34;1-image-20230222145720360&#34;&gt;&lt;/p&gt;
+&lt;p&gt;运行完成点击 Public URL 进入 Stable Diffusion WebUI 界面。账号为 wubei，密码为上面自己配置的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222150541478.png&#34; alt=&#34;1-image-20230222150541478&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后就可以尽情的享用了。&lt;/p&gt;
+&lt;p&gt;输入 prompt，即可生成对应的图像，比如输入 “ an astronaut in the water ”。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222151132661.png&#34; alt=&#34;1-image-20230222151132661&#34;&gt;&lt;/p&gt;
+&lt;p&gt;当然，你可以输入更多的 prompt 信息，来生成更加具体准确的图像。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;(((masterpiece))),((best quality)), flat chest,((loli)),((one girl)),very long light white hair, beautiful detailed red eyes,aqua eyes,white robe, cat ears,(flower hairpin),sunlight, light smile,blue necklace,see-through,&lt;/p&gt;
+&lt;p&gt;杰作，最佳品质，贫乳，萝莉，1个女孩，很长的头发，淡白色头发，红色眼睛，浅绿色眼睛，白色长裙，猫耳，发夹，阳光下，淡淡的微笑，蓝色项链，透明&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/1-image-20230222154010936.png&#34; alt=&#34;1-image-20230222154010936&#34;&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

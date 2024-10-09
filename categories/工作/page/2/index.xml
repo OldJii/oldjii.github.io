@@ -1,14 +1,501 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>源码 on Folay‘s Blog</title>
-    <link>https://folay.top/tags/%E6%BA%90%E7%A0%81/</link>
-    <description>Recent content in 源码 on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
+    <title>工作 on Folay‘s Blog</title>
+    <link>https://folay.top/categories/%E5%B7%A5%E4%BD%9C/</link>
+    <description>Recent content in 工作 on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 20 Sep 2019 21:34:06 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 26 Sep 2023 15:49:06 +0800</lastBuildDate>
     
-        <atom:link href="https://folay.top/tags/%E6%BA%90%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://folay.top/categories/%E5%B7%A5%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HLS直播协议m3u8</title>
+      <link>https://folay.top/post/m3u8/</link>
+      <pubDate>Sat, 25 Sep 2021 21:34:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/m3u8/</guid>
+      <description>&lt;p&gt;为了方便理解，会按照“流媒体传输协议”、“HLS”、“M3U8”的顺序来介绍。&lt;/p&gt;
+&lt;p&gt;三者关系：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HLS是一种流媒体传输协议&lt;/li&gt;
+&lt;li&gt;M3U8是HLS传输内容中的一部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;流媒体传输协议&#34;&gt;流媒体传输协议&lt;/h1&gt;
+&lt;h2 id=&#34;常见的流媒体传输协议&#34;&gt;常见的流媒体传输协议&lt;/h2&gt;
+&lt;p&gt;流媒体就是以数据流的方式，实时发布音频、视频多媒体内容的媒体形式，关键技术在于&lt;code&gt;流式传输&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;流媒体传输协议就是用来定义如何流式传输的，设计、制定了流媒体服务器和客户端通讯的方式。&lt;/p&gt;
+&lt;p&gt;主流的流媒体传输协议：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RTMP（Real Time Protocol）：基于 TCP 的 FLV 分块 message 传输协议，用于 Flash 客户端。&lt;/li&gt;
+&lt;li&gt;HTTP-FLV：基于 HTTP 长连接的 FLV 分块 tag 传输协议，可用于点播和直播场景。&lt;/li&gt;
+&lt;li&gt;HLS（HTTP Live Streaming）：基于 HTTP，由 Apple 推出的 MP4 分片传输协议，可以用于点播、直播，每次下载一次分片都需要发生一次 HTTP 请求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文只详细介绍 HLS，不涉及 RTMP 与 RTSP&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;流媒体加密原理&#34;&gt;流媒体加密原理&lt;/h2&gt;
+&lt;p&gt;大多数流媒体传输协议都可以分为拆分、加密两部分。&lt;/p&gt;
+&lt;p&gt;拆分是 将完整的视频流拆分为连续的视频片段，不同的传输协议的区别在于拆分片段的大小、视频容器的格式不同。&lt;/p&gt;
+&lt;p&gt;加密是 对每段视频片段进行加密，使用对称加密算法，在服务端加密，在客户端解密，且通过一定手段限制解密密钥的获取。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一般使用 AES 加密算法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;为什么是对称加密&#34;&gt;为什么是对称加密？&lt;/h2&gt;
+&lt;p&gt;对称加密效率相对较高，非对称加密效率相对较低，但是更安全。流媒体场景对实时性的要求很高，而且数据量也很大，所以选用效率相对较高的对称加密算法。&lt;/p&gt;
+&lt;p&gt;类似的场景还有很多，比如 HTTPS 的请求过程，内容传输为了效率选用对称加密（TLS），证书校验为了安全选用非对称加密（SSL）。&lt;/p&gt;
+&lt;h1 id=&#34;hls&#34;&gt;HLS&lt;/h1&gt;
+&lt;p&gt;HLS 全称 HTTP Live Streaming， 是由 Apple 提出的基于 HTTP 的流媒体传输协议，用于实时音视频流的传输，目前已被广泛应用与视频点播、直播场景。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考资料：&lt;a href=&#34;https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008332-CH1-SW1&#34;&gt;HTTP Live Streaming Document&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;工作原理&#34;&gt;工作原理&lt;/h2&gt;
+&lt;p&gt;完整的 HLS 架构可以划分为 3 个部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务器 Server：负责视频流的编码、切割为连续的 MPEG-TS 格式的视频片段，并提供配套的 M3U8 类型的媒体列表文件和索引文件。&lt;/li&gt;
+&lt;li&gt;分发组件 CDN：由标准的网络服务器组成，负责接收客户端的请求并分发资源。&lt;/li&gt;
+&lt;li&gt;客户端 Client：先下载 m3u8 索引文件，根据带宽等字段选择合适的 m3u8 媒体播放列表文件下载，按顺序下载列表中的所有 ts 视频片段文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;完整的 HLS 的&lt;strong&gt;过程&lt;/strong&gt;可以参考下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2021/09/16/6Bp37ZFcPfqbAvy.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;大体可以划分为 6 个阶段：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;采集媒体源&lt;/li&gt;
+&lt;li&gt;媒体编码器（Media encoder） 对媒体源进行编码&lt;/li&gt;
+&lt;li&gt;编码后以MPEG-2的传输串形式传递给切片器&lt;/li&gt;
+&lt;li&gt;切片器（Steam Segmenter）将媒体切割为若干 &lt;code&gt;Media Segment&lt;/code&gt;，并创建配套的媒体列表文件 &lt;code&gt;Media Playlist&lt;/code&gt; 以及索引文件 &lt;code&gt;Master Platlist&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;上传：将资源上传到 HTTP 服务器。&lt;/li&gt;
+&lt;li&gt;播放：客户端请求播放。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;组成结构&#34;&gt;组成结构&lt;/h2&gt;
+&lt;p&gt;经过上面第 4 步骤的加工可以形成完整的结构，由 &lt;code&gt;Master Playlist&lt;/code&gt;、&lt;code&gt;Media Playlist&lt;/code&gt;、&lt;code&gt;Media Segment&lt;/code&gt; 构成，关系结构如图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2021/09/16/F7fcQpGuyiNUYH8.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;完整的 HLS 结构由两部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;m3u8 类型的 Master Playlist 文件：其中会提供若干根据带宽等字段区分的 Media Playlist 的请求链接。&lt;/li&gt;
+&lt;li&gt;m3u8 类型的 Media Playlist 文件：其中会有视频的基本信息和若干 Media Segment 的请求链接，这些片段就组成了完整的视频。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Media Segment 就是单纯的 ts 格式的视频文件，并无任何描述信息，可以单独使用播放器进行播放。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;M3U8 是 Unicode 版本的 M3U，8 代表使用的是 UTF-8 编码，M3U 和 M3U8 都是多媒体列表的文件格式。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;m3u8&#34;&gt;M3U8&lt;/h1&gt;
+&lt;p&gt;M3U8 描述文件中由各种描述字段构成，下面解释部分主要字段的含义。&lt;/p&gt;
+&lt;p&gt;我在网上随便找的一个 m3u8 视频的链接：&lt;code&gt;https://mgtv-com.jjyl12349.com/20210519/fXE0kuJ7/index.m3u8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;请求该链接的返回结果为一个 m3u8 文件，也就是 Master Playlist 文件。&lt;/p&gt;
+&lt;h2 id=&#34;master-playlist&#34;&gt;Master Playlist&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTM3U&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;416x234&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;416x234&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;150kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;STREAM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;INF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BANDWIDTH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1000000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RESOLUTION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1280x720&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;20210519&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fXE0kuJ7&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1000kb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;m3u8&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;字节解释&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EXTM3U：表示该文件为m3u8文件，每个M3U文件都是以EXTM3U开头&lt;/li&gt;
+&lt;li&gt;EXT-X-STREAM-INF：表示一个备份源，并提供备份源的相关信息
+&lt;ul&gt;
+&lt;li&gt;BANDWIDTH：表示每秒传输的比特数，即带宽&lt;/li&gt;
+&lt;li&gt;RESOLUTION：表示备份源的最佳像素方案&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们根据 BANDWIDTH、RESOLUTION 等信息选取合适的 Media Playlist 的请求链接，并将链接与视频链接的域名结合，即可得到完整的链接。&lt;/p&gt;
+&lt;p&gt;比如，BANDWIDTH 为 1000kb、RESOLUTION 为 1280x720 的备用源的请求链接为：&lt;code&gt;https://mgtv-com.jjyl12349.com/20210519/fXE0kuJ7/1000kb/hls/index.m3u8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;请求该链接的返回结果也为一个 m3u8 文件，也就是 Media Playlist 文件。&lt;/p&gt;
+&lt;h2 id=&#34;media-playlist&#34;&gt;Media Playlist&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTM3U&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VERSION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TARGETDURATION&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;6&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PLAYLIST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TYPE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VOD&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MEDIA&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SEQUENCE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;METHOD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;128&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;URI&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/key.key&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTINF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nl&#34;&gt;https:&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/mDHy0Stk.ts
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXTINF&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nl&#34;&gt;https:&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//mgtv-com.ycshengwang.com/20210519/fXE0kuJ7/1000kb/hls/FWZjOCHy.ts
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EXT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENDLIST&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;字节解释&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EXT-X-VERSION：表示 HLS 协议版本号&lt;/li&gt;
+&lt;li&gt;EXT-X-TARGETDURATION：表示 ts 视频片段允许最大的时长&lt;/li&gt;
+&lt;li&gt;EXT-X-PLAYLIST-TYPE：表示流媒体类型&lt;/li&gt;
+&lt;li&gt;EXT-X-MEDIA-SEQUENCE：表示播放列表第一个 ts 视频片段文件的序列号&lt;/li&gt;
+&lt;li&gt;EXT-X-KEY：表示 ts 视频文件的加密信息
+&lt;ul&gt;
+&lt;li&gt;METHOD：加密方法，可选 &lt;code&gt;NONE&lt;/code&gt;、&lt;code&gt;AES-128&lt;/code&gt;、&lt;code&gt;SAMPLE-AES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;URI：密钥路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;EXTINF：表示下面 url 对应的 ts 视频片段的时长&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>一些算法题解</title>
+      <link>https://folay.top/post/algorithm/</link>
+      <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
+      
+      <guid>https://folay.top/post/algorithm/</guid>
+      <description>&lt;p&gt;对于每一位求职的 Coder 来说，在 LeetCode 上熟练刷数据结构和算法题的重要性不言而喻，甚至某一程度上直接决定了面试的成败。&lt;/p&gt;
+&lt;p&gt;最近有在准备跳槽，所以重新把 &lt;a href=&#34;https://leetcode-cn.com/study-plan/lcof/&#34;&gt;剑指Offer&lt;/a&gt; 的题目写了一遍，并每道题目都整理了对应的讲解文章，希望对您有所帮助。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/anox4u&#34;&gt;剑指 Offer 03. 数组中重复的数字&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/sdmmhc&#34;&gt;剑指 Offer 04. 二维数组中的查找&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ng33ly&#34;&gt;剑指 Offer 05. 替换空格&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/kl5l4w&#34;&gt;剑指 Offer 06. 从尾到头打印链表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/iip4rb&#34;&gt;剑指 Offer 07. 重建二叉树&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/dwgt9d&#34;&gt;剑指 Offer 09. 用两个栈实现队列&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/dxsfl8&#34;&gt;剑指 Offer 10- I. 斐波那契数列&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ymqkcd&#34;&gt;剑指 Offer 10- II. 青蛙跳台阶问题&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/kpylzm&#34;&gt;剑指 Offer 11. 旋转数组的最小数字&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/dd632h&#34;&gt;剑指 Offer 12. 矩阵中的路径&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ag7286&#34;&gt;剑指 Offer 13. 机器人的运动范围&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/gr8e4r&#34;&gt;剑指 Offer 14- I. 剪绳子&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/qhl610&#34;&gt;剑指 Offer 14- II. 剪绳子 II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/riidbe&#34;&gt;剑指 Offer 15. 二进制中1的个数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/fq4h36&#34;&gt;剑指 Offer 16. 数值的整数次方&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/qgc7mz&#34;&gt;剑指 Offer 17. 打印从1到最大的n位数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/do8gy1&#34;&gt;剑指 Offer 18. 删除链表的节点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/iu8mgk&#34;&gt;剑指 Offer 21. 调整数组顺序使奇数位于偶数前面&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/sm5sza&#34;&gt;剑指 Offer 22. 链表中倒数第k个节点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/dkxkb3&#34;&gt;剑指 Offer 24. 反转链表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/xdzhgg&#34;&gt;剑指 Offer 25. 合并两个排序的链表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/gdpguv&#34;&gt;剑指 Offer 26. 树的子结构&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/iu12l1&#34;&gt;剑指 Offer 27. 二叉树的镜像&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/iw54ns&#34;&gt;剑指 Offer 28. 对称的二叉树&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/pnpfu2&#34;&gt;剑指 Offer 29. 顺时针打印矩阵&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/fc9ucp&#34;&gt;剑指 Offer 30. 包含min函数的栈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/rkv7rc&#34;&gt;剑指 Offer 31. 栈的压入、弹出序列&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/qe7nm7&#34;&gt;剑指 Offer 32 - I. 从上到下打印二叉树&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/esgcos&#34;&gt;剑指 Offer 32 - II. 从上到下打印二叉树 II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/rc5wut&#34;&gt;剑指 Offer 32 - III. 从上到下打印二叉树 III&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ml2bgf&#34;&gt;剑指 Offer 33. 二叉搜索树的后序遍历序列&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ar7myv&#34;&gt;剑指 Offer 34. 二叉树中和为某一值的路径&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/he3wwe&#34;&gt;剑指 Offer 35. 复杂链表的复制&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ewferc&#34;&gt;剑指 Offer 36. 二叉搜索树与双向链表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/he1h9d&#34;&gt;剑指 Offer 38. 字符串的排列&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/co4xrt&#34;&gt;剑指 Offer 39. 数组中出现次数超过一半的数字&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ngyxmw&#34;&gt;剑指 Offer 40. 最小的k个数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/gtthvb&#34;&gt;剑指 Offer 42. 连续子数组的最大和&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/dbw1qi&#34;&gt;剑指 Offer 46. 把数字翻译成字符串&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/edri5d&#34;&gt;剑指 Offer 47. 礼物的最大价值&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/nzv1m8&#34;&gt;剑指 Offer 48. 最长不含重复字符的子字符串&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/yepxt0&#34;&gt;剑指 Offer 49. 丑数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/xq6n9b&#34;&gt;剑指 Offer 50. 第一个只出现一次的字符&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/bcvfcl&#34;&gt;剑指 Offer 52. 两个链表的第一个公共节点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/xm8w4c&#34;&gt;剑指 Offer 53 - I. 在排序数组中查找数字 I&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ke562e&#34;&gt;剑指 Offer 53 - II. 0～n-1中缺失的数字&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/lh1f1a&#34;&gt;剑指 Offer 54. 二叉搜索树的第k大节点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/zuf9kd&#34;&gt;剑指 Offer 55 - I. 二叉树的深度&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/mmxu37&#34;&gt;剑指 Offer 55 - II. 平衡二叉树&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/wbma5w&#34;&gt;剑指 Offer 56 - I. 数组中数字出现的次数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/arglgv&#34;&gt;剑指 Offer 56 - II. 数组中数字出现的次数 II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/pl9bt8&#34;&gt;剑指 Offer 57. 和为s的两个数字&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/hrkhzg&#34;&gt;剑指 Offer 57 - II. 和为s的连续正数序列&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/ziwtzv&#34;&gt;剑指 Offer 58 - I. 翻转单词顺序&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/lzt4dg&#34;&gt;剑指 Offer 58 - II. 左旋转字符串&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/dzdmcm&#34;&gt;剑指 Offer 59 - I. 滑动窗口的最大值&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/bw5huk&#34;&gt;剑指 Offer 59 - II. 队列的最大值&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/vzyygh&#34;&gt;剑指 Offer 60. n个骰子的点数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/glu1kz&#34;&gt;剑指 Offer 61. 扑克牌中的顺子&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/rvc25h&#34;&gt;剑指 Offer 62. 圆圈中最后剩下的数字&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/yfgaqk&#34;&gt;剑指 Offer 63. 股票的最大利润&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/myfeqh&#34;&gt;剑指 Offer 64. 求1+2+…+n&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.yuque.com/oldjii/android/lmmuch&#34;&gt;剑指 Offer 68 - II. 二叉树的最近公共祖先&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Android中的IPC</title>
+      <link>https://folay.top/post/android_ipc/</link>
+      <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/android_ipc/</guid>
+      <description>&lt;h1 id=&#34;什么是ipc&#34;&gt;什么是IPC&lt;/h1&gt;
+&lt;p&gt;IPC是Interprocess communication的缩写，即进程间通讯。&lt;/p&gt;
+&lt;h1 id=&#34;linux现有ipc方式&#34;&gt;Linux现有IPC方式&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;管道&lt;/strong&gt;：在创建时分配一个page大小的内存，缓存区大小比较有限&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;消息队列&lt;/strong&gt;：信息复制两次，额外的CPU消耗；不适合频繁或信息量大的通讯&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;共享内存&lt;/strong&gt;：无需复制，共享缓冲区直接附加到进程虚拟地址空间，速度快，但进程间的同步问题操作系统无法实现，必须各进程利用同步工具解决&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;套接字&lt;/strong&gt;：作为更通用的接口，传输效率低，主要用于不同机器或跨网络的通讯&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;信号量&lt;/strong&gt;：常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源，因此，主要作为进程间以及同一进程内不同线程之间的同步手段&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;信号&lt;/strong&gt;：不适用与信息交换，更适合与进程中断控制，比如非法内存访问、杀死某个进程等&lt;/p&gt;
+&lt;h2 id=&#34;linux中传统ipc通讯原理&#34;&gt;Linux中传统IPC通讯原理&lt;/h2&gt;
+&lt;p&gt;首先，我们要知道，Linux中进程之间是有隔离的，而且每个进程的进程空间都会分为“用户空间”和“内核空间”，对应着“用户态”和“内核态”，而“系统调用”则是用户空间访问内核空间的唯一方式，系统调用主要通过如下两个函数实现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;copy_from_user() //将数据从用户空间拷贝到内核空间&lt;/li&gt;
+&lt;li&gt;copy_to_user() //将数据从内核空间拷贝到用户空间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下来，我们就可以研究传统IPC通讯的原理了，如下图所示：
+&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/5b391412f26f4a4aa5d68a1db0dd0a04.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;消息方将要发送的数据存放在内存缓存区，通过系统调用进入内核态，然后内核程序在内核空间分配内存，开辟一块内存缓存区，调用copy_from_user()将数据从用户空间的内存缓存区拷贝到内核空间的内核缓存区中。同样的，接收方进程在接受数据时在自己的用户空间开辟一块内存缓存区，然后内核程序调用copy_to_user()将数据从内核缓存区拷贝到接受进程的内存缓存区。这时两个进程间就完成了一次数据传输，我们称完成了一次进程间通讯&lt;/p&gt;
+&lt;h1 id=&#34;android中的ipc&#34;&gt;Android中的IPC&lt;/h1&gt;
+&lt;p&gt;通常，一个App只有一个进程，但Android是可以实现多进程的，比如某些通讯App会单独开辟一个常驻后台的进程。发展迅速，这种做法越来越常见&lt;/p&gt;
+&lt;h2 id=&#34;android中如何多进程&#34;&gt;Android中如何多进程&lt;/h2&gt;
+&lt;p&gt;通常，只有一种方法，即在AndroidMenifest中指定新的&lt;code&gt;android:process&lt;/code&gt;属性&lt;/p&gt;
+&lt;p&gt;具体如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;activity&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;android:name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;.Activity1&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;intent-filter&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;action&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;android:name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;android.intent.action.MAIN&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;category&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;android:name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;android.intent.category.LAUNCHER&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/intent-filter&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/activity&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;activity&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;android:name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;.Activity2&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;android:process=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;:remote&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;activity&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;android:name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;.Activity3&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;android:process=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.example.myapplication.remote&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+------------------------------
+上述代码创建了三个进程：
+1. com.example.myapplication
+2. com.example.myapplication.remote
+3. com.example.myapplication.remote
+
+后两个进程的区别：
+- 用&amp;#34;:&amp;#34;创建的是私有进程，其他应用不可以和他在一个进程共存
+- 写全包名的是全局进程，其他应用可以通过shareUID的方式共存在同一进程
+
+解释一下什么是UID：
+Android系统会给每一个应用分配一个唯一的UID，具有相同UID且签名相同的应用才能共享数据
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;还有一种非常规的方法：通过JNI在native层中去fork新进程&lt;/p&gt;
+&lt;h2 id=&#34;android多进程引发的问题&#34;&gt;Android多进程引发的问题&lt;/h2&gt;
+&lt;p&gt;在介绍AndroidIPC之前，先说一下为什么需要这些方式，原有的Android通讯机制或者LinuxIPC满足不了Android多进程吗？&lt;/p&gt;
+&lt;p&gt;Android系统会给每一个进程分配一个独立的虚拟机，不同的虚拟机在内存分配上有不同的地址空间，这就导致了很多问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;静态成员和单例模式失效&lt;/li&gt;
+&lt;li&gt;线程同步机制失效&lt;/li&gt;
+&lt;li&gt;SP并发操作导致数据可靠性下降&lt;/li&gt;
+&lt;li&gt;Application多次创建（相当于重启了App）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为了解决上述问题，引出了如下AndroidIPC的方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件共享&lt;/li&gt;
+&lt;li&gt;ContentProvider&lt;/li&gt;
+&lt;li&gt;Bundle&lt;/li&gt;
+&lt;li&gt;Messager&lt;/li&gt;
+&lt;li&gt;AIDL&lt;/li&gt;
+&lt;li&gt;Binder&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;除文件共享外，这些IPC的方式，底层其实都是使用的Binder机制&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;文件共享&#34;&gt;文件共享&lt;/h2&gt;
+&lt;p&gt;显而易见，就是通过两个进程读/写同一个文件来实现交换数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：并发操作可能会导致文件数据的有效性&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：适用于对数据同步要求不高的进程之间通讯，并且要妥善解决并发读写的问题&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;contentprovider&#34;&gt;ContentProvider&lt;/h2&gt;
+&lt;p&gt;主要是以表格的形式来组织数据，包含多张表，一行对应一条记录、一列对应一条记录中的一个字段，与数据库类似。除去表格形式还支持图片、视频等文件数据&lt;/p&gt;
+&lt;p&gt;组织封装完数据后会提供统一的存取接口，使得其他进程可以忽略底层数据存储的方式，仅通过统一接口来操作数据&lt;/p&gt;
+&lt;p&gt;通常与他的辅助工具类一起实现通讯，可以实现进程间通讯或进程内通讯&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原理&lt;/strong&gt;：Binder机制，外部调用CURD方法的话是运行在ContentProvider进程的Binder线程池中（不是主线程）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：对数据进行安全的封装；提供统一的存取数据的接口供其他进程调用（无需考虑底层测数据存储方式是SQLite还是内存存储之类的）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：一对多的进程间共享数据，比如获取/修改系统亮度&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;用法&lt;/strong&gt;：&lt;a href=&#34;https://lrh1993.gitbooks.io/android_interview_guide/content/android/basis/ContentProvider.html&#34;&gt;Android校招面试指南-ContentProvider全方位分析&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;bundle&#34;&gt;Bundle&lt;/h2&gt;
+&lt;p&gt;Bundle中数据以key-value键值对的形式存在，我们通常在Activity、线程之间使用它，其实由于Bundle实现了Parcelable接口，所以也可以在进程之间使用，只需配置一下目标包名信息即可&lt;/p&gt;
+&lt;p&gt;参考如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Bundle&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bundle&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Bundle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;bundle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;puString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;s&#34;&gt;&amp;#34;来自A&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;Intent&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;intent&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ACTION_MAIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addCategory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;CATEGORY_LAUNCHER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;ComponentName&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ComponentName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.test&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;com.test.MainActivity&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setComponent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;puExtras&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bundle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当要使用Bundle传递对象时，必须序列化，即实现Serializable/Parcelable接口&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关于序列化&lt;/strong&gt;：&lt;a href=&#34;http://note.youdao.com/noteshare?id=5521000160fbda9125b03909587fb2b6&#34;&gt;Oldjii的笔记-Android序列化&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原理&lt;/strong&gt;：Bundle只是一个信息的载体，内部维护了一个Map&amp;lt;String, Object&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：四大组件间的进程间通讯&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;messager&#34;&gt;Messager&lt;/h2&gt;
+&lt;p&gt;Messager可以翻译为“信使”，通过它可以在不同进程间传递Message对象，在Message中放如数据，就可以实现进程间通讯了，这是一种轻量级的IPC方案&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;与Handler的关系&lt;/strong&gt;：Messager底层使用了AIDL的方式，但和普通的AIDL不同的是，它是利用Handler进行处理的，其实这就是它不支持并发的原因；Handler是线程间通讯的一种机制，其本身是不支持进程间通讯（IPC）的&lt;/p&gt;
+&lt;p&gt;想了解Handler机制，可以参考：&lt;a href=&#34;http://note.youdao.com/noteshare?id=5eb43fdb54d3c64cb933cb5280ba5201&#34;&gt;Oldjii的笔记-Handler机制解析&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原理&lt;/strong&gt;：底层实现是AIDL&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：安全，不支持并发（既可以说是优点也可以说是缺点）；封装AIDL，使用简单，不需要AIDL文件；支持实时通讯&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：串行处理客户端发来的消息，服务端不存在并发情况；数据通过Message传递所以只能传递Bundle支持的数据类型&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：低并发的一对多即使通讯&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;使用&lt;/strong&gt;：&lt;a href=&#34;https://www.jianshu.com/p/52ec31fcf0a6&#34;&gt;Messenger轻量级IPC方案&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;aidl&#34;&gt;AIDL&lt;/h2&gt;
+&lt;p&gt;AIDL是Android Interface Description Language的缩写，即Android接口定义语言，用于定义跨进程通讯中双方皆认可的编程接口&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;与Messager的关系&lt;/strong&gt;：
+Messager是基于AIDL封装的，但服务端仅支持串行处理消息，如果有大量的并发请求，那么Messager就不合适了；而且，使用Messager的目标主要是传递消息，但IPC不仅仅如此，还可能会跨进程调用服务端的方法，这种情况Messager就无法满足了，而直接使用AIDL是没有问题的&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：一对多进程间通讯&lt;/p&gt;
+&lt;p&gt;原理：基于Binder封装&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;使用&lt;/strong&gt;：通过编写AIDL文件来设计想要暴露的接口，编译后会自动生成响应的java文件，服务器将接口的具体实现写在Stub中，用iBinder对象传递给客户端，客户端bindService时，用asInterface的形式将iBinder还原成接口，再调用其中的方法&lt;/p&gt;
+&lt;p&gt;详情参考：&lt;a href=&#34;https://lrh1993.gitbooks.io/android_interview_guide/content/android/advance/binder.html&#34;&gt;Android校招面试指南-Binder机制及AIDL使用&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;binder&#34;&gt;Binder&lt;/h2&gt;
+&lt;p&gt;Binder机制是Android独有的一种跨进程通讯的方式，是Linux中没有的&lt;/p&gt;
+&lt;p&gt;Android系统内部本身就是使用Binder来实现IPC，Framework层中XXXManager和XXXManagetService之间等等都是利用的Binder机制，其中XXXManager是Client端、XXXManagetService是Server端，比如ActivityManager、ActivityManagerService、WindowManager、WindowManagerService、PackageManager、PackageManagerService，乃至于Native Framework层的MediaPlay与MediaPlayService也是一样的&lt;/p&gt;
+&lt;p&gt;详情请参考：&lt;a href=&#34;http://jiguankai.cn/2019/09/17/Android%E6%89%8B%E6%9C%BA%E4%BB%8E%E5%BC%80%E6%9C%BA%E5%88%B0APP%E5%90%AF%E5%8A%A8%E7%BB%8F%E8%BF%87%E7%9A%84%E6%B5%81%E7%A8%8B/&#34;&gt;Android手机从开机到APP启动经过的流程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在应用层，开发者也可以利用Binder实现IPC，其实Messager、AIDL这些方式底层基于Binder的，Binder也可以直接使用，下面是三者使用的场景&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;AIDL：需要不同应用的客户端通过IPC通讯访问你的服务，并且需要支持多线程的情况&lt;/li&gt;
+&lt;li&gt;直接使用Binder：不需要同时对几个应用进行IPC操作的情况&lt;/li&gt;
+&lt;li&gt;Messager：需要实现IPC，但不需要处理多线程的情况&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;直接使用&lt;/strong&gt;：&lt;a href=&#34;https://www.jianshu.com/p/2d6ddd6a3399&#34;&gt;Android Binder的极简使用&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;binder底层原理&#34;&gt;Binder底层原理&lt;/h3&gt;
+&lt;p&gt;在看这部分时，建议你先翻到上面去回顾一下“传统IPC的原理”，这样可以更好的理解Binder的通讯原理&lt;/p&gt;
+&lt;p&gt;Binder与传统IPC不同的地方主要在于使用了“动态内核可加载模块”和“内存映射”&lt;/p&gt;
+&lt;h4 id=&#34;动态内核可加载模块&#34;&gt;动态内核可加载模块&lt;/h4&gt;
+&lt;p&gt;Linux的动态内核可加载模块（LKM）是一段具有独立功能的程序，它可以被单独编译，但是不能单独运行，该模块在运行时被链接到内核作为内核的一部分运行。这样Android系统就可以通过动态添加一个内核模块运行在内核空间，用户进程之间则通过这个内核模块作为桥梁来实现通讯&lt;/p&gt;
+&lt;p&gt;这个负责各用户进程Binder通讯的内核模块就是Binder驱动（Binder Dirver）&lt;/p&gt;
+&lt;h4 id=&#34;内存映射&#34;&gt;内存映射&lt;/h4&gt;
+&lt;p&gt;内存映射简单来说就是，将用户空间的一块内存区域映射到内核空间，映射关系建立后，用户对这块内存区域的修改可以直接反应到内核空间，反之亦然。这样利用内存映射就可以减少数据拷贝的次数&lt;/p&gt;
+&lt;p&gt;BinderIPC中的内存映射是通过mmap()来实现的，mmap()是操作系统中一种内存映射的方式，mmap()通常是用在物理介质的文件系统中，但Binder并不存在物理介质，也无法实现利用mmap()在物理介质和用户空间之间建立映射关系。mmap()在Binder的作用是用来在内核空间创建数据接受的缓存空间&lt;/p&gt;
+&lt;h4 id=&#34;完整流程&#34;&gt;完整流程&lt;/h4&gt;
+&lt;p&gt;了解了上面的概念，就可以理解完整BinderIPC的通讯原理了&lt;/p&gt;
+&lt;p&gt;一次完整的BinderIPC通讯过程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先Binder驱动在内核空间创建一个数据接受缓存区&lt;/li&gt;
+&lt;li&gt;接着在内核空间开辟一块内核缓存区，并建立内核缓存区与数据接收缓存区之间的映射关系，以及内核中的数据接收缓存区与接收进程用户空间的映射关系&lt;/li&gt;
+&lt;li&gt;发送方通过系统调用copy_from_user()将数据copy到内核中的内核缓存区，由于内核缓存区与接收进程的用户空间存在内存映射，所以也就相当于把数据发送到了接收进程的用户空间，这样便完成了一次进程间的通讯&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如下图所示：
+&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/20200108145347.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;binder通讯流程&#34;&gt;Binder通讯流程&lt;/h3&gt;
+&lt;h4 id=&#34;clientserverservicemanagerbinder-driver&#34;&gt;Client/Server/ServiceManager/Binder Driver&lt;/h4&gt;
+&lt;p&gt;Binder 是基于 C/S 架构的。由一系列的组件组成，包括 Client、Server、ServiceManager、Binder Driver，其中 Client、Server、ServiceManager 运行在用户空间，Binder Driver运行在内核空间。其中ServiceManager和Binder Driver由系统提供，而Client、server由应用程序来实现。Client
+、Server、ServiceManager均是通过系统调用open()、mmap()、ioctl()来访问设备文件&amp;rdquo;/dev/binder&amp;rdquo;，从而实现与Binder Driver的交互来间接的实现跨进程通讯&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/20200108150804.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这里需要你理解一下ServiceManager这个组件&lt;/p&gt;
+&lt;p&gt;Client、Server、ServiceManager、Binder Driver这几个组件在通信过程中扮演的角色就如同互联网中服务器（Server）、客户端（Client）、DNS域名服务器（ServiceManager）以及路由器（Binder Driver）之前的关系。以下内存摘自《Android Binder 设计与实现》
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ServiceManager 与实名 Binder ServiceManager 和 DNS 类似，作用是将字符形式的 Binder 名字转化成 Client 中对该 Binder 的引用，使得 Client 能够通过 Binder 的名字获得对 Binder 实体的引用。注册了名字的 Binder 叫实名 Binder，就像网站一样除了除了有 IP 地址以外还有自己的网址。Server 创建了 Binder，并为它起一个字符形式，可读易记得名字，将这个 Binder 实体连同名字一起以数据包的形式通过 Binder 驱动发送给 ServiceManager ，通知 ServiceManager 注册一个名为“张三”的 Binder，它位于某个 Server 中。驱动为这个穿越进程边界的 Binder 创建位于内核中的实体节点以及 ServiceManager 对实体的引用，将名字以及新建的引用打包传给 ServiceManager。ServiceManger 收到数据后从中取出名字和引用填入查找表&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;binder_xxx函数介绍&#34;&gt;binder_xxx()函数介绍&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;init()&lt;/strong&gt;：创建/dev/binder设备节点&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;open()&lt;/strong&gt;：获取Binder Driver的文件描述符&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mmap()&lt;/strong&gt;：在内核分配一块内存，用于存放数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ioctl()&lt;/strong&gt;：将IPC数据作为参数传递给Binder Driver&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ioctl命令&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;BINDER_WRITE_READ           --&amp;gt;     收发Binder IPC数据
+BINDER_SET_MAX_THREADS      --&amp;gt;     设置Binder线程最大个数
+BINDER_SET_CONTEXT_MGR      --&amp;gt;     设置Service Manager节点
+BINDER_THREAD_EXIT          --&amp;gt;     释放Binder线程
+BINDER_VERSION              --&amp;gt;     获取Binder版本信息
+BINDER_SET_IDLE_TIMEOUT     --&amp;gt;     没有使用
+BINDER_SET_IDLE_PRIORITY    --&amp;gt;     没有使用
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;更多关于Binder源码的内容请参考：&lt;a href=&#34;http://gityuan.com/2015/11/01/binder-driver/&#34;&gt;Binder系列1—Binder Driver初探&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;完整的binder通讯过程&#34;&gt;完整的Binder通讯过程&lt;/h4&gt;
+&lt;p&gt;一次完整的Binder通讯过程如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先，一个进程使用ioctl()命令（BINDER_SET_CONTEXT_MGR）通过Binder将自己注册成为ServiceManager&lt;/li&gt;
+&lt;li&gt;Server通过Binder Driver向ServiceManager注册Binder（Server中的Binder实体），表明可以对外提供服务，驱动为这个Binder创建位于内核中的实体节点以及ServiceManager对实体的引用，将名字以及新建的引用打包给ServiceManager、ServiceManager将其填入查找表&lt;/li&gt;
+&lt;li&gt;Client通过名字，在Binder Driver的帮助下从ServiceManager中获取到对Binder实体的引用，通过这个引用就能实现和Server的通讯&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/20200108154444.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;为什么android系统选用binder机制作为ipc的方式&#34;&gt;为什么Android系统选用Binder机制作为IPC的方式？&lt;/h2&gt;
+&lt;p&gt;可以从性能、安全两个方面来回答这个问题&lt;/p&gt;
+&lt;h5 id=&#34;性能方面&#34;&gt;性能方面&lt;/h5&gt;
+&lt;p&gt;在移动设备上，广泛的使用跨进程通讯对通讯机制的性能有很严格的要求，Binder相对于传统的Socket方式，更加高效。因为Binder数据拷贝只需一次，而管道、消息队列、Socket等需要2此，虽然共享内容方式一次内存拷贝都不要，但是实现方式过于复杂，不适合该场景。&lt;/p&gt;
+&lt;h5 id=&#34;安全方面&#34;&gt;安全方面&lt;/h5&gt;
+&lt;p&gt;传统的进程通讯方式对于通讯双方的身份并没有作出严格的验证，比如Socket通讯的IP地址是客户端手动填入，很容易进行伪造。然而，Binder机制从协议本身就支持对通讯双方做身份校验，从而大大的提高了安全性&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Rxjava源码阅读</title>
@@ -1224,6 +1711,171 @@ Observable.observeOn()：
 &lt;li&gt;为什么多次调用subscribeOn()，只有第一次生效？&lt;/li&gt;
 &lt;li&gt;为什么多次调用observeOn()，只有最后一次生效？&lt;/li&gt;
 &lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>App的启动流程</title>
+      <link>https://folay.top/post/app_start_process/</link>
+      <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/app_start_process/</guid>
+      <description>&lt;p&gt;本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。&lt;/p&gt;
+&lt;p&gt;本文把这段流程分为三部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从开机到显示应用列表&lt;/li&gt;
+&lt;li&gt;从点击应用图标到Activity创建成功&lt;/li&gt;
+&lt;li&gt;从Activity创建成功到显示画面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;从开机到显示应用列表&#34;&gt;从开机到显示应用列表&lt;/h1&gt;
+&lt;p&gt;先看流程图：
+&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/16d3acbbbba41520.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;开机加电后，CPU先执行&lt;strong&gt;预设代码&lt;/strong&gt;、加载ROM中的引导程序&lt;strong&gt;Bootloader&lt;/strong&gt;和Linux内核到RAM内存中去，然后初始化各种软硬件环境、加载驱动程序、挂载根文件系统，执行&lt;strong&gt;init进程&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;init进程会启动各种系统本地服务，如&lt;strong&gt;SM&lt;/strong&gt;（ServiceManager）、MS（Media Server）、bootanim（开机动画）等，然后init进程会在解析init.rc文件后fork()出&lt;strong&gt;Zygote进程&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Zygote会启动Java虚拟机，通过jni进入Zygote的java代码中，并创建&lt;strong&gt;socket&lt;/strong&gt;实现IPC进程通讯，然后启动&lt;strong&gt;SS&lt;/strong&gt;（SystemServer）进程。&lt;/p&gt;
+&lt;p&gt;SS进程负责启动和管理整个framework，包括&lt;strong&gt;AMS&lt;/strong&gt;（ActivityManagerService）、&lt;strong&gt;WMS&lt;/strong&gt;（WindowManagerService）、PMS（PowerManagerService）等服务、同时启动binder线程池，当SS进程将系统服务启动就绪以后，就会通知AMS启动Home。&lt;/p&gt;
+&lt;p&gt;AMS通过Intent隐式启动的方式启动&lt;strong&gt;Launcher&lt;/strong&gt;，Launcher根据已安装应用解析对应的xml、通过findViewById()获得一个RecycleView、加载应用图标、最后成功展示App列表。&lt;/p&gt;
+&lt;h2 id=&#34;解释&#34;&gt;解释&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;预设代码&lt;/strong&gt;：cpu制造厂商会预设一个地址，这个地址是各厂家约定统一的，Android手机会将固态存储设备ROM预先映射到该地址上；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bootloader&lt;/strong&gt;：类似BIOS，在系统加载前，用以初始化硬件设备，建立内存空间的映像图，为最终调用系统内核准备好环境；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;init进程&lt;/strong&gt;：init进程时Android系统中用户进程的鼻祖进程，主要作用是启动系统本地服务、fork出Zygote进程；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SM&lt;/strong&gt;：ServiceManager是一个守护进程，它维护着系统服务和客户端的binder通信；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Zygote进程&lt;/strong&gt;：Zygote进程是所有Java进程的父进程，我们的APP都是由Zygote进程fork出来的；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;socket&lt;/strong&gt;：一种独立于协议用于两个应用程序之间的数据传输的网络编程接口，是IPC中的一种；（但是在Android中一般使用Binder来实现IPC，这里使用socket的原因后面有写到）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SS&lt;/strong&gt;：Framework两大重要进程之一（另一个是Zygote），载着framework的核心服务，系统里面重要的服务都是SS开启的；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AMS&lt;/strong&gt;：服务端对象，负责系统中所有Activity的生命周期，打开App、Activity的开启、暂停、关闭都需要AMS来控制；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WMS&lt;/strong&gt;：窗口管理服务，窗口的启动、添加、删除、大小、层级都是由WMS管理；（下面会解释什么是窗口）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Launcher&lt;/strong&gt;：Launcher就是系统桌面，主要用来启动应用桌面，同时管理快捷方式和其他组件，本质上也是一个应用程序，和我们的App一样，也是继承自Activity，有自己的AndroidManifest；（所以才可以被AMS用Intent启动）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Question 1： Zygote进程为什么使用Socket而不是Binder？&lt;/strong&gt;
+fork不允许存在多线程，而Binder通讯恰巧就是多线程；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Question 2：什么是窗口？&lt;/strong&gt;
+Android系统中的窗体是屏幕上的一块用于绘制各种UI元素并能够响应应用户输入的一个矩形区域，从原理上来讲，窗体的概念是独自占有一个Surface实例的显示区域，比如Dialog、Activity的界面、壁纸、状态栏以及Toast等都是窗体；&lt;/p&gt;
+&lt;h1 id=&#34;从点击应用图标到activity创建成功&#34;&gt;从点击应用图标到Activity创建成功&lt;/h1&gt;
+&lt;p&gt;先看流程图：
+&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/16d3acbc595b7401.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//然后点击应用图标后，先检查要打卡的Activity是否存在
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Launcher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivitySafely&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Launcher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Activity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Activity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivityForResult&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//然后获取AMS的代理AMP
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Instrumentation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;execStartActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerNative&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDefault&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerProxy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;startActivityAsUser&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;requestCode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivityMayWait&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;resolveActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivityLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityRecord对象&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;获取ActivityStack&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;找到ActivityStack后Launcher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;onPause&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//准备启动进程
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startProcessLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//通过socket通知Zygote创建进程
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;zygoteSendArgsAndGetResult&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//创建ActivityThread
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//告诉AMS我已经创建好了
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attach&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerProxy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityMangerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//找到Application实例并初始化
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityMangerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplicationLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ApplicationThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bindApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//创建Application
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AcitvityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bindApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Application&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;oncreate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//启动Activity
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplicationLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;realStartActivityLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;scheduleLaunchActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//进入UI线程
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;handleLaunchActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;performLaunchActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//创建Activity实例
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Instrumentation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Activity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;onCreate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;解释-1&#34;&gt;解释&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ActivityThread&lt;/strong&gt;：App的真正入口。当开启App之后，会调用main()开始运行，开启消息循环队列，这就是传说中的UI线程或者叫主线程。与ActivityManagerServices配合，一起完成Activity的管理工作；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ApplicationThread&lt;/strong&gt;：用来实现ActivityManagerService与ActivityThread之间的交互。在ActivityManagerService需要管理相关Application中的Activity的生命周期时，通过ApplicationThread的代理对象与ActivityThread通讯；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Instrumentation&lt;/strong&gt;：可以理解为应用进程的管家，每个应用程序只有一个，每个Activity内都有该对象的引用，ActivityThread要创建或暂停某个Activity时，都需要通过Instrumentation来进行具体的操作；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ActivityStack&lt;/strong&gt;：Activity在AMS的栈管理，用来记录已经启动的Activity的先后关系，状态信息等。通过ActivityStack决定是否需要启动新的进程；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ActivityRecord&lt;/strong&gt;：ActivityStack的管理对象，每个Activity在AMS对应一个ActivityRecord，来记录Activity的状态以及其他的管理信息。其实就是服务器端的Activity对象的映像；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Question 1： 如何判断APP是否已经启动？&lt;/strong&gt;
+AMS会保存一个ProcessRecord信息，有两部分构成，“uid + process”，每个应用工程序都有自己的uid，而process就是AndroidManifest.xml中Application的process属性，默认为package名。每次在新建新进程前的时候会先判断这个 ProcessRecord 是否已存在，如果已经存在就不会新建进程了，这就属于应用内打开 Activity 的过程了。&lt;/p&gt;
+&lt;h1 id=&#34;从activity创建成功到显示画面&#34;&gt;从Activity创建成功到显示画面&lt;/h1&gt;
+&lt;p&gt;onCreate()方法中先执行setContentView()方法将对应的xml文件传入，之后会去调用window.setContentView()，最终会在这里创建&lt;strong&gt;Decorview&lt;/strong&gt;并填充标题栏、状态栏，然后获取&lt;strong&gt;contentParent&lt;/strong&gt;，然后调用LayoutInflater.inflate解析xml文件获取根root（ViewRootImpl），通过root.addView()将contentParent添加到&lt;strong&gt;ViewRootImpl&lt;/strong&gt;中去，至此onCreate()结束。&lt;/p&gt;
+&lt;p&gt;开始onResume()阶段，在开始会向H类发送一个消息，然后在ActivityThread中获取之前创建的Decorview并调用windowManager.add()，最后在windowManager中将窗口和窗口的参数传到root.setView()，然后ViewRoot通过Binder调用WMS，使WMS所在的SS进程接收到按键事件时，可以回调到该root，同时ViewRoot会向自己的handler发送一条消息，然后进行处理（performTraversals），之后开始绘制过程（在Surface的canvas上绘制）。&lt;/p&gt;
+&lt;p&gt;先利用MeasureSpec完成onmeasure()，然后在onlayout()中确定各元素的坐标，ondraw()负责将view画到canvas上，再通过Surface进行跨进程最终调用Native层的&lt;strong&gt;SGL&lt;/strong&gt;、openGI，最后再去调用硬件CPU进行渲染操作，最终界面显示在你眼前&lt;/p&gt;
+&lt;h2 id=&#34;解释-2&#34;&gt;解释&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DecorView&lt;/strong&gt;：界面的根View，PhoneWindow的内部类&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;contentParent&lt;/strong&gt;：所有View的根View，在DecorView里面&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ViewRootImpl&lt;/strong&gt;：ViewRoot是GUI管理系统与GUI呈现系统之间的桥梁，&lt;code&gt;WindowManager&lt;/code&gt;通过&lt;code&gt;ViewRootImpl&lt;/code&gt;与&lt;code&gt;DecorView&lt;/code&gt;起联系。并且，&lt;code&gt;View&lt;/code&gt;的绘制流程都是由&lt;code&gt;ViewRootImpl&lt;/code&gt;发起的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SGL&lt;/strong&gt;：底层的2D图形渲染引擎&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
   </channel>
