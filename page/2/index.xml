@@ -5,10 +5,54 @@
     <description>Recent content on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 19 Mar 2024 15:49:06 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2024 17:49:06 +0800</lastBuildDate>
     
         <atom:link href="https://folay.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Stable Diffusion 的光影艺术</title>
+      <link>https://folay.top/post/sd_controlnet/</link>
+      <pubDate>Tue, 26 Sep 2023 15:49:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/sd_controlnet/</guid>
+      <description>&lt;p&gt;最近在网上经常有看到类似上面这种图片，图片里的建筑物或者是光影形成了一些文字，给图片附加了更多的信息。评论有很多人很好奇，所以记录下制作方式。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192146502.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;其实制作的方法很简单，只是在基本 text2img 的基础上使用 ControlNet 进行垫图并附加一些光影性强的 Model 即可。&lt;/p&gt;
+&lt;h2 id=&#34;checkpoint-配置&#34;&gt;Checkpoint 配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Checkpoint Model：推荐使用写实类的模型，比如 majicMIX realistic、dalcefoPainting 3rd。&lt;/li&gt;
+&lt;li&gt;Sampler method：推荐使用 DMP++ 2S a Karras、DMP++ 2M Karras。&lt;/li&gt;
+&lt;li&gt;Sampling Steps：推荐 25 左右，不要超过 30，因为要实现光影文字效果，Step 数太多会渲染掉文-字效果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192143384.png width=100%/&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;底图制作&#34;&gt;底图制作&lt;/h2&gt;
+&lt;p&gt;需要用到一张黑底白字的图片，用什么做随意，用你熟悉工具即可，尺寸需要跟你上面配置的 Size 信息保持一致，以保证文字的位置是准确的，比如下图。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192150418.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;另外，如果你能让文字的边缘实现模糊效果就更好了，生成的图片光影文字效果会更贴合。&lt;/p&gt;
+&lt;h2 id=&#34;controlnet-配置&#34;&gt;ControlNet 配置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ControlNet Model：对出图效果的影响比较关键，推荐使用 control_v1p_sd15_brightness、lightingBasedPicture_v10，都是比较优秀的光影 Model。&lt;/li&gt;
+&lt;li&gt;ControlNet Type：全部&lt;/li&gt;
+&lt;li&gt;预处理器：推荐 none，也可以使用 tile_colorfix，但是要搭配 control_v11f1e_sd15_tile 模型。&lt;/li&gt;
+&lt;li&gt;Control Weight：0.4 ～ 0.55&lt;/li&gt;
+&lt;li&gt;Starting Control Step：0 ~ 0.1&lt;/li&gt;
+&lt;li&gt;Ending Control Step：0.45 ～ 0.6&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192144711.png width=100%/&gt;
+&lt;/div&gt;
+&lt;p&gt;最后就抽卡吧，慢慢抽，另外附上一张网友测试的 Control Step 与出图效果的对比图。&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310192154764.webp width=100%/&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>阅读、游历和爱情</title>
@@ -16,7 +60,7 @@
       <pubDate>Sun, 30 Apr 2023 10:46:28 +0800</pubDate>
       
       <guid>https://folay.top/post/read_travel_love/</guid>
-      <description>&lt;p&gt;现代生活无时无刻不经受着冲击，滚滚历史八面来风，如何在纷纭中走自己的人生路？将阅读梁永安老师的《阅读、游历和爱情&amp;rdquo;》一书过程中的所得、体会记录于此。&lt;/p&gt;
+      <description>&lt;p&gt;现代生活无时无刻不经受着冲击，滚滚历史八面来风，如何在纷纭中走自己的人生路？将阅读梁永安老师的《阅读、游历和爱情&amp;quot;》一书过程中的所得、体会记录于此。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;关于自我&lt;/strong&gt;，涉及多个层面。一个是本然的自我，一路成长过来所形成的自我，是以往你所有选择的结果。另一个是想象中的自我，是经过自我意识洗礼，变形折射而来的，不是本真的自我。还有一个是理想中的自我，即自己觉得我应该是怎样的。&lt;/p&gt;
 &lt;p&gt;认识自己的过程就是寻找本然自我的过程，首先一定要了解自己在社会和历史舞台上所处的位置，而不是做一个漫无目的的自然人，现在很多人看不清自我，就是不知道自己所处在什么位置上，有什么样的价值，千万别在你还没了解这个世界的时候，就把自己固定了。&lt;/p&gt;
 &lt;p&gt;在失去坐标的转型时代，青年人该如何定位自己？青年要认识自我，不能坐在房子里，坐井观天，往往需要在不完美的探索中认识自己，有痛苦，有欢乐，于痛苦中发现自己活着，于欢乐中发现自己还很平庸，在这个过程中，才逐渐知道自己热爱什么样的生活，跟什么样的世界联系在一起。这就是所谓青春的激情。&lt;/p&gt;
@@ -96,37 +140,37 @@
 &lt;p&gt;查看 Git 本地配置&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --list
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;清除用户名和邮箱&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --global --unset user.name
-git config --global --unset user.email
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global --unset user.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global --unset user.email
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;生成-ssh-key&#34;&gt;生成 ssh-key&lt;/h2&gt;
 &lt;p&gt;使用 &lt;code&gt;ssh-keygen&lt;/code&gt; 命令生成 ssh-key，并手动指定 id&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx1@gmail.com&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx1@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx1@gmail.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;生成成功会输出以下内容&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
@@ -148,81 +192,81 @@ git config --global --unset user.email
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Generating public/private rsa key pair.
-Enter file in which to save the key &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/Users/james/.ssh/id_rsa&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
-Enter passphrase &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;empty &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; no passphrase&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
-Enter same passphrase again:
-Your identification has been saved in /Users/james/.ssh/id_rsa.
-Your public key has been saved in /Users/james/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:rwtxjGTJPoV9Mg8lFSf8D4X6jFexWVXKOMRaVyo+RO8 xx1@gmail.com
-The key&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;s randomart image is:
-+---&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;RSA 3072&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;----+
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        .o&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;o+. .*&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     . + o.&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;+++o.&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      * * .&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     + + *ooo++  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; S .+o+E  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       + .. +..  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      .   ..     &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       . .       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        o.       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
-+----&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;SHA256&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;-----+
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Generating public/private rsa key pair.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter file in which to save the key &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/Users/james/.ssh/id_rsa&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter passphrase &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;empty &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; no passphrase&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Enter same passphrase again:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Your identification has been saved in /Users/james/.ssh/id_rsa.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Your public key has been saved in /Users/james/.ssh/id_rsa.pub.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;The key fingerprint is:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SHA256:rwtxjGTJPoV9Mg8lFSf8D4X6jFexWVXKOMRaVyo+RO8 xx1@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;The key&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;s randomart image is:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+---&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;RSA 3072&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;----+
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        .o&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;o+. .*&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     . + o.&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;+++o.&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      * * .&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;     + + *ooo++  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; S .+o+E  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       + .. +..  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;      .   ..     &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;       . .       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;        o.       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+----&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;SHA256&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;-----+
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;然后继续生成你的其他 Git 账号对应的 ssh-key&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx2@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx2@gmail.com&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa_xx2@gmail.com -C &lt;span class=&#34;s2&#34;&gt;&amp;#34;xx2@gmail.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;信任-ssh-key&#34;&gt;信任 ssh-key&lt;/h2&gt;
 &lt;p&gt;使用 &lt;code&gt;ssh-add&lt;/code&gt; 命令将生成的 ssh-key 添加到 ssh-agent 信任列表&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-add ~/.ssh/id_rsa_xx1@gmail.com
-ssh-add ~/.ssh/id_rsa_xx2@gmail.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa_xx1@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-add ~/.ssh/id_rsa_xx2@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;如果遇到 &lt;code&gt;Could not open a connection to your authentication agent.&lt;/code&gt; ，输入&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh-agent bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh-agent bash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;然后重复执行 &lt;code&gt;ssh-add&lt;/code&gt; 即可解决&lt;/p&gt;
 &lt;h2 id=&#34;配置公钥&#34;&gt;配置公钥&lt;/h2&gt;
 &lt;p&gt;复制对应公钥，配置到对应 Git 网站中（GitHub / GitLab）&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pbcopy &amp;lt; ~/.ssh/id_rsa_xx1@gmail.com.pub
-pbcopy &amp;lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pbcopy &amp;lt; ~/.ssh/id_rsa_xx1@gmail.com.pub
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pbcopy &amp;lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这步具体的操作如果有不清楚的可以参考 &lt;a href=&#34;https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account&#34;&gt;Adding a new SSH key to your GitHub account&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;配置-config&#34;&gt;配置 config&lt;/h2&gt;
 &lt;p&gt;进入 ssh 目录&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;open ~/.ssh/
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;open ~/.ssh/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;按照以下规则编辑 config 文件，没有则创建&lt;/p&gt;
 &lt;table&gt;
@@ -259,7 +303,7 @@ pbcopy &amp;lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
 &lt;p&gt;编辑完 config 内容如下&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
@@ -270,37 +314,37 @@ pbcopy &amp;lt; ~/.ssh/id_rsa_xx2@gmail.com.pub
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Host github1.com
-Hostname github.com
-IdentityFile ~/.ssh/id_rsa_xx1@gmail.com
-User xx1@gmail.com
-
-Host github2.com
-Hostname github.com
-IdentityFile ~/.ssh/id_rsa_xx2@gmail.com
-User xx2@gmail.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Host github1.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Hostname github.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;IdentityFile ~/.ssh/id_rsa_xx1@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;User xx1@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Host github2.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Hostname github.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;IdentityFile ~/.ssh/id_rsa_xx2@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;User xx2@gmail.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;测试链接&#34;&gt;测试链接&lt;/h2&gt;
 &lt;p&gt;测试 Git 账号是否连接成功，&lt;code&gt;git@&lt;/code&gt; 之后是 config 文件中配置的 Host&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh -T git@github1.com
-ssh -T git@github2.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh -T git@github1.com
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh -T git@github2.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;连接成功会有以下输出&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Hi xxx! You&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;ve successfully authenticated, but GitHub does not provide shell access.
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Hi xxx! You&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;ve successfully authenticated, but GitHub does not provide shell access.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
@@ -358,72 +402,6 @@ ssh -T git@github2.com
 &lt;p&gt;在市场机制尚不完善的情况下，政府可以作为其补充动员和调配资源，为完善和建设市场经济争取时间。但当市场机制已经相对成熟，政府也要适时改变自己的角色定位，降低政府投资支出，加大民生支出，从&lt;strong&gt;生产型政府转向服务型政府&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;这一转变也契合发展经济学的一般视角：对于发展中国家，提高生产率的关键在于学习已知的技术和管理模式，当生产率提升到一定水平后，又要由组织学习模式转向探索创新模式。而无论是怎样的发展模式，不同的国家、不同的地区都会根据具体的政治社会现实而有所不同。&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>在家享受王者荣耀金牌商户特权</title>
-      <link>https://folay.top/post/king_of_glory/</link>
-      <pubDate>Wed, 19 Oct 2022 10:46:28 +0800</pubDate>
-      
-      <guid>https://folay.top/post/king_of_glory/</guid>
-      <description>&lt;h2 id=&#34;商户特权&#34;&gt;商户特权&lt;/h2&gt;
-&lt;p&gt;该教程适用于普通家用路由器网络以及 iOS 系统的手机，操作可以分为以下几步：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;获取商户 WiFi 名称&lt;/li&gt;
-&lt;li&gt;修改连接 WiFi 名称&lt;/li&gt;
-&lt;li&gt;修改定位&lt;/li&gt;
-&lt;li&gt;开启商户特权&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/4431666347115_.pic.jpg width=600/&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;获取商户-wifi-名称&#34;&gt;获取商户 WiFi 名称&lt;/h2&gt;
-&lt;p&gt;通过 “ 王者人生 ” 微信小程序获取商户 WiFi 名称，具体步骤如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;微信搜索进入 “ 王者人生 ” 小程序&lt;/li&gt;
-&lt;li&gt;选择到店游戏特权&lt;/li&gt;
-&lt;li&gt;在附近特权合作商户列表中选择目标商户&lt;/li&gt;
-&lt;li&gt;点击 “ 切换到店 WiFi ” 按钮&lt;/li&gt;
-&lt;li&gt;记录 WiFi 名称&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;操作视频如下：&lt;/p&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;video  height=&#34;400&#34; controls&gt;
-    &lt;source src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/441_1666345189.mp4&#34; type=&#34;video/mp4&#34;&gt;
-&lt;/video&gt;
-&lt;/div&gt;
-&lt;p&gt;⚠️ 值得注意的是，请选择与手机 IP 地址所在城市的商户，另外最好选择 WiFi 很少变化的商户，如电影院、KFC 等。&lt;/p&gt;
-&lt;h2 id=&#34;修改连接-wifi-名称&#34;&gt;修改连接 WiFi 名称&lt;/h2&gt;
-&lt;p&gt;在路由器管理后台修改当前 WiFi 名称为第一步获取的商户 WiFi 名称即可，常见路由器管理后台地址为：&lt;a href=&#34;192.168.1.1&#34;&gt;192.168.1.1&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;⚠️ 值得注意的是，如果你是合租房等与他人共享 WiFi 的情况，可以通过 “ 朋友专属网络 ” 功能避免修改 WiFi 名称对他人的网络状态造成影响。现在大多路由器的管理后台都提供了开辟朋友专属子网络的功能，修改该网路的名称即可在不影响他人使用的情况下完成该步骤。&lt;/p&gt;
-&lt;h2 id=&#34;修改定位&#34;&gt;修改定位&lt;/h2&gt;
-&lt;p&gt;最后一步，使用爱思助手修改手机定位。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;电脑安装爱思助手&lt;/li&gt;
-&lt;li&gt;手机连接电脑并完成爱思助手初始化插件的安装&lt;/li&gt;
-&lt;li&gt;使用工具箱中的虚拟定位功能&lt;/li&gt;
-&lt;li&gt;修改手机定位为第一步获取商户的地址&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-10-21-123213.png width=600/&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;开启商户特权&#34;&gt;开启商户特权&lt;/h2&gt;
-&lt;p&gt;完成以上步骤，即可在王者荣耀中开启商家特权了，开启方法很简单：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;设置&lt;/li&gt;
-&lt;li&gt;功能/隐私&lt;/li&gt;
-&lt;li&gt;商户特权管理&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/iShot2022-10-2123134123.png width=600/&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;注意事项&#34;&gt;注意事项&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;商户特权为官方活动，并不会导致账号封禁。&lt;/li&gt;
-&lt;li&gt;选定一个商户 WiFi 后需无需更换，一直使用该 WiFi 即可。&lt;/li&gt;
-&lt;li&gt;每次使用爱思助手修改定位都是长时间有效的，即使是短时间的重启手机也不会失效，如果想恢复定位，可以使用爱思助手恢复。&lt;/li&gt;
-&lt;li&gt;请勿勾选 “ 每次登陆自动定位并开启特权 ”。&lt;/li&gt;
-&lt;/ul&gt;</description>
     </item>
     
   </channel>
