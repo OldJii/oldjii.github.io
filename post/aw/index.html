@@ -36,7 +36,7 @@
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/sass/main.min.98a01d75688804f167eb576dc1d228c1f15be9366a025a602dddefcf409248e4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -270,6 +270,35 @@ code.has-jax {
     background: inherit;
     border: inherit;
     color: #515151;
+}
+ 
+.post-content p:has(> a:nth-child(2)) {
+  column-count: 2;
+  column-gap: 8px;
+  margin: 6px 0;
+}
+.post-content p:has(> a:nth-child(3)) { column-count: 3; }
+.post-content p:has(> a:nth-child(4)) { column-count: 4; }
+.post-content p:has(> a:nth-child(5)) { column-count: 5; }
+.post-content p:has(> a:nth-child(6)) { column-count: 4; }
+
+ 
+.post-content p:has(> a:nth-child(2)) a {
+  display: block;
+  margin-bottom: 8px;
+  break-inside: avoid;
+}
+
+ 
+.post-content p:has(> a:nth-child(6)) a {
+  margin-bottom: 8px;
+}
+
+ 
+.post-content p a img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 </style>
     </footer>
