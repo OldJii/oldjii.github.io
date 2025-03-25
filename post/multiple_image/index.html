@@ -49,7 +49,7 @@
 <meta itemprop="description" content="在使用 Hugo 搭建个人博客时，常常会遇到图片排版的问题。尤其是竖图和横图混合时，Hugo 默认的排版方式会让竖图左右留出大量空白，显得不美观。此外，">
 <meta itemprop="datePublished" content="2025-03-24T17:49:06&#43;08:00" />
 <meta itemprop="dateModified" content="2025-03-24T17:49:06&#43;08:00" />
-<meta itemprop="wordCount" content="602">
+<meta itemprop="wordCount" content="603">
 
 
 
@@ -139,7 +139,7 @@
         <div class="post-category">
             <a href="/categories/%E5%B7%A5%E4%BD%9C/"> 工作 </a>
             </div>
-          <span class="more-meta"> 约 602 字 </span>
+          <span class="more-meta"> 约 603 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -150,7 +150,7 @@
       <p>在使用 Hugo 搭建个人博客时，常常会遇到图片排版的问题。尤其是竖图和横图混合时，Hugo 默认的排版方式会让竖图左右留出大量空白，显得不美观。此外，Markdown 本身也不支持横向排列图片（除非使用内嵌 HTML，但这种方式存在诸多问题，我尝试后已放弃）。</p>
 <p>之前我参考了一篇 <a href="https://immmmm.com/about-images-gird/">Hugo 多图排版的教程</a>，但按照教程操作后并没有达到预期效果。评论区里也有其他用户遇到了类似问题，但原作者并未给出解答。</p>
 <p><img src="https://imgoldjii.oss-cn-beijing.aliyuncs.com/202503251526936.png" alt="image-20250325152613877"></p>
-<p>经过一番检查和尝试，我发现问题出在主题生成静态页面时，会将 Markdown 中的图片用 <a> 标签包裹，以便实现点击预览大图的效果。这与原教程的 CSS 选择器不匹配，导致样式无法生效。下面是适配方案。</p>
+<p>经过一番检查和尝试，我发现问题出在主题生成静态页面时，会将 Markdown 中的图片用 <code>&lt;a&gt;</code> 标签包裹，以便实现点击预览大图的效果。这与原教程的 CSS 选择器不匹配，导致样式无法生效。下面是适配方案。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1

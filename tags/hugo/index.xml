@@ -19,7 +19,7 @@
       <description>&lt;p&gt;在使用 Hugo 搭建个人博客时，常常会遇到图片排版的问题。尤其是竖图和横图混合时，Hugo 默认的排版方式会让竖图左右留出大量空白，显得不美观。此外，Markdown 本身也不支持横向排列图片（除非使用内嵌 HTML，但这种方式存在诸多问题，我尝试后已放弃）。&lt;/p&gt;
 &lt;p&gt;之前我参考了一篇 &lt;a href=&#34;https://immmmm.com/about-images-gird/&#34;&gt;Hugo 多图排版的教程&lt;/a&gt;，但按照教程操作后并没有达到预期效果。评论区里也有其他用户遇到了类似问题，但原作者并未给出解答。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202503251526936.png&#34; alt=&#34;image-20250325152613877&#34;&gt;&lt;/p&gt;
-&lt;p&gt;经过一番检查和尝试，我发现问题出在主题生成静态页面时，会将 Markdown 中的图片用 &lt;a&gt; 标签包裹，以便实现点击预览大图的效果。这与原教程的 CSS 选择器不匹配，导致样式无法生效。下面是适配方案。&lt;/p&gt;
+&lt;p&gt;经过一番检查和尝试，我发现问题出在主题生成静态页面时，会将 Markdown 中的图片用 &lt;code&gt;&amp;lt;a&amp;gt;&lt;/code&gt; 标签包裹，以便实现点击预览大图的效果。这与原教程的 CSS 选择器不匹配，导致样式无法生效。下面是适配方案。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
