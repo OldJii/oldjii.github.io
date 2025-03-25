@@ -5,7 +5,7 @@
     <description>Recent content on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 05 Jun 2024 17:49:06 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 24 Mar 2025 17:49:06 +0800</lastBuildDate>
     
         <atom:link href="https://folay.top/index.xml" rel="self" type="application/rss+xml" />
     
@@ -30,6 +30,147 @@
 &lt;li&gt;情绪不稳定的人&lt;/li&gt;
 &lt;/ul&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>Hugo 多图排版 even 主题适配</title>
+      <link>https://folay.top/post/multiple_image/</link>
+      <pubDate>Mon, 24 Mar 2025 17:49:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/multiple_image/</guid>
+      <description>&lt;p&gt;在使用 Hugo 搭建个人博客时，常常会遇到图片排版的问题。尤其是竖图和横图混合时，Hugo 默认的排版方式会让竖图左右留出大量空白，显得不美观。此外，Markdown 本身也不支持横向排列图片（除非使用内嵌 HTML，但这种方式存在诸多问题，我尝试后已放弃）。&lt;/p&gt;
+&lt;p&gt;之前我参考了一篇 &lt;a href=&#34;https://immmmm.com/about-images-gird/&#34;&gt;Hugo 多图排版的教程&lt;/a&gt;，但按照教程操作后并没有达到预期效果。评论区里也有其他用户遇到了类似问题，但原作者并未给出解答。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202503251526936.png&#34; alt=&#34;image-20250325152613877&#34;&gt;&lt;/p&gt;
+&lt;p&gt;经过一番检查和尝试，我发现问题出在主题生成静态页面时，会将 Markdown 中的图片用 &lt;a&gt; 标签包裹，以便实现点击预览大图的效果。这与原教程的 CSS 选择器不匹配，导致样式无法生效。下面是适配方案。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;c&#34;&gt;/* 多图分栏样式 */&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;has&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&amp;gt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;nth-child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;column-count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;column-gap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;margin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;has&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&amp;gt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;nth-child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;column-count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;has&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&amp;gt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;nth-child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;column-count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;has&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&amp;gt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;nth-child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;column-count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;has&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&amp;gt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;nth-child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;column-count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;/* 处理图片显示 */&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;has&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&amp;gt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;nth-child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;block&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;margin-bottom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;break-inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;avoid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;/* 针对6图模式调整间距 */&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;has&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&amp;gt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;nth-child&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;margin-bottom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;/* 确保图片填充容器 */&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;post-content&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;img&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;auto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;block&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;对于 Even 主题，需要将上述代码追加到 &lt;code&gt;Blog/themes/even/assets/sass/_partial/_post/_content.scss&lt;/code&gt; 文件中。请注意，不同 Hugo 主题的 &lt;code&gt;content&lt;/code&gt; 文件目录可能会有所不同，具体路径需要根据你所使用的主题进行调整。&lt;/p&gt;
+&lt;h3 id=&#34;使用规则&#34;&gt;使用规则&lt;/h3&gt;
+&lt;p&gt;使用规则与原教程一致。图片之间可以换行，但不能空行，这样 CSS 会根据 &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; 元素内的 &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt; 标签数量自动调整分栏数量。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;gu&#34;&gt;#### 更多图片横竖随机
+&lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;&lt;/span&gt;
+![](https://cn.bing.com/th?id=OHR.Breckenridge_EN-US4460042968_768x1280.jpg)
+![](https://cn.bing.com/th?id=OHR.BisonWindCave_EN-US4537340482_1280x768.jpg)
+![](https://cn.bing.com/th?id=OHR.Umschreibung_EN-US4693850900_768x1280.jpg)
+![](https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_768x1280.jpg)
+![](https://cn.bing.com/th?id=OHR.SessileOaks_EN-US1487454928_1280x768.jpg)
+![](https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_1280x768.jpg)
+![](https://cn.bing.com/th?id=OHR.RumeliHisari_EN-US4800002879_1280x768.jpg)
+![](https://cn.bing.com/th?id=OHR.InscriptionWall_EN-US1392173431_1280x768.jpg)
+![](https://cn.bing.com/th?id=OHR.HummockIce_EN-US4606231645_768x1280.jpg)
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;效果如下&#34;&gt;效果如下&lt;/h3&gt;
+&lt;h4 id=&#34;两张&#34;&gt;两张&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://cn.bing.com/th?id=OHR.SessileOaks_EN-US1487454928_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.InscriptionWall_EN-US1392173431_1280x768.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;三张&#34;&gt;三张&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.RumeliHisari_EN-US4800002879_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.BisonWindCave_EN-US4537340482_1280x768.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;四张&#34;&gt;四张&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://cn.bing.com/th?id=OHR.Umschreibung_EN-US4693850900_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.HummockIce_EN-US4606231645_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.Breckenridge_EN-US4460042968_768x1280.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;更多图片横竖随机&#34;&gt;更多图片横竖随机&lt;/h4&gt;
+&lt;p&gt;同样会出现各列高度不一致的情况，但可以接受。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cn.bing.com/th?id=OHR.Breckenridge_EN-US4460042968_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.BisonWindCave_EN-US4537340482_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.Umschreibung_EN-US4693850900_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.SessileOaks_EN-US1487454928_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.RumeliHisari_EN-US4800002879_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.InscriptionWall_EN-US1392173431_1280x768.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.HummockIce_EN-US4606231645_768x1280.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>最新的山水系列 大美贵州</title>
+      <link>https://folay.top/post/guizhou/</link>
+      <pubDate>Fri, 20 Sep 2024 17:49:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/guizhou/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -103,121 +244,6 @@
 &lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202403192040138.jpg&#34; alt=&#34;IMG_0403&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后是冰晶礼服鬼化蕾姆。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202403192100637.jpg&#34; alt=&#34;IMG_0473&#34;&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>稳定的理想主义者</title>
-      <link>https://folay.top/post/infj/</link>
-      <pubDate>Sat, 03 Feb 2024 15:49:06 +0800</pubDate>
-      
-      <guid>https://folay.top/post/infj/</guid>
-      <description>&lt;p&gt;事情是这样的，在最近一坤年的跨度里我做过 5 次 MBTI 人格类型分析，最终得出的结果都是 「INFJ-A」，期间还经历了题库的几次迭代变化，所以能如此稳定的得到统一结果，这让我还是蛮意外的。为了进一步验证 MBTI 对于人格类型归纳的准确性，我打算将网上对于 INFJ 人格的描述与自己察觉的真实情况进行比较。&lt;/p&gt;
-&lt;p style=&#34;color: gray;&#34;&gt;
-  下文中引用的内容均来自于
-  &lt;a href=&#34;https://www.16personalities.com&#34; style=&#34;color: gray; text-decoration: underline;&#34; target=&#34;_blank&#34;&gt;
-    16personalities
-  &lt;/a&gt;
-  网站中对于 INFJ 人格的描述。
-&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;INFJ 可能是最稀有的人格类型，但他们肯定会在世界上留下自己的印记。他们理想主义、有原则，不满足于平平安安地度过一生&amp;ndash;他们想要站起来，有所作为。对于 INFJ 来说，成功不是来自金钱或地位，而是来自寻求成就感，帮助他人，成为世界上一股向善的力量。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;最稀有的人格类型？哈哈查了一些资料发现，国内互联网上关于 MBTI 的内容大多都是直接 “ 英译汉 ” 从外网搬运来的，所以引用中的修饰词也要加上 “ America ” 的前缀，实际上在国内的特殊环境下成长的 95 后中 INFJ 人格类型的占比还是不少的，国内最稀少的人格类型应该是被称为「指挥官」的 ENTJ。当然这些不属于自我人格的范畴。&lt;/p&gt;
-&lt;p&gt;回到正题本身，“ 理想主义、原则性 ” 这些标签我是欣然接受的，毕竟寻找理论落地过程中由于人类劣根性导致的偏差是我乐子之一。但 “ 不满足于平淡生活 ” 这就有点不符合了，近几年所作的事情和近期对未来的规划都是在为畅想中的 “ 平淡生活 ” 作准备，虽然我很纠结于 “ 人生意义 ” 这个话题，但这种意义不是来自于社会地位的提升、也不是外在的物质财富，而是来自于内心畅想的实现，或者说将自己所坚持的规则（原则）具现出来并应用到现实社会。所以&amp;hellip;&amp;hellip;哈哈太难了，畅想仅仅是畅想。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;INFJ 往往会有一种与大多数人不同的感觉，由于他们丰富的内心生活和寻找生活目标的深沉而持久的渴望，他们并不总是与周围的人融为一体，幸运的是，这种不合拍的感觉并没有削弱 INFJ 让世界变得更美好的承诺。&lt;/p&gt;
-&lt;p&gt;INFJ 受到不公正的困扰，他们通常更关心利他主义而不是个人利益，许多 INFJ 将帮助他人视为生活中的使命，他们一直在寻找介入并为正确的事情大声疾呼的方法。具有这种人格类型的人也渴望解决社会更深层次的问题，希望不公平和艰辛能够成为过去。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;别说了，像在被讽刺一样，如果我从小在一个比较包容开放，接受多元价值观的地方成长，那可能确实会像上面说的一样现在还在坚持倡导一些事情。但事实是我目前想不到任何我所能做的可以 “ 让世界变得更美好 ” 的事情，只能顾好自己和珍视的人，虽然现在看见 “ 精致的利己主义者 ” 还会恶心作呕，但也不会有任何想要争辩或者 “ 他是错的我是对的 ” 这样的想法。其实我也不确认对方是错的，只是不喜欢而已。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;INFJ 可能内向，但他们重视与他人的深厚、真实的关系。很少有事情会像真正认识另一个人一样给这些性格类型带来快乐&amp;ndash;同时也为别人所理解。INFJ 喜欢有意义的对话远远超过闲聊，他们倾向于以热情和敏感的方式进行交流。这种情感上的诚实和洞察力可以给周围的人留下深刻的印象。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这倒是真的，我虽然是个典型的 i 人，但对于认识新朋友，特别是了解新朋友、与新朋友进行深度对话，我是毫不吝啬的，在解锁一个人的人生经历、情感经历、特别是三观塑造历程的时，我内心得到的满足和快感是十分强烈的。（我始终于好奇不同成长经历对于个体三观塑造的影响）&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;INFJ 喜欢在工作中保持整洁有序，喜欢平和、安静的气氛，希望工作中每个人的贡献能得到肯定，每个人都有成就感，所有的工作都能和谐地取得良好的结果。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这让我不得不贴一下我使用了两年的工位了，就像我 About 页所写的一样，「有序」始终是我生活的主旋律。&lt;/p&gt;
-&lt;div align=&#34;center&#34;&gt;
-&lt;img src=https://imgoldjii.oss-cn-beijing.aliyuncs.com/202402061752931.png width=100%/&gt;
-&lt;/div&gt;
-&lt;p&gt;最后，其实之前在纠结 MBTI 准确性的时，有跟朋友讨论过 MBTI 与星座的区别，讨论过程有个类比觉得十分恰当。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;一场考试中你物理得分 90 分，化学得分 60 分，说明你物理比较好，我会给你打上 “ 物理 ” 的标签，这就是 MBTI，MBTI 中对于人格的描述与自我察觉的实际情况间的差异可以看作 “ 考试中影响结果的运气等不稳定因素 ”。而星座的话，就是不用参加考试，直接根据你的生辰来判定你物理、化学所得的分数。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;就这样吧，希望有个愉快的春节。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>2023 年国庆自驾川藏线摄影记录</title>
-      <link>https://folay.top/post/318/</link>
-      <pubDate>Thu, 19 Oct 2023 15:49:06 +0900</pubDate>
-      
-      <guid>https://folay.top/post/318/</guid>
-      <description>&lt;p&gt;成都太古里裸眼 3D 巨幕，很震撼。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162320454.jpg&#34; alt=&#34;f87a1afd-55a5-4f84-82a0-039d2185e59e_1_201_a-fotor-20231016231950&#34;&gt;&lt;/p&gt;
-&lt;p&gt;雅安自驾大本营回身随拍，318 旅途的起点。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162323482.jpeg&#34; alt=&#34;D8937780-FFFC-47F4-A916-435263463273_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;驾离市区，向大山前进，海拔开始拔升，云气触手可摸。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162327502.jpeg&#34; alt=&#34;A719CE54-D096-47C0-BEB9-40490990776B_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;路上随处可见的经幡和国旗。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162332550.jpeg&#34; alt=&#34;18F06311-BC61-4121-8F76-4CB64C8457B1_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;云雾弥漫中的折多山。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162334121.jpeg&#34; alt=&#34;D9150F04-0806-49BD-AE90-602AD2740502_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;团队的第一张合照。（我是摄影狮&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162336242.jpeg&#34; alt=&#34;C8AF718D-3A5C-42A0-BF85-55719D77E0EB_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;我在折多山很想你。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162338019.png&#34; alt=&#34;image-20231016233815991&#34;&gt;&lt;/p&gt;
-&lt;p&gt;喜马拉雅山脉阻断的印度洋暖湿气流形成的云雾。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162343860.jpeg&#34; alt=&#34;3518F120-7FEE-487F-9F26-90444436DBA9_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;新都桥民宿的藏族老板招待的牦牛肉火锅，超香！（有个伙计因为高反在休息，错过了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162344276.jpeg&#34; alt=&#34;E4793CC4-9EB5-4C71-AA68-B12FAA7B3384_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;民宿门口的无名小河。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162347661.jpeg&#34; alt=&#34;BCDF7642-B7C0-495B-9472-B292AA4A6DFD_1_201_a&#34;&gt;&lt;/p&gt;
-&lt;p&gt;继续出发，行驶在山野。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162348562.jpeg&#34; alt=&#34;C4D737B2-6E4A-43DD-A17C-CD3C0420B0E8_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;观景台对面山上的藏文牌子。（在西藏支教过的堂哥说是 “ 宗喀巴大师 ” 的意思&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162357502.jpeg&#34; alt=&#34;A6AB89F8-516E-4A91-A61C-6155BA00087E_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;随处可见的雪山观景台。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162358030.jpeg&#34; alt=&#34;865545D0-C93E-419E-9DFD-4065EC34F38A_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;牛吃草。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310162359385.jpeg&#34; alt=&#34;774F6031-EE3A-494A-B86B-31125CA066D7_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;山在脚下，张开手就可以拥抱云彩。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170002027.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Windows 10 壁纸。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170004008.jpeg&#34; alt=&#34;D28310F2-7B4D-4AD9-9B6D-FEC81F903C40_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;草原哈雷。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170005430.jpeg&#34; alt=&#34;FDBE6E1F-BE18-4608-86DA-1BD25FE42AAB_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;甘孜的 “ 蒙古包 ”。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170006276.jpeg&#34; alt=&#34;7ACB93F8-BD79-48F7-9D0B-0A7DAAD6D3B4_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;万岁！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170007526.jpeg&#34; alt=&#34;29388513-6F7D-46F4-A728-FE199D0E88D2_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;到达世界最高城，理塘！（偶遇一个很帅的爆改 3 系&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170007314.jpeg&#34; alt=&#34;8D1CAD08-E254-44DC-A92A-1AF84242CDF8_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;初入稻城亚丁。（要坐 1 个小时大巴车，累的很&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170012295.jpeg&#34; alt=&#34;2C1078D8-437C-48D8-9DEC-4A1C6501D065_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;跟 Chichi 一起爬央迈勇神山。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/picgo/202310170046579.png&#34; alt=&#34;image-20231017004646532&#34;&gt;&lt;/p&gt;
-&lt;p&gt;珍珠海（藏语叫 “ 卓玛拉措 “，其实只是一个大一点的水塘&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191620300.jpeg&#34; alt=&#34;E0964912-B26C-4A6B-AD1F-660253AD207D_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;亚丁里的雪山，忘记是哪座了。（在亚丁后面相机没电了，拍的比较少&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191622184.jpeg&#34; alt=&#34;791C9072-9EF5-4B3D-A109-32392A4926DA_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;跟 Chichi 堆的玛尼堆。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191623373.jpeg&#34; alt=&#34;4D284DDE-DEB7-4D14-9664-5F2A2E5BCA84_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;海子山的姊妹湖！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191624260.jpeg&#34; alt=&#34;314C1B67-C73C-4141-B288-AE8993236075_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;观景台附近的移动咖啡店。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191625187.jpeg&#34; alt=&#34;AAC4EC2C-D34A-40BB-9EBF-5CFAC9274DF9_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;一只狗&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191626270.jpeg&#34; alt=&#34;86205820-3A51-45D1-AE6C-C9E1EEFF7EA9_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;初入措普沟（可以感觉出来巴塘官方是真心想发展这个景区，对外游客特别友好，力推！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191627568.jpeg&#34; alt=&#34;BDAF952D-EDEB-4934-9440-3E145563B0E2_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;措普沟圣山脚下的 Tiffany 蓝。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191630465.jpeg&#34; alt=&#34;E5494276-2342-4FC1-924D-31B256556191_1_105_c&#34;&gt;&lt;/p&gt;
-&lt;p&gt;三小只。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191723943.jpg&#34; alt=&#34;1591697707273_.pic_hd&#34;&gt;&lt;/p&gt;
-&lt;p&gt;色拉山垭口拍的南迦巴瓦峰的日照金山。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202310191633790.jpeg&#34; alt=&#34;B40C550B-E1A1-4184-927A-9AF93E4F3518_1_105_c&#34;&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -1,0 +1,179 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工作 on Folay‘s Blog</title>
+    <link>https://folay.top/categories/%E5%B7%A5%E4%BD%9C/</link>
+    <description>Recent content in 工作 on Folay‘s Blog feedId:66438300620926976+userId:66421915972268032 </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 24 Mar 2025 17:49:06 +0800</lastBuildDate>
+    
+        <atom:link href="https://folay.top/categories/%E5%B7%A5%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>App的启动流程</title>
+      <link>https://folay.top/post/app_start_process/</link>
+      <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
+      
+      <guid>https://folay.top/post/app_start_process/</guid>
+      <description>&lt;p&gt;本文讲解从开机到app显示画面的流程，但不分析源码，如果想阅读源码请到参考文章中查阅。&lt;/p&gt;
+&lt;p&gt;本文把这段流程分为三部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从开机到显示应用列表&lt;/li&gt;
+&lt;li&gt;从点击应用图标到Activity创建成功&lt;/li&gt;
+&lt;li&gt;从Activity创建成功到显示画面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;从开机到显示应用列表&#34;&gt;从开机到显示应用列表&lt;/h1&gt;
+&lt;p&gt;先看流程图：
+&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/16d3acbbbba41520.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;开机加电后，CPU先执行&lt;strong&gt;预设代码&lt;/strong&gt;、加载ROM中的引导程序&lt;strong&gt;Bootloader&lt;/strong&gt;和Linux内核到RAM内存中去，然后初始化各种软硬件环境、加载驱动程序、挂载根文件系统，执行&lt;strong&gt;init进程&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;init进程会启动各种系统本地服务，如&lt;strong&gt;SM&lt;/strong&gt;（ServiceManager）、MS（Media Server）、bootanim（开机动画）等，然后init进程会在解析init.rc文件后fork()出&lt;strong&gt;Zygote进程&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Zygote会启动Java虚拟机，通过jni进入Zygote的java代码中，并创建&lt;strong&gt;socket&lt;/strong&gt;实现IPC进程通讯，然后启动&lt;strong&gt;SS&lt;/strong&gt;（SystemServer）进程。&lt;/p&gt;
+&lt;p&gt;SS进程负责启动和管理整个framework，包括&lt;strong&gt;AMS&lt;/strong&gt;（ActivityManagerService）、&lt;strong&gt;WMS&lt;/strong&gt;（WindowManagerService）、PMS（PowerManagerService）等服务、同时启动binder线程池，当SS进程将系统服务启动就绪以后，就会通知AMS启动Home。&lt;/p&gt;
+&lt;p&gt;AMS通过Intent隐式启动的方式启动&lt;strong&gt;Launcher&lt;/strong&gt;，Launcher根据已安装应用解析对应的xml、通过findViewById()获得一个RecycleView、加载应用图标、最后成功展示App列表。&lt;/p&gt;
+&lt;h2 id=&#34;解释&#34;&gt;解释&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;预设代码&lt;/strong&gt;：cpu制造厂商会预设一个地址，这个地址是各厂家约定统一的，Android手机会将固态存储设备ROM预先映射到该地址上；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bootloader&lt;/strong&gt;：类似BIOS，在系统加载前，用以初始化硬件设备，建立内存空间的映像图，为最终调用系统内核准备好环境；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;init进程&lt;/strong&gt;：init进程时Android系统中用户进程的鼻祖进程，主要作用是启动系统本地服务、fork出Zygote进程；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SM&lt;/strong&gt;：ServiceManager是一个守护进程，它维护着系统服务和客户端的binder通信；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Zygote进程&lt;/strong&gt;：Zygote进程是所有Java进程的父进程，我们的APP都是由Zygote进程fork出来的；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;socket&lt;/strong&gt;：一种独立于协议用于两个应用程序之间的数据传输的网络编程接口，是IPC中的一种；（但是在Android中一般使用Binder来实现IPC，这里使用socket的原因后面有写到）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SS&lt;/strong&gt;：Framework两大重要进程之一（另一个是Zygote），载着framework的核心服务，系统里面重要的服务都是SS开启的；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AMS&lt;/strong&gt;：服务端对象，负责系统中所有Activity的生命周期，打开App、Activity的开启、暂停、关闭都需要AMS来控制；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WMS&lt;/strong&gt;：窗口管理服务，窗口的启动、添加、删除、大小、层级都是由WMS管理；（下面会解释什么是窗口）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Launcher&lt;/strong&gt;：Launcher就是系统桌面，主要用来启动应用桌面，同时管理快捷方式和其他组件，本质上也是一个应用程序，和我们的App一样，也是继承自Activity，有自己的AndroidManifest；（所以才可以被AMS用Intent启动）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Question 1： Zygote进程为什么使用Socket而不是Binder？&lt;/strong&gt;
+fork不允许存在多线程，而Binder通讯恰巧就是多线程；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Question 2：什么是窗口？&lt;/strong&gt;
+Android系统中的窗体是屏幕上的一块用于绘制各种UI元素并能够响应应用户输入的一个矩形区域，从原理上来讲，窗体的概念是独自占有一个Surface实例的显示区域，比如Dialog、Activity的界面、壁纸、状态栏以及Toast等都是窗体；&lt;/p&gt;
+&lt;h1 id=&#34;从点击应用图标到activity创建成功&#34;&gt;从点击应用图标到Activity创建成功&lt;/h1&gt;
+&lt;p&gt;先看流程图：
+&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/16d3acbc595b7401.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//然后点击应用图标后，先检查要打卡的Activity是否存在
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Launcher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivitySafely&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Launcher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Activity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Activity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivityForResult&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//然后获取AMS的代理AMP
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Instrumentation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;execStartActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerNative&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDefault&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerProxy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;startActivityAsUser&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;requestCode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivityMayWait&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;resolveActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivityLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityRecord对象&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;获取ActivityStack&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;找到ActivityStack后Launcher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;onPause&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//准备启动进程
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startProcessLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//通过socket通知Zygote创建进程
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;zygoteSendArgsAndGetResult&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//创建ActivityThread
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//告诉AMS我已经创建好了
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attach&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityManagerProxy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityMangerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//找到Application实例并初始化
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityMangerService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplicationLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ApplicationThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bindApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//创建Application
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AcitvityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bindApplication&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Application&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;oncreate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//启动Activity
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachApplicationLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityStackSupervisor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;realStartActivityLocked&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;scheduleLaunchActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;//进入UI线程
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;handleLaunchActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;performLaunchActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//创建Activity实例
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Instrumentation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Activity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;onCreate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;解释-1&#34;&gt;解释&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ActivityThread&lt;/strong&gt;：App的真正入口。当开启App之后，会调用main()开始运行，开启消息循环队列，这就是传说中的UI线程或者叫主线程。与ActivityManagerServices配合，一起完成Activity的管理工作；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ApplicationThread&lt;/strong&gt;：用来实现ActivityManagerService与ActivityThread之间的交互。在ActivityManagerService需要管理相关Application中的Activity的生命周期时，通过ApplicationThread的代理对象与ActivityThread通讯；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Instrumentation&lt;/strong&gt;：可以理解为应用进程的管家，每个应用程序只有一个，每个Activity内都有该对象的引用，ActivityThread要创建或暂停某个Activity时，都需要通过Instrumentation来进行具体的操作；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ActivityStack&lt;/strong&gt;：Activity在AMS的栈管理，用来记录已经启动的Activity的先后关系，状态信息等。通过ActivityStack决定是否需要启动新的进程；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ActivityRecord&lt;/strong&gt;：ActivityStack的管理对象，每个Activity在AMS对应一个ActivityRecord，来记录Activity的状态以及其他的管理信息。其实就是服务器端的Activity对象的映像；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Question 1： 如何判断APP是否已经启动？&lt;/strong&gt;
+AMS会保存一个ProcessRecord信息，有两部分构成，“uid + process”，每个应用工程序都有自己的uid，而process就是AndroidManifest.xml中Application的process属性，默认为package名。每次在新建新进程前的时候会先判断这个 ProcessRecord 是否已存在，如果已经存在就不会新建进程了，这就属于应用内打开 Activity 的过程了。&lt;/p&gt;
+&lt;h1 id=&#34;从activity创建成功到显示画面&#34;&gt;从Activity创建成功到显示画面&lt;/h1&gt;
+&lt;p&gt;onCreate()方法中先执行setContentView()方法将对应的xml文件传入，之后会去调用window.setContentView()，最终会在这里创建&lt;strong&gt;Decorview&lt;/strong&gt;并填充标题栏、状态栏，然后获取&lt;strong&gt;contentParent&lt;/strong&gt;，然后调用LayoutInflater.inflate解析xml文件获取根root（ViewRootImpl），通过root.addView()将contentParent添加到&lt;strong&gt;ViewRootImpl&lt;/strong&gt;中去，至此onCreate()结束。&lt;/p&gt;
+&lt;p&gt;开始onResume()阶段，在开始会向H类发送一个消息，然后在ActivityThread中获取之前创建的Decorview并调用windowManager.add()，最后在windowManager中将窗口和窗口的参数传到root.setView()，然后ViewRoot通过Binder调用WMS，使WMS所在的SS进程接收到按键事件时，可以回调到该root，同时ViewRoot会向自己的handler发送一条消息，然后进行处理（performTraversals），之后开始绘制过程（在Surface的canvas上绘制）。&lt;/p&gt;
+&lt;p&gt;先利用MeasureSpec完成onmeasure()，然后在onlayout()中确定各元素的坐标，ondraw()负责将view画到canvas上，再通过Surface进行跨进程最终调用Native层的&lt;strong&gt;SGL&lt;/strong&gt;、openGI，最后再去调用硬件CPU进行渲染操作，最终界面显示在你眼前&lt;/p&gt;
+&lt;h2 id=&#34;解释-2&#34;&gt;解释&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DecorView&lt;/strong&gt;：界面的根View，PhoneWindow的内部类&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;contentParent&lt;/strong&gt;：所有View的根View，在DecorView里面&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ViewRootImpl&lt;/strong&gt;：ViewRoot是GUI管理系统与GUI呈现系统之间的桥梁，&lt;code&gt;WindowManager&lt;/code&gt;通过&lt;code&gt;ViewRootImpl&lt;/code&gt;与&lt;code&gt;DecorView&lt;/code&gt;起联系。并且，&lt;code&gt;View&lt;/code&gt;的绘制流程都是由&lt;code&gt;ViewRootImpl&lt;/code&gt;发起的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SGL&lt;/strong&gt;：底层的2D图形渲染引擎&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

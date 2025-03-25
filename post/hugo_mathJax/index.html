@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.110.0 with theme even" />
+<meta name="generator" content="Hugo 0.74.0 with theme even" />
 
 
 <link rel="canonical" href="https://folay.top/post/hugo_mathJax/" />
@@ -35,20 +35,24 @@
 
 
 
-<link href="/sass/main.min.98a01d75688804f167eb576dc1d228c1f15be9366a025a602dddefcf409248e4.css" rel="stylesheet">
+<link href="/sass/main.min.1504bd638e1b95906a7f5a7bad89fb16248797ff107f8d8959160d32f8440722.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Hugo中支持LaTeX的数学表达式" />
 <meta property="og:description" content="Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://folay.top/post/hugo_mathJax/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="https://folay.top/post/hugo_mathJax/" />
 <meta property="article:published_time" content="2021-12-18T01:19:00+08:00" />
 <meta property="article:modified_time" content="2021-12-18T01:19:00+08:00" />
 <meta itemprop="name" content="Hugo中支持LaTeX的数学表达式">
-<meta itemprop="description" content="Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax"><meta itemprop="datePublished" content="2021-12-18T01:19:00+08:00" />
-<meta itemprop="dateModified" content="2021-12-18T01:19:00+08:00" />
+<meta itemprop="description" content="Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax">
+<meta itemprop="datePublished" content="2021-12-18T01:19:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-12-18T01:19:00&#43;08:00" />
 <meta itemprop="wordCount" content="434">
+
+
+
 <meta itemprop="keywords" content="hugo,mathJax," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hugo中支持LaTeX的数学表达式"/>
 <meta name="twitter:description" content="Hugo 默认是不支持显示 LaTeX 风格的数学表达式的，Markdown 中的数学表达式语法在 Hugo 中默认并不会被识别。 在 Hugo 中引入 MathJax 即可解决该问题，MathJax"/>
@@ -148,7 +152,7 @@
 <p>引入方法很简单，在文章的模版的 HTML 的中添加以下内容即可。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -185,50 +189,50 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="kr">async</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">tex2jax</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">inlineMath</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;\\(&#39;</span><span class="p">,</span><span class="s1">&#39;\\)&#39;</span><span class="p">]],</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">displayMath</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;$$&#39;</span><span class="p">,</span><span class="s1">&#39;$$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;\[\[&#39;</span><span class="p">,</span><span class="s1">&#39;\]\]&#39;</span><span class="p">]],</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">processEscapes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">processEnvironments</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">skipTags</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="s1">&#39;noscript&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;textarea&#39;</span><span class="p">,</span> <span class="s1">&#39;pre&#39;</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">TeX</span><span class="o">:</span> <span class="p">{</span> <span class="nx">equationNumbers</span><span class="o">:</span> <span class="p">{</span> <span class="nx">autoNumber</span><span class="o">:</span> <span class="s2">&#34;AMS&#34;</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">         <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;AMSmath.js&#34;</span><span class="p">,</span> <span class="s2">&#34;AMSsymbols.js&#34;</span><span class="p">]</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Queue</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Fix &lt;code&gt; tags after MathJax finishes running. This is a
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// hack to overcome a shortcoming of Markdown. Discussion at
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// https://github.com/mojombo/jekyll/issues/199
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">getAllJax</span><span class="p">(),</span> <span class="nx">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">all</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">all</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">SourceElement</span><span class="p">().</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; has-jax&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">});</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">style</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">code</span><span class="p">.</span><span class="nx">has</span><span class="o">-</span><span class="nx">jax</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">font</span><span class="o">:</span> <span class="nx">inherit</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">background</span><span class="o">:</span> <span class="nx">inherit</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">border</span><span class="o">:</span> <span class="nx">inherit</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">515151</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/style&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span>
+        <span class="nx">async</span>
+        <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;</span><span class="o">&gt;</span>
+<span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Config</span><span class="p">({</span>
+  <span class="nx">tex2jax</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">inlineMath</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;\\(&#39;</span><span class="p">,</span><span class="s1">&#39;\\)&#39;</span><span class="p">]],</span>
+    <span class="nx">displayMath</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;$$&#39;</span><span class="p">,</span><span class="s1">&#39;$$&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;\[\[&#39;</span><span class="p">,</span><span class="s1">&#39;\]\]&#39;</span><span class="p">]],</span>
+    <span class="nx">processEscapes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">processEnvironments</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">skipTags</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="s1">&#39;noscript&#39;</span><span class="p">,</span> <span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;textarea&#39;</span><span class="p">,</span> <span class="s1">&#39;pre&#39;</span><span class="p">],</span>
+    <span class="nx">TeX</span><span class="o">:</span> <span class="p">{</span> <span class="nx">equationNumbers</span><span class="o">:</span> <span class="p">{</span> <span class="nx">autoNumber</span><span class="o">:</span> <span class="s2">&#34;AMS&#34;</span> <span class="p">},</span>
+         <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;AMSmath.js&#34;</span><span class="p">,</span> <span class="s2">&#34;AMSsymbols.js&#34;</span><span class="p">]</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">Queue</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Fix &lt;code&gt; tags after MathJax finishes running. This is a
+</span><span class="c1"></span>    <span class="c1">// hack to overcome a shortcoming of Markdown. Discussion at
+</span><span class="c1"></span>    <span class="c1">// https://github.com/mojombo/jekyll/issues/199
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">MathJax</span><span class="p">.</span><span class="nx">Hub</span><span class="p">.</span><span class="nx">getAllJax</span><span class="p">(),</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">all</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">all</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">SourceElement</span><span class="p">().</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s1">&#39; has-jax&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">style</span><span class="o">&gt;</span>
+<span class="nx">code</span><span class="p">.</span><span class="nx">has</span><span class="o">-</span><span class="nx">jax</span> <span class="p">{</span>
+    <span class="nx">font</span><span class="o">:</span> <span class="nx">inherit</span><span class="p">;</span>
+    <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+    <span class="nx">background</span><span class="o">:</span> <span class="nx">inherit</span><span class="p">;</span>
+    <span class="nx">border</span><span class="o">:</span> <span class="nx">inherit</span><span class="p">;</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">515151</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/style&gt;</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>要注意的是需要确保该 HTML 必定被 Hugo 框架加载，我这里是添加到了 <code>layouts/partials/</code> 目录下的 <code>footer.html</code>文件中，因为我确定该文件必定包含在网站的每个页面中。</p>
 <p>实际上单纯引入 MathJax 并不需要如此多行代码，多余的部分是为了解决 Markdown 和 LaTeX 中对于划线 _ 的不同定义带来的问题，详情可以参考 <a href="https://www.gohugo.org/doc/tutorials/mathjax/">这篇文章</a> 。</p>
 <p>$$
 D(x) = \begin{cases}
-\lim\limits_{x \to 0} \frac{a^x}{b+c}, &amp; x&lt;3 \
-\pi, &amp; x=3 \
-\int_a^{3b}x_{ij}+e^2 \mathrm{d}x,&amp; x&gt;3 \
+\lim\limits_{x \to 0} \frac{a^x}{b+c}, &amp; x&lt;3 \<br>
+\pi, &amp; x=3 \<br>
+\int_a^{3b}x_{ij}+e^2 \mathrm{d}x,&amp; x&gt;3 \<br>
 \end{cases}
 $$</p>
 <p>$$
@@ -364,7 +368,7 @@ code.has-jax {
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
 
 
 
