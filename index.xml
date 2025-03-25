@@ -38,9 +38,10 @@
       <pubDate>Mon, 24 Mar 2025 17:49:06 +0800</pubDate>
       
       <guid>https://folay.top/post/multiple_image/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_1280x768.jpg&#34; alt=&#34;&#34;&gt;
-&lt;img src=&#34;https://cn.bing.com/th?id=OHR.RumeliHisari_EN-US4800002879_1280x768.jpg&#34; alt=&#34;&#34;&gt;
-&lt;img src=&#34;https://cn.bing.com/th?id=OHR.BisonWindCave_EN-US4537340482_1280x768.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;img src=&#34;https://cn.bing.com/th?id=OHR.Umschreibung_EN-US4693850900_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.HummockIce_EN-US4606231645_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.DonkeyFeast_EN-US1153850805_768x1280.jpg&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;https://cn.bing.com/th?id=OHR.Breckenridge_EN-US4460042968_768x1280.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在使用 Hugo 搭建个人博客时，常常会遇到图片排版的问题。尤其是竖图和横图混合时，Hugo 默认的排版方式会让竖图左右留出大量空白，显得不美观。此外，Markdown 本身也不支持横向排列图片（除非使用内嵌 HTML，但这种方式存在诸多问题，我尝试后已放弃）。&lt;/p&gt;
 &lt;p&gt;之前我参考了一篇 &lt;a href=&#34;https://immmmm.com/about-images-gird/&#34;&gt;Hugo 多图排版的教程&lt;/a&gt;，但按照教程操作后并没有达到预期效果。评论区里也有其他用户遇到了类似问题，但原作者并未给出解答。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://imgoldjii.oss-cn-beijing.aliyuncs.com/202503251526936.png&#34; alt=&#34;image-20250325152613877&#34;&gt;&lt;/p&gt;
