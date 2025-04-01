@@ -11,24 +11,6 @@
     
     
     <item>
-      <title>算法</title>
-      <link>https://folay.top/tags/%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Fri, 14 May 2021 01:19:00 +0800</pubDate>
-      
-      <guid>https://folay.top/tags/%E7%AE%97%E6%B3%95/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Android</title>
-      <link>https://folay.top/tags/Android/</link>
-      <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
-      
-      <guid>https://folay.top/tags/Android/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>IPC</title>
       <link>https://folay.top/tags/IPC/</link>
       <pubDate>Wed, 08 Jan 2020 21:34:06 +0800</pubDate>
@@ -52,6 +34,24 @@
       <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
       
       <guid>https://folay.top/tags/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>源码</title>
+      <link>https://folay.top/tags/%E6%BA%90%E7%A0%81/</link>
+      <pubDate>Fri, 20 Sep 2019 21:34:06 +0800</pubDate>
+      
+      <guid>https://folay.top/tags/%E6%BA%90%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>开机流程</title>
+      <link>https://folay.top/tags/%E5%BC%80%E6%9C%BA%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Tue, 17 Sep 2019 21:34:06 +0800</pubDate>
+      
+      <guid>https://folay.top/tags/%E5%BC%80%E6%9C%BA%E6%B5%81%E7%A8%8B/</guid>
       <description></description>
     </item>
     
